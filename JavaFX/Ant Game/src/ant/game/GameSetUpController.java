@@ -4,6 +4,7 @@
  */
 package ant.game;
 
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -14,7 +15,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
+import javafx.stage.FileChooser;
 
 /**
  * FXML Controller class
@@ -22,6 +25,11 @@ import javafx.stage.Stage;
  * @author jozefmaxted
  */
 public class GameSetUpController implements Initializable {
+    
+    @FXML
+    private TextField redAntBrainPath;
+     @FXML
+    private TextField blackAntBrainPath;
 
     
     @FXML
@@ -33,6 +41,20 @@ public class GameSetUpController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @FXML
+    public void openFileChooser(ActionEvent event) {
+        System.out.println("Please locate your ant brain");
+        
+        FileChooser fileChooser = new FileChooser();
+        
+        //Show file dialog
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        File file = fileChooser.showOpenDialog(stage);
+        
+        redAntBrainPath.setPromptText(file.getAbsolutePath());
     }
     
     /**
