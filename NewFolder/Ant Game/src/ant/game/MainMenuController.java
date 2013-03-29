@@ -57,8 +57,13 @@ public class MainMenuController implements Initializable {
     }
     
     @FXML
-    private void openWorldEditor(ActionEvent event) {
+    private void openWorldEditor(ActionEvent event) throws IOException {
         System.out.println("Opening the world editor");
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("WorldEditor.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
     }
     
     @Override
