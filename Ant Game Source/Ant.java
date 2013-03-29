@@ -1,21 +1,55 @@
 
-public class Ant {	
-	
-	// All ant vairables
+public class Ant {
+
 	private int id;
-	private boolean is_Red;
+	private boolean isRed;
 	private int direction;
 	private int resting;
-	private boolean has_Food;
-	private int brain_State;
+	private boolean hasFood;
+	private int brainState;
 	
-	public Ant(int id, boolean is_Red) {
-		// Initialise Fields
-		this.id = id;
-		this.is_Red = is_Red;
-		direction = 0;
-		resting = 0;
-		has_Food = false;
-		brain_State = 0;
+	public Ant() {
+		direction=0;
+	}
+	
+	public void pickUpFood() {
+		if (!hasFood) {
+			hasFood=true;
+		}
+	}
+	
+	public void dropFood() {
+		if (hasFood) {
+			hasFood=false;
+		}
+	}
+	
+	public void setDirection(int direct) {
+		direction = direct;
+	}
+	
+	public int getId() {
+		return id;
+	}
+	
+	public void setResting(int restingTime) {
+		resting = restingTime;
+	}
+	
+	public boolean getColour() {
+		return isRed;
+	}
+	
+	public int getBrainState() {
+		return brainState;
+	}
+	
+	public void setBrainState(int brainState) {
+		this.brainState = brainState;
+	}
+	
+	public int[] sense(int senseDirection) {
+		
 	}
 }
+

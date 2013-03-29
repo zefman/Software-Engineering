@@ -6,9 +6,17 @@ public class Cell {
 	private int blackPheromone;
 	Type type;
 	
-	public Cell(int foodContained, Type type) {
-		this.foodContained = foodContained;
+	public Cell() {
+		
+	}
+	
+	public enum Type {
+		CLEAR, ROCKY, REDANTHILL, BLACKANTHILL, REDANT, BLACKANT, FOOD, REDWITHFOOD, BLACKWITHFOOD
+	}
+	
+	public void setType(Type type) {
 		this.type = type;
+		
 	}
 	
 	public void giveFood() {
