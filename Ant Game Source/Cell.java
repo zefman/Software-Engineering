@@ -6,15 +6,9 @@ public class Cell {
 	private int blackPheromone;
 	Type type;
 	
-	public Cell() {
-		
-	}
-	
-	
-	
-	public void setType(Type type) {
+	public Cell(int foodContained, Type type) {
+		this.foodContained = foodContained;
 		this.type = type;
-		
 	}
 	
 	public void giveFood() {
