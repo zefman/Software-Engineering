@@ -8,8 +8,13 @@ public class Ant {
 	private boolean hasFood;
 	private int brainState;
 	
-	public Ant() {
+	public Ant(int id, boolean isRed) {
+		this.id = id;
+		this.isRed = isRed;
 		direction=0;
+		resting = 0;
+		hasFood = false;
+		brainState = 0;
 	}
 	
 	public void pickUpFood() {
