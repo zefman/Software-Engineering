@@ -34,7 +34,6 @@ public class MainMenuController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("GameSetUp.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
     }
     
     @FXML
@@ -45,12 +44,16 @@ public class MainMenuController implements Initializable {
         Parent root = FXMLLoader.load(getClass().getResource("TournamentSetUpView.fxml"));
         Scene scene = new Scene(root);
         stage.setScene(scene);
-        stage.show();
     }
     
     @FXML
-    private void openBrainEditor(ActionEvent event) {
+    private void openBrainEditor(ActionEvent event) throws IOException {
         System.out.println("Opening the brain editor");
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("BrainEditor.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
     }
     
     @FXML
