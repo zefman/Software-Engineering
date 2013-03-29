@@ -34,6 +34,9 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
             <Button fx:id="mainMenuButton" layoutX="231.0" layoutY="363.0" mnemonicParsing="false" onAction="#backToMainMenu" text="Main Menu" />
+            <Label layoutX="24.0" layoutY="15.0" text="World Option" />
+            <TextField layoutX="24.0" layoutY="44.0" prefWidth="200.0" promptText="World Location" />
+            <Button layoutX="24.0" layoutY="82.0" mnemonicParsing="false" text="Random World" />
           </children>
         </AnchorPane>
       </items>

@@ -37,6 +37,7 @@
             <Label layoutX="24.0" layoutY="15.0" text="World Option" />
             <TextField layoutX="24.0" layoutY="44.0" prefWidth="200.0" promptText="World Location" />
             <Button layoutX="24.0" layoutY="82.0" mnemonicParsing="false" text="Random World" />
+            <Button layoutX="60.0" layoutY="161.0" mnemonicParsing="false" prefHeight="137.0" prefWidth="217.0" text="Start Game!" />
           </children>
         </AnchorPane>
       </items>
