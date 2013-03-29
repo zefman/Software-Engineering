@@ -15,6 +15,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
@@ -27,9 +29,11 @@ import javafx.stage.FileChooser;
 public class GameSetUpController implements Initializable {
     
     @FXML
-    private TextField redAntBrainPath;
-     @FXML
-    private TextField blackAntBrainPath;
+    private Label redAntBrainPath;
+    @FXML
+    private Label blackAntBrainPath;
+    @FXML
+    private Label worldPath;
 
     
     @FXML
@@ -47,6 +51,8 @@ public class GameSetUpController implements Initializable {
     public void openFileChooser(ActionEvent event) {
         System.out.println("Please locate your ant brain");
         
+        Button theButton = (Button) event.getSource();
+        
         FileChooser fileChooser = new FileChooser();
         
         //Show file dialog
@@ -54,7 +60,19 @@ public class GameSetUpController implements Initializable {
         Stage stage = (Stage) node.getScene().getWindow();
         File file = fileChooser.showOpenDialog(stage);
         
-        redAntBrainPath.setPromptText(file.getAbsolutePath());
+        // Update the correct label with file path
+        switch (theButton.getId()) {
+            case "loadRedBrain":
+                redAntBrainPath.setText(file.getAbsolutePath());
+                break;
+            case "loadBlackBrain":
+                blackAntBrainPath.setText(file.getAbsolutePath());
+                break;
+            case "loadWorld":
+                worldPath.setText(file.getAbsolutePath());
+                break;
+        }
+        
     }
     
     /**
