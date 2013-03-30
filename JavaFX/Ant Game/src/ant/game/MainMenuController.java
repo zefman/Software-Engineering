@@ -67,6 +67,11 @@ public class MainMenuController implements Initializable {
         stage.setScene(scene);
     }
     
+    @FXML
+    private void exit(ActionEvent event) {
+        //
+    }
+    
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO

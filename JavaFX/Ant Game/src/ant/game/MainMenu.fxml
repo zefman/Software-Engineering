@@ -1,16 +1,21 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import java.lang.*?>
+<?import java.net.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.MainMenuController">
+<AnchorPane id="AnchorPane" maxHeight="400.0" maxWidth="600.0" minHeight="600.0" minWidth="800.0" prefHeight="400.0" prefWidth="600.0" styleClass="main-bg" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.MainMenuController">
   <children>
-    <Button fx:id="button" layoutX="254.0" layoutY="139.0" onAction="#handleButtonAction" text="Start Game!" />
-    <Button fx:id="startTournament" layoutX="237.0" layoutY="179.0" mnemonicParsing="false" onAction="#startTournament" text="Start Tournament" />
-    <Button fx:id="brainButton" layoutX="237.0" layoutY="219.0" mnemonicParsing="false" onAction="#openBrainEditor" text="Open Brain Editor" />
-    <Button fx:id="worldEditorButton" layoutX="250.0" layoutY="260.0" mnemonicParsing="false" onAction="#openWorldEditor" text="World Editor" />
+    <Button fx:id="button" layoutX="102.0" layoutY="210.0" onAction="#handleButtonAction" prefWidth="133.0" text="Start Game!" />
+    <Button fx:id="startTournament" layoutX="102.0" layoutY="250.0" mnemonicParsing="false" onAction="#startTournament" text="Start Tournament" />
+    <Button fx:id="brainButton" layoutX="102.0" layoutY="290.0" mnemonicParsing="false" onAction="#openBrainEditor" text="Open Brain Editor" />
+    <Button fx:id="worldEditorButton" layoutX="102.0" layoutY="331.0" mnemonicParsing="false" onAction="#openWorldEditor" prefWidth="133.0" text="World Editor" />
+    <Button id="worldEditorButton" layoutX="102.0" layoutY="371.0" mnemonicParsing="false" onAction="#exit" prefWidth="133.0" text="Exit" />
   </children>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
 </AnchorPane>
