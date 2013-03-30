@@ -15,8 +15,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.layout.GridPane;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
 
@@ -33,6 +37,8 @@ public class GameSetUpController implements Initializable {
     private Label blackAntBrainPath;
     @FXML
     private Label worldPath;
+    @FXML
+    private GridPane canvasPane;
 
     
     @FXML
@@ -90,6 +96,15 @@ public class GameSetUpController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        Canvas canvas = new Canvas(300,300);
+        final GraphicsContext gc = canvas.getGraphicsContext2D();
+        
+        gc.setFill(Color.GREY);
+        
+        gc.fillRect(0, 0, 300, 300);
+        
+        canvasPane.add(canvas, 1, 1);
+        
+        
     }    
 }

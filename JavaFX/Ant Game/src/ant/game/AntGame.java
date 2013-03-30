@@ -24,6 +24,10 @@ public class AntGame extends Application {
         
         stage.setScene(scene);
         stage.setTitle("Acromyamex Ant Simulation Game");
+        stage.setMaxWidth(800);
+        stage.setMaxHeight(620);
+        stage.setMinWidth(800);
+        stage.setMinHeight(620);
         stage.show();
     }
 
