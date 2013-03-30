@@ -45,7 +45,7 @@
             <Button fx:id="mainMenuButton" layoutX="231.0" layoutY="363.0" mnemonicParsing="false" onAction="#backToMainMenu" text="Main Menu" />
             <Label layoutX="24.0" layoutY="15.0" text="World Option" />
             <Button layoutX="137.0" layoutY="76.0" mnemonicParsing="false" text="Random World" />
-            <Button layoutX="60.0" layoutY="161.0" mnemonicParsing="false" prefHeight="137.0" prefWidth="217.0" text="Start Game!" />
+            <Button layoutX="60.0" layoutY="161.0" mnemonicParsing="false" onAction="#startGame" prefHeight="137.0" prefWidth="217.0" text="Start Game!" />
             <Label id="redAntBrainPath" fx:id="worldPath" layoutX="24.0" layoutY="47.0" text="World Location:" />
             <Button fx:id="loadWorld" layoutX="24.0" layoutY="76.0" mnemonicParsing="false" onAction="#openFileChooser" text="Load World" />
           </children>

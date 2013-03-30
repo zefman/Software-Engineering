@@ -33,7 +33,7 @@
                     <Label layoutX="14.0" layoutY="14.0" text="Black Team" />
                     <TextField layoutX="14.0" layoutY="98.0" prefWidth="200.0" promptText="Team Name" />
                     <Label id="redAntBrainPath" fx:id="blackAntBrainPath" layoutX="14.0" layoutY="68.0" text="Brain Location:" />
-                    <Button id="loadRedBrain" fx:id="loadBlackBrain" layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#openFileChooser" text="Load Ant Brain" />
+                    <Button fx:id="loadBlackBrain" layoutX="14.0" layoutY="40.0" mnemonicParsing="false" onAction="#openFileChooser" text="Load Ant Brain" />
                   </children>
                 </AnchorPane>
               </items>

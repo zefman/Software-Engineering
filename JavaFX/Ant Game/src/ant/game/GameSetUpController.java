@@ -74,6 +74,17 @@ public class GameSetUpController implements Initializable {
         
     }
     
+    @FXML
+    public void startGame(ActionEvent event) throws IOException {
+        System.out.println("Start Game");
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
     /**
      * Initializes the controller class.
      */
