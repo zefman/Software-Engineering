@@ -74,9 +74,9 @@
                         <Font size="24.0" />
                       </font>
                     </Label>
-                    <Button layoutX="14.0" layoutY="55.0" mnemonicParsing="false" prefWidth="108.0" text="Create World" />
-                    <Button fx:id="loadWorld" layoutX="136.0" layoutY="55.0" mnemonicParsing="false" onAction="#openFileChooser" prefWidth="108.0" text="Load World" />
-                    <Button layoutX="257.0" layoutY="55.0" mnemonicParsing="false" prefWidth="117.0" text="Random World" />
+                    <Button layoutX="14.0" layoutY="63.0" mnemonicParsing="false" prefWidth="108.0" text="Create World" />
+                    <Button fx:id="loadWorld" layoutX="136.0" layoutY="63.0" mnemonicParsing="false" onAction="#openFileChooser" prefWidth="108.0" text="Load World" />
+                    <Button layoutX="257.0" layoutY="63.0" mnemonicParsing="false" prefWidth="117.0" text="Random World" />
                   </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">

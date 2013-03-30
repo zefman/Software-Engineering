@@ -8,6 +8,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,7 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.FileChooser;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -32,13 +34,10 @@ import javafx.stage.FileChooser;
 public class GameSetUpController implements Initializable {
     
     @FXML
-    private Label redAntBrainPath;
-    @FXML
-    private Label blackAntBrainPath;
-    @FXML
-    private Label worldPath;
+    private Label statusLabel;
     @FXML
     private GridPane canvasPane;
+    private FadeTransition fadeTransition;
 
     
     @FXML
@@ -63,20 +62,33 @@ public class GameSetUpController implements Initializable {
         //Show file dialog
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        File file = fileChooser.showOpenDialog(stage);
         
-        // Update the correct label with file path
-        switch (theButton.getId()) {
+        File file = null;
+        
+        
+        try {
+            file = fileChooser.showOpenDialog(stage);
+        } catch (Exception e) {
+            // No file choosen do nothing
+        }
+        
+        // Update the correct label with file path if there is one
+        if (file != null) {
+            switch (theButton.getId()) {
             case "loadRedBrain":
-                redAntBrainPath.setText(file.getAbsolutePath());
+                statusLabel.setText("Loaded red ant brain.");
+                fadeTransition.setRate(1.0);
+                fadeTransition.play();
                 break;
             case "loadBlackBrain":
-                blackAntBrainPath.setText(file.getAbsolutePath());
+                statusLabel.setText("Loaded black ant brain.");
                 break;
             case "loadWorld":
-                worldPath.setText(file.getAbsolutePath());
+                statusLabel.setText("Loaded world.");
                 break;
         }
+        }
+        
         
     }
     
@@ -105,6 +117,11 @@ public class GameSetUpController implements Initializable {
         
         canvasPane.add(canvas, 1, 1);
         
+        fadeTransition = new FadeTransition(Duration.seconds(2), statusLabel);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.setCycleCount(2);
+        fadeTransition.setAutoReverse(true);
         
     }    
 }
