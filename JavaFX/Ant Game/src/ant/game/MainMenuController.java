@@ -26,6 +26,7 @@ public class MainMenuController implements Initializable {
     @FXML
     private Label label;
     
+    
     @FXML
     private void handleButtonAction(ActionEvent event) throws IOException {
         System.out.println("Game Started");

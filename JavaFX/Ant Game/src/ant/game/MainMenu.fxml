@@ -6,7 +6,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.MainMenuController">
+<AnchorPane id="AnchorPane" maxHeight="400.0" maxWidth="600.0" minHeight="400.0" minWidth="600.0" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.MainMenuController">
   <children>
     <Button fx:id="button" layoutX="254.0" layoutY="139.0" onAction="#handleButtonAction" text="Start Game!" />
     <Button fx:id="startTournament" layoutX="237.0" layoutY="179.0" mnemonicParsing="false" onAction="#startTournament" text="Start Tournament" />

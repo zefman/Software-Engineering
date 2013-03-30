@@ -23,6 +23,7 @@ public class AntGame extends Application {
         Scene scene = new Scene(root);
         
         stage.setScene(scene);
+        stage.setTitle("Acromyamex Ant Simulation Game");
         stage.show();
     }
 
