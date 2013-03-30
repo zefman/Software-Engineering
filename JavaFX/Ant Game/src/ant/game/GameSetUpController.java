@@ -84,7 +84,7 @@ public class GameSetUpController implements Initializable {
             case "loadWorld":
                 updateStatusLabel("Loaded world.");
                 break;
-        }
+            }
         }
         
         

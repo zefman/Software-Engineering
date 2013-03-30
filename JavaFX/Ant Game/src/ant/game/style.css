@@ -28,3 +28,8 @@
     -fx-background-color:#c9c9c9;
 }
 
+.team-list {
+    -fx-border-color: white;
+    -fx-border-width: 0px;
+}
+
