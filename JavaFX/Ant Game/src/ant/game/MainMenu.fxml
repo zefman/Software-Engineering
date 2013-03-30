@@ -10,16 +10,20 @@
 
 <AnchorPane id="AnchorPane" maxHeight="400.0" maxWidth="600.0" minHeight="600.0" minWidth="800.0" prefHeight="400.0" prefWidth="600.0" styleClass="main-bg" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.MainMenuController">
   <children>
-    <Button fx:id="button" layoutX="102.0" layoutY="210.0" onAction="#handleButtonAction" prefWidth="133.0" text="Start Game!" />
-    <Button fx:id="startTournament" layoutX="102.0" layoutY="250.0" mnemonicParsing="false" onAction="#startTournament" text="Start Tournament" />
-    <Button fx:id="brainButton" layoutX="102.0" layoutY="290.0" mnemonicParsing="false" onAction="#openBrainEditor" text="Open Brain Editor" />
-    <Button fx:id="worldEditorButton" layoutX="102.0" layoutY="331.0" mnemonicParsing="false" onAction="#openWorldEditor" prefWidth="133.0" text="World Editor" />
-    <Button id="worldEditorButton" layoutX="102.0" layoutY="371.0" mnemonicParsing="false" onAction="#exit" prefWidth="133.0" text="Exit" />
     <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="14.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@logo.jpg" preserveRatio="false" smooth="false" />
+        <Image url="@logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
+    <AnchorPane layoutY="114.0" prefHeight="486.0" prefWidth="800.0" style="-fx-background-color: white;">
+      <children>
+        <Button fx:id="startTournament" layoutX="28.0" layoutY="73.0" mnemonicParsing="false" onAction="#startTournament" text="Start Tournament" />
+        <Button fx:id="brainButton" layoutX="28.0" layoutY="113.0" mnemonicParsing="false" onAction="#openBrainEditor" text="Open Brain Editor" />
+        <Button id="worldEditorButton" layoutX="28.0" layoutY="194.0" mnemonicParsing="false" onAction="#exit" prefWidth="133.0" text="Exit" />
+        <Button fx:id="worldEditorButton" layoutX="28.0" layoutY="154.0" mnemonicParsing="false" onAction="#openWorldEditor" prefWidth="133.0" text="World Editor" />
+        <Button fx:id="button" layoutX="28.0" layoutY="33.0" onAction="#handleButtonAction" prefWidth="133.0" text="Start Game!" />
+      </children>
+    </AnchorPane>
   </children>
   <stylesheets>
     <URL value="@style.css" />

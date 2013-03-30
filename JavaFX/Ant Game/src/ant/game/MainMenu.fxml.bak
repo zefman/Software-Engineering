@@ -15,7 +15,7 @@
     <Button fx:id="brainButton" layoutX="102.0" layoutY="290.0" mnemonicParsing="false" onAction="#openBrainEditor" text="Open Brain Editor" />
     <Button fx:id="worldEditorButton" layoutX="102.0" layoutY="331.0" mnemonicParsing="false" onAction="#openWorldEditor" prefWidth="133.0" text="World Editor" />
     <Button id="worldEditorButton" layoutX="102.0" layoutY="371.0" mnemonicParsing="false" onAction="#exit" prefWidth="133.0" text="Exit" />
-    <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="35.0" layoutY="36.0" pickOnBounds="true" preserveRatio="true">
+    <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="14.0" layoutY="29.0" pickOnBounds="true" preserveRatio="true">
       <image>
         <Image url="@logo.jpg" preserveRatio="false" smooth="false" />
       </image>

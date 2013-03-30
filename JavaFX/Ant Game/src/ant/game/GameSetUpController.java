@@ -76,20 +76,24 @@ public class GameSetUpController implements Initializable {
         if (file != null) {
             switch (theButton.getId()) {
             case "loadRedBrain":
-                statusLabel.setText("Loaded red ant brain.");
-                fadeTransition.setRate(1.0);
-                fadeTransition.play();
+                updateStatusLabel("Loaded red ant brain.");
                 break;
             case "loadBlackBrain":
-                statusLabel.setText("Loaded black ant brain.");
+                updateStatusLabel("Loaded black ant brain.");
                 break;
             case "loadWorld":
-                statusLabel.setText("Loaded world.");
+                updateStatusLabel("Loaded world.");
                 break;
         }
         }
         
         
+    }
+    
+    private void updateStatusLabel(String theText) {
+        statusLabel.setText(theText);
+        fadeTransition.setRate(1.0);
+        fadeTransition.play();
     }
     
     @FXML

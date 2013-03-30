@@ -10,7 +10,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.GameSetUpController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass, main-bg" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.GameSetUpController">
   <children>
     <SplitPane dividerPositions="0.5037593984962406" focusTraversable="true" prefHeight="486.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="114.0">
       <items>
@@ -114,7 +114,7 @@
     </SplitPane>
     <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="17.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
       <image>
-        <Image url="@logo.jpg" preserveRatio="false" smooth="false" />
+        <Image url="@logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
     <Button layoutX="670.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
