@@ -6,13 +6,14 @@ package ant.game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.paint.Color;
-import javafx.scene.shape.ArcType;
 
 /**
  * FXML Controller class
@@ -30,24 +31,39 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Canvas canvas = new Canvas(100,100);
-        GraphicsContext gc = canvas.getGraphicsContext2D();
+        Canvas canvas = new Canvas(300,300);
+        final GraphicsContext gc = canvas.getGraphicsContext2D();
         
-        gc.setFill(Color.GREEN);
+        gc.setFill(Color.BROWN);
         gc.setStroke(Color.BLUE);
-        gc.setLineWidth(5);
-        gc.strokeLine(40, 10, 10, 40);
-        gc.fillOval(10, 60, 30, 30);
-        gc.strokeOval(60, 60, 30, 30);
-        gc.fillRoundRect(110, 60, 30, 30, 10, 10);
-        gc.strokeRoundRect(160, 60, 30, 30, 10, 10);
-        gc.fillArc(10, 110, 30, 30, 45, 240, ArcType.OPEN);
-        gc.fillArc(60, 110, 30, 30, 45, 240, ArcType.CHORD);
-        gc.fillArc(110, 110, 30, 30, 45, 240, ArcType.ROUND);
-        gc.strokeArc(10, 160, 30, 30, 45, 240, ArcType.OPEN);
-        gc.strokeArc(60, 160, 30, 30, 45, 240, ArcType.CHORD);
-        gc.strokeArc(110, 160, 30, 30, 45, 240, ArcType.ROUND);
         
-        thePane.getChildren().add(canvas);
+        gc.fillRect(0, 0, 300, 300);
+        
+        //Draw rocks
+        gc.setFill(Color.YELLOW);
+        for (int i =0; i < canvas.getWidth()/10; i++) {
+            gc.fillRect(i*10, 0, 10, 10);
+            gc.fillRect(i*10, canvas.getHeight() - 10, 10, 10);
+            gc.fillRect(0, i*10, 10, 10);
+            gc.fillRect(canvas.getWidth() - 10, i*10 - 10, 10, 10);
+        }
+        
+        gc.setFill(Color.BLACK);
+        for (int i = 0; i < 20; i++) {
+            for (int j = 0; j < 20; j++) {
+                gc.fillOval(10*i, 10*j, 5, 5);
+            }
+        }
+        
+        //Experimenting with clicking in the canvas, will be useful for the world editor
+        canvas.setOnMouseClicked(new EventHandler<MouseEvent>(){
+            @Override
+            public void handle(MouseEvent t) {
+                System.out.println("Testing " + t.getSceneX() + " " + t.getSceneY());
+                gc.fillOval(t.getSceneX(), t.getSceneY(), 5, 5);
+            }
+        });
+        
+        thePane.setCenter(canvas);
     }    
 }
