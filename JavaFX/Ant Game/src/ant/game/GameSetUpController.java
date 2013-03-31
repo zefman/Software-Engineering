@@ -72,8 +72,8 @@ public class GameSetUpController implements Initializable {
             // No file choosen do nothing
         }
         
-        // Update the correct label with file path if there is one
-        if (file != null) {
+        // Update the correct label with file path if there is one and the button has an id
+        if (file != null & theButton.getId() != null) {
             switch (theButton.getId()) {
             case "loadRedBrain":
                 updateStatusLabel("Loaded red ant brain.");
@@ -84,6 +84,8 @@ public class GameSetUpController implements Initializable {
             case "loadWorld":
                 updateStatusLabel("Loaded world.");
                 break;
+            default:
+                updateStatusLabel("Something Loaded.");
             }
         }
         
