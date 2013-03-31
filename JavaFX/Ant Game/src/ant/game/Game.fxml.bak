@@ -5,19 +5,100 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.GameController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass, main-bg" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.GameController">
   <children>
-    <BorderPane prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-      <bottom>
-        <ToolBar>
-          <items>
-            <Button mnemonicParsing="false" text="Button" />
-          </items>
-        </ToolBar>
-      </bottom>
-    </BorderPane>
+    <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="17.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@logo.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Label id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
+    <SplitPane dividerPositions="0.23684210526315788" focusTraversable="true" layoutY="112.0" prefHeight="488.0" prefWidth="800.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <AnchorPane prefHeight="486.0" prefWidth="186.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <Label layoutX="14.0" layoutY="8.0" styleClass="team-name" text="Red Team" textFill="#cc0000">
+                  <stylesheets>
+                    <URL value="@style.css" />
+                  </stylesheets>
+                </Label>
+                <Label layoutX="14.0" layoutY="50.0" text="Team Name">
+                  <font>
+                    <Font size="12.0" fx:id="x1" />
+                  </font>
+                </Label>
+                <Label layoutX="14.0" layoutY="64.0" text="Red Team">
+                  <font>
+                    <Font size="18.0" fx:id="x2" />
+                  </font>
+                </Label>
+                <Label font="$x1" layoutX="14.0" layoutY="100.0" text="Ants Remaining" />
+                <Label font="$x2" layoutX="11.0" layoutY="114.0" text="12 Ants Remaining" />
+                <Label font="$x1" layoutX="14.0" layoutY="149.0" text="Food Collected" />
+                <Label font="$x2" layoutX="13.0" layoutY="163.0" text="2 Food Collected" />
+                <TextArea layoutX="14.0" layoutY="229.0" prefHeight="244.0" prefWidth="158.0" styleClass="banter-box" wrapText="true" />
+                <Label font="$x2" layoutX="13.0" layoutY="200.0" text="Red bAnter" />
+              </children>
+            </AnchorPane>
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <SplitPane dividerPositions="0.7009966777408638" focusTraversable="true" prefHeight="486.0" prefWidth="583.0" style="-fx-border-color: white;&#10;-fx-border-style: none;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <items>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                  <children>
+                    <SplitPane dividerPositions="0.801255230125523" focusTraversable="true" orientation="VERTICAL" prefHeight="482.0" prefWidth="419.0" style="-fx-border-style: none;&#10;-fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <items>
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                          <children>
+                            <ProgressBar layoutX="12.0" layoutY="68.0" prefHeight="21.0" prefWidth="391.0" progress="0.0" />
+                            <Slider layoutX="234.0" layoutY="38.0" prefWidth="167.0" />
+                            <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="47.0" text="Pause Game" />
+                            <Button layoutX="128.0" layoutY="10.0" mnemonicParsing="false" prefHeight="47.0" text="Save Game" />
+                            <Label layoutX="234.0" layoutY="14.0" text="Game Speed:" />
+                            <Label layoutX="154.0" layoutY="72.0" text="Round Number:">
+                              <font>
+                                <Font size="10.0" />
+                              </font>
+                            </Label>
+                          </children>
+                        </AnchorPane>
+                      </items>
+                    </SplitPane>
+                  </children>
+                </AnchorPane>
+                <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+                  <children>
+                    <AnchorPane prefHeight="482.0" prefWidth="177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                      <children>
+                        <Label font="$x2" layoutX="10.0" layoutY="59.0" text="Black Team" />
+                        <Label font="$x1" layoutX="10.0" layoutY="95.0" text="Ants Remaining" />
+                        <Label font="$x2" layoutX="7.0" layoutY="109.0" text="12 Ants Remaining" />
+                        <Label font="$x1" layoutX="10.0" layoutY="144.0" text="Food Collected" />
+                        <Label font="$x2" layoutX="9.0" layoutY="158.0" text="2 Food Collected" />
+                        <TextArea layoutX="10.0" layoutY="224.0" prefHeight="244.0" prefWidth="158.0" styleClass="banter-box" wrapText="true" />
+                        <Label font="$x2" layoutX="9.0" layoutY="195.0" text="Black bAnter" />
+                        <Label layoutX="8.0" layoutY="8.0" styleClass="team-name" text="Black Team" textFill="#404040" />
+                        <Label font="$x1" layoutX="10.0" layoutY="45.0" text="Team Name" />
+                      </children>
+                    </AnchorPane>
+                  </children>
+                </AnchorPane>
+              </items>
+            </SplitPane>
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
   </children>
   <stylesheets>
     <URL value="@style.css" />
