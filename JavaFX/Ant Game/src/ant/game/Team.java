@@ -21,8 +21,22 @@ public class Team {
 	private String teamName;
         private File profile;
 	
+        //Constructor without profile file
 	public Team(String teamName) {
+            //Initialise variables
             this.teamName = teamName;
+            this.profile = null;
+            
+            collectedFood=0;
+            antsStarted=49;
+            antsRemaining=49;
+	}
+        //Constructor with profile file
+        public Team(String teamName, File profile) {
+            //Initialise variables
+            this.teamName = teamName;
+            this.profile = profile;
+            
             collectedFood=0;
             antsStarted=49;
             antsRemaining=49;
