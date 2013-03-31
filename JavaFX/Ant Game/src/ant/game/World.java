@@ -13,7 +13,9 @@ public class World {
     Integer[] antGrid;
     Team redTeam, blackTeam;
 
-    public World() {
+    public World(Team redTeam, Team blackTeam) {
+        this.redTeam = redTeam;
+        this.blackTeam = blackTeam;
 	worldGrid = new Cell[22500];
 	antGrid = new Integer[22500];
     }
