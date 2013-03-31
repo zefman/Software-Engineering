@@ -5,12 +5,43 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.BrainEditorController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass, main-bg" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.BrainEditorController">
   <children>
-    <Button fx:id="mainMenuButton" layoutX="30.0" layoutY="350.0" mnemonicParsing="false" onAction="#backToMainMenu" text="Main Menu" />
-    <TextArea layoutX="21.0" layoutY="23.0" prefHeight="193.0" prefWidth="565.0" style="border: 5px solid black;" wrapText="true" />
+    <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="17.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@logo.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Label id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
+    <SplitPane dividerPositions="0.30701754385964913" focusTraversable="true" layoutY="112.0" prefHeight="488.0" prefWidth="800.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefWidth="98.0" text="Load Brain" />
+            <Button layoutX="128.0" layoutY="14.0" mnemonicParsing="false" prefWidth="97.99990000000253" text="Save Brain" />
+            <Button layoutX="14.0" layoutY="48.0" mnemonicParsing="false" prefWidth="212.0" text="Compile/Check Brain" />
+            <Label layoutX="14.0" layoutY="81.0" text="Please compile your brain." />
+            <Label layoutX="14.0" layoutY="136.0" text="Allowed Tokens">
+              <font>
+                <Font size="24.0" />
+              </font>
+            </Label>
+            <Separator prefWidth="242.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="121.0" />
+            <TextArea editable="false" layoutX="14.0" layoutY="174.0" prefHeight="298.0" prefWidth="212.0" text="Sense sensedir st1 st2 cond&#10;Mark i st&#10;Unmark i st&#10;PickUp st1 st2&#10;Drop st&#10;Turn lr st&#10;Move st1 st2&#10;Flip p st1 st2" wrapText="true" />
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="556.0">
+          <children>
+            <TextArea layoutX="14.0" layoutY="14.0" prefHeight="459.0" prefWidth="522.0" promptText="Write you ant brian here" wrapText="true" />
+          </children>
+        </AnchorPane>
+      </items>
+    </SplitPane>
   </children>
   <stylesheets>
     <URL value="@style.css" />

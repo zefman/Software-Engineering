@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.WorldEditorController">
   <children>
-    <Button fx:id="mainMenuButton" layoutX="29.0" layoutY="355.0" mnemonicParsing="false" text="Main Menu" />
+    <Button fx:id="mainMenuButton" layoutX="29.0" layoutY="355.0" mnemonicParsing="false" onAction="#backToMainMenu" text="Main Menu" />
   </children>
   <stylesheets>
     <URL value="@style.css" />

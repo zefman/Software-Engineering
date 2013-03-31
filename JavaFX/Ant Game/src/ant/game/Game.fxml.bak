@@ -57,7 +57,7 @@
                   <children>
                     <SplitPane dividerPositions="0.801255230125523" focusTraversable="true" orientation="VERTICAL" prefHeight="482.0" prefWidth="419.0" style="-fx-border-style: none;&#10;-fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <items>
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
+                        <AnchorPane fx:id="canvasPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
                         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                           <children>
                             <ProgressBar layoutX="12.0" layoutY="68.0" prefHeight="21.0" prefWidth="391.0" progress="0.0" />

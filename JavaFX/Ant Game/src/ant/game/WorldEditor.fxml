@@ -5,11 +5,41 @@
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.WorldEditorController">
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass, main-bg" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.WorldEditorController">
   <children>
-    <Button fx:id="mainMenuButton" layoutX="29.0" layoutY="355.0" mnemonicParsing="false" onAction="#backToMainMenu" text="Main Menu" />
+    <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="17.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@logo.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Label id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
+    <SplitPane dividerPositions="0.30701754385964913" focusTraversable="true" layoutY="112.0" prefHeight="488.0" prefWidth="800.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefWidth="98.0" text="Load World" />
+            <Button layoutX="128.0" layoutY="14.0" mnemonicParsing="false" prefWidth="97.99990000000253" text="Save World" />
+            <Label layoutX="14.0" layoutY="55.0" text="Brushes">
+              <font>
+                <Font size="24.0" />
+              </font>
+            </Label>
+            <Separator prefWidth="242.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0" />
+            <ToggleButton layoutX="14.0" layoutY="96.0" mnemonicParsing="false" prefWidth="212.0" text="Red Ant Hill" />
+            <ToggleButton layoutX="14.0" layoutY="132.0" mnemonicParsing="false" prefWidth="212.0" text="Black Ant Hill" />
+            <ToggleButton layoutX="15.0" layoutY="170.0" mnemonicParsing="false" prefWidth="212.0" text="Rock" />
+            <ToggleButton layoutX="14.0" layoutY="207.0" mnemonicParsing="false" prefWidth="212.0" text="Food" />
+            <ToggleButton layoutX="14.0" layoutY="243.0" mnemonicParsing="false" prefWidth="212.0" text="Delete" />
+          </children>
+        </AnchorPane>
+        <AnchorPane fx:id="canvasPane" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="556.0" />
+      </items>
+    </SplitPane>
   </children>
   <stylesheets>
     <URL value="@style.css" />

@@ -28,6 +28,7 @@ import javafx.stage.Stage;
  * @author jozefmaxted
  */
 public class GameController implements Initializable {
+   
     
     @FXML
     AnchorPane canvasPane;
