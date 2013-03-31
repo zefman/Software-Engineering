@@ -30,7 +30,7 @@ import javafx.util.Duration;
  */
 public class TournamentSetUpController implements Initializable {
     
-    private ObservableList<String> teamNames = FXCollections.observableArrayList("Test", "Team 2");
+    private ObservableList<String> teamNames = FXCollections.observableArrayList();
     private FadeTransition detailsTransition;
     private FadeTransition teamsTransition;
     @FXML
@@ -53,10 +53,26 @@ public class TournamentSetUpController implements Initializable {
     
     @FXML
     public void addTeam(ActionEvent event) {
+        teamDetailPane.setOpacity(0.0);
+        teamListView.setOpacity(0.0);
+        
+        teamNames.add(teamName.getText());
         detailsTransition.play();
         teamsTransition.play();
-        System.out.println(teamName.getText());
-        teamNames.add(teamName.getText());
+        
+        //Reset team details
+        teamName.setText("");
+        
+    }
+    
+    @FXML
+    public void deleteTeam(ActionEvent event) {
+        //If there are added teams, remove the selected one
+        if (teamListView.getFocusModel().getFocusedIndex() > -1) {
+           teamListView.setOpacity(0.0);
+           teamNames.remove(teamListView.getFocusModel().getFocusedIndex());
+           teamsTransition.play();
+        }
     }
     
     /**
@@ -67,16 +83,13 @@ public class TournamentSetUpController implements Initializable {
         teamListView.setItems(teamNames);
         
         //Set up fade transition
-        detailsTransition = new FadeTransition(Duration.seconds(0.2), teamDetailPane);
-        detailsTransition.setFromValue(1.0);
-        detailsTransition.setToValue(0.0);
-        detailsTransition.setCycleCount(2);
-        detailsTransition.setAutoReverse(true);
+        detailsTransition = new FadeTransition(Duration.seconds(0.7), teamDetailPane);
+        detailsTransition.setFromValue(0.0);
+        detailsTransition.setToValue(1.0);
         
-        teamsTransition = new FadeTransition(Duration.seconds(0.2), teamListView);
-        teamsTransition.setFromValue(1.0);
-        teamsTransition.setToValue(0.0);
-        teamsTransition.setCycleCount(2);
-        teamsTransition.setAutoReverse(true);
+        teamsTransition = new FadeTransition(Duration.seconds(0.7), teamListView);
+        teamsTransition.setFromValue(0.0);
+        teamsTransition.setToValue(1.0);
+
     }    
 }

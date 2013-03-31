@@ -35,7 +35,8 @@
                 </ListView>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <children>
-                    <Button layoutX="45.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="29.0" prefWidth="108.0" text="Add Team" />
+                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="29.0" prefWidth="89.0" text="Add Team" />
+                    <Button layoutX="115.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="29.0" prefWidth="68.0" text="Delete" />
                   </children>
                 </AnchorPane>
               </children>
@@ -81,7 +82,7 @@
                         </FXCollections>
                       </items>
                     </ComboBox>
-                    <TextField layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Team Name" />
+                    <TextField fx:id="teamName" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Team Name" />
                     <Button layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefWidth="150.0" text="Create Brain" />
                     <Label layoutX="14.0" layoutY="146.0" text="Previous Draws:">
                       <font>

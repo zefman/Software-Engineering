@@ -35,7 +35,8 @@
                 </ListView>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <children>
-                    <Button layoutX="45.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="29.0" prefWidth="108.0" text="Add Team" />
+                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="29.0" prefWidth="89.0" text="Add Team" />
+                    <Button layoutX="115.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteTeam" prefHeight="29.0" prefWidth="68.0" text="Delete" />
                   </children>
                 </AnchorPane>
               </children>
