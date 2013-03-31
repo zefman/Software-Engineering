@@ -18,7 +18,7 @@ public class Team {
 	private String[] brain;
 	private String teamName;
 	
-	private Team(String teamName) {
+	public Team(String teamName) {
             this.teamName = teamName;
             collectedFood=0;
             antsStarted=49;

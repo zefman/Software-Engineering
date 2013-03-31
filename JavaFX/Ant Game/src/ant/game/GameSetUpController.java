@@ -20,6 +20,7 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
 import javafx.scene.paint.Color;
 import javafx.stage.Stage;
@@ -37,6 +38,11 @@ public class GameSetUpController implements Initializable {
     private Label statusLabel;
     @FXML
     private GridPane canvasPane;
+    @FXML
+    private TextField redTeamName;
+    @FXML
+    private TextField blackTeamName;
+    
     private FadeTransition fadeTransition;
 
     
@@ -100,10 +106,20 @@ public class GameSetUpController implements Initializable {
     
     @FXML
     public void startGame(ActionEvent event) throws IOException {
+        //Create teams based on choosen settings
+        Team redTeam = new Team(redTeamName.getText());
+        Team blackTeam = new Team(blackTeamName.getText());
+        
         System.out.println("Start Game");
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("Game.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Game.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        GameController gameController = fxmlLoader.<GameController>getController();
+        
+        //Pass the new controller the teams and world
+        gameController.setVariables(redTeam, blackTeam);
+        
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();

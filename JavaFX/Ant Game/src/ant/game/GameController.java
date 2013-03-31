@@ -17,6 +17,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -32,6 +33,13 @@ public class GameController implements Initializable {
     
     @FXML
     AnchorPane canvasPane;
+    @FXML
+    Label redTeamName;
+    @FXML
+    Label blackTeamName;
+    
+    private Team redTeam;
+    private Team blackTeam;
     
     
     @FXML
@@ -88,4 +96,14 @@ public class GameController implements Initializable {
         canvasPane.getChildren().add(canvas);
         
     }    
+    
+    //Method to set variables
+    public void setVariables(Team redTeam, Team blackTeam) {
+        this.redTeam = redTeam;
+        this.blackTeam = blackTeam;
+        
+        redTeamName.setText(redTeam.getName());
+        blackTeamName.setText(blackTeam.getName());
+    }
+    
 }
