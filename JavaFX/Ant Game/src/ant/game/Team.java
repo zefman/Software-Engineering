@@ -4,6 +4,8 @@
  */
 package ant.game;
 
+import java.io.File;
+
 /**
  *
  * @author jozefmaxted
@@ -17,6 +19,7 @@ public class Team {
 	private int matchesDrawn;
 	private String[] brain;
 	private String teamName;
+        private File profile;
 	
 	public Team(String teamName) {
             this.teamName = teamName;
