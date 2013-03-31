@@ -17,6 +17,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -33,6 +34,9 @@ public class TournamentSetUpController implements Initializable {
     private ObservableList<String> teamNames = FXCollections.observableArrayList();
     private FadeTransition detailsTransition;
     private FadeTransition teamsTransition;
+    private FadeTransition statusTransition;
+    @FXML
+    private Label statusLabel;
     @FXML
     private ListView teamListView;
     @FXML
@@ -63,6 +67,11 @@ public class TournamentSetUpController implements Initializable {
         //Reset team details
         teamName.setText("");
         
+        //Run Status Message
+        statusLabel.setText("Team Added.");
+        statusTransition.setRate(1.0);
+        statusTransition.play();
+        
     }
     
     @FXML
@@ -72,6 +81,10 @@ public class TournamentSetUpController implements Initializable {
            teamListView.setOpacity(0.0);
            teamNames.remove(teamListView.getFocusModel().getFocusedIndex());
            teamsTransition.play();
+           
+           //Run Status Message
+           statusLabel.setText("Team Deleted.");
+           statusTransition.play();
         }
     }
     
@@ -90,6 +103,12 @@ public class TournamentSetUpController implements Initializable {
         teamsTransition = new FadeTransition(Duration.seconds(0.7), teamListView);
         teamsTransition.setFromValue(0.0);
         teamsTransition.setToValue(1.0);
+        
+        statusTransition = new FadeTransition(Duration.seconds(2), statusLabel);
+        statusTransition.setFromValue(0.0);
+        statusTransition.setToValue(1.0);
+        statusTransition.setCycleCount(2);
+        statusTransition.setAutoReverse(true);
 
     }    
 }
