@@ -4,6 +4,12 @@
  */
 package ant.game;
 
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
+
 /**
  *
  * @author jozefmaxted
@@ -18,6 +24,24 @@ public class World {
         this.blackTeam = blackTeam;
 	worldGrid = new Cell[22500];
 	antGrid = new Integer[22500];
+    }
+    
+    public World(Team redTeam, Team blackTeam, Path worldSave) {
+        this.redTeam = redTeam;
+        this.blackTeam = blackTeam;
+	worldGrid = new Cell[22500];
+	antGrid = new Integer[22500];
+        
+        //Get the world from the file
+        Charset charset = Charset.defaultCharset();
+        try (BufferedReader reader = Files.newBufferedReader(worldSave, charset)) {
+            String line = null;
+            while ((line = reader.readLine()) != null) {
+                System.out.println(line);
+            }
+        } catch (IOException x) {
+            //
+        }
     }
 
     private void generateRandomWorld() {

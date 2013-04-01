@@ -7,6 +7,8 @@ package ant.game;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
@@ -44,6 +46,8 @@ public class GameSetUpController implements Initializable {
     private TextField blackTeamName;
     
     private FadeTransition fadeTransition;
+    
+    private Path worldPath;
 
     
     @FXML
@@ -89,6 +93,7 @@ public class GameSetUpController implements Initializable {
                 break;
             case "loadWorld":
                 updateStatusLabel("Loaded world.");
+                worldPath = Paths.get(file.toURI());
                 break;
             default:
                 updateStatusLabel("Something Loaded.");
@@ -109,6 +114,7 @@ public class GameSetUpController implements Initializable {
         //Create teams based on choosen settings
         Team redTeam = new Team(redTeamName.getText());
         Team blackTeam = new Team(blackTeamName.getText());
+        World world = new World(redTeam, blackTeam, worldPath);
         
         System.out.println("Start Game");
         Node node = (Node) event.getSource();
