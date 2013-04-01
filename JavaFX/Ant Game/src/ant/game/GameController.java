@@ -103,7 +103,7 @@ public class GameController implements Initializable {
             }
         });
         
-        canvasPane.setLeftAnchor(canvas, 15.0);
+        canvasPane.setLeftAnchor(canvas, 10.0);
         canvasPane.getChildren().add(canvas);
         
     }    

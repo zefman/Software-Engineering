@@ -80,7 +80,7 @@
                   <children>
                     <AnchorPane prefHeight="482.0" prefWidth="177.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <children>
-                        <Label font="$x2" layoutX="10.0" layoutY="59.0" text="Black Team" />
+                        <Label fx:id="blackTeamName" font="$x2" layoutX="10.0" layoutY="59.0" text="Black Team" />
                         <Label font="$x1" layoutX="10.0" layoutY="95.0" text="Ants Remaining" />
                         <Label font="$x2" layoutX="7.0" layoutY="109.0" text="12 Ants Remaining" />
                         <Label font="$x1" layoutX="10.0" layoutY="144.0" text="Food Collected" />

@@ -55,17 +55,17 @@
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
                   <children>
-                    <SplitPane dividerPositions="0.801255230125523" focusTraversable="true" orientation="VERTICAL" prefHeight="482.0" prefWidth="419.0" style="-fx-border-style: none;&#10;-fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <SplitPane dividerPositions="0.8305439330543933" focusTraversable="true" orientation="VERTICAL" prefHeight="482.0" prefWidth="419.0" style="-fx-border-style: none;&#10;-fx-border-color: white;" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                       <items>
                         <AnchorPane fx:id="canvasPane" minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0" />
-                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
+                        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="73.0" prefWidth="415.0">
                           <children>
-                            <ProgressBar layoutX="12.0" layoutY="68.0" prefHeight="21.0" prefWidth="391.0" progress="0.0" />
-                            <Slider layoutX="234.0" layoutY="38.0" prefWidth="167.0" />
-                            <Button layoutX="14.0" layoutY="10.0" mnemonicParsing="false" prefHeight="47.0" text="Pause Game" />
-                            <Button layoutX="128.0" layoutY="10.0" mnemonicParsing="false" prefHeight="47.0" text="Save Game" />
-                            <Label layoutX="234.0" layoutY="14.0" text="Game Speed:" />
-                            <Label layoutX="154.0" layoutY="72.0" text="Round Number:">
+                            <ProgressBar layoutX="12.0" layoutY="50.0" prefHeight="21.0" prefWidth="391.0" progress="0.0" />
+                            <Slider layoutX="234.0" layoutY="25.0" prefWidth="167.0" />
+                            <Button layoutX="14.0" layoutY="12.0" mnemonicParsing="false" prefHeight="29.0" text="Pause Game" />
+                            <Button layoutX="128.0" layoutY="11.0" mnemonicParsing="false" prefHeight="29.0" text="Save Game" />
+                            <Label layoutX="234.0" layoutY="6.0" text="Game Speed:" />
+                            <Label layoutX="154.0" layoutY="54.0" text="Round Number:">
                               <font>
                                 <Font size="10.0" />
                               </font>
