@@ -4,6 +4,10 @@
  */
 package ant.game;
 
+import static ant.game.Cell.Type.BLACKANTHILL;
+import static ant.game.Cell.Type.FOOD;
+import static ant.game.Cell.Type.REDANTHILL;
+import static ant.game.Cell.Type.ROCKY;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -48,7 +52,10 @@ public class GameSetUpController implements Initializable {
     private FadeTransition fadeTransition;
     
     private Path worldPath;
-
+    
+    private Canvas canvas;
+    private GraphicsContext gc;
+    private World world;
     
     @FXML
     public void backToMainMenu(ActionEvent event) throws IOException {
@@ -94,6 +101,10 @@ public class GameSetUpController implements Initializable {
             case "loadWorld":
                 updateStatusLabel("Loaded world.");
                 worldPath = Paths.get(file.toURI());
+                Team redTeam = new Team(redTeamName.getText());
+                Team blackTeam = new Team(blackTeamName.getText());
+                world = new World(redTeam, blackTeam, worldPath);
+                drawWorld();
                 break;
             default:
                 updateStatusLabel("Something Loaded.");
@@ -114,7 +125,6 @@ public class GameSetUpController implements Initializable {
         //Create teams based on choosen settings
         Team redTeam = new Team(redTeamName.getText());
         Team blackTeam = new Team(blackTeamName.getText());
-        World world = new World(redTeam, blackTeam, worldPath);
         
         System.out.println("Start Game");
         Node node = (Node) event.getSource();
@@ -132,17 +142,46 @@ public class GameSetUpController implements Initializable {
         stage.show();
     }
     
+    //Draw world
+    public void drawWorld() {
+        gc.setFill(Color.BLUE);
+        for (int i = 0; i < 130; i++) {
+            for (int j = 0; j < 130; j++) {
+                Cell cell = world.worldGrid[i*130+j];
+                switch (cell.getType()) {
+                    case ROCKY:
+                        gc.setFill(Color.BURLYWOOD);
+                        gc.fillOval(j*2, i*2, 2, 2);
+                        break;
+                    case FOOD:
+                        gc.setFill(Color.YELLOW);
+                        gc.fillOval(j*2, i*2, 2, 2);
+                        break;
+                    case REDANTHILL:
+                        gc.setFill(Color.RED);
+                        gc.fillOval(j*2, i*2, 2, 2);
+                        break;
+                    case BLACKANTHILL:
+                        gc.setFill(Color.BLACK);
+                        gc.fillOval(j*2, i*2, 2, 2);
+                        break;
+                }
+                
+            }
+        }
+    }
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Canvas canvas = new Canvas(300,300);
-        final GraphicsContext gc = canvas.getGraphicsContext2D();
+        canvas = new Canvas(260,260);
+        gc = canvas.getGraphicsContext2D();
         
         gc.setFill(Color.GREY);
         
-        gc.fillRect(0, 0, 300, 300);
+        gc.fillRect(0, 0, 260, 260);
         
         canvasPane.add(canvas, 1, 1);
         

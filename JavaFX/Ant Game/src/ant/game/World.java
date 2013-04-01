@@ -51,34 +51,29 @@ public class World {
                 switch (line) {
                 case 35:
                     worldGrid[cellCounter] = new Cell(Cell.Type.ROCKY);
-                    System.out.print("Cell: " + cellCounter + " Rocky ");
                     cellCounter++;
                     break;
                 case 46:
                     worldGrid[cellCounter] = new Cell(Cell.Type.CLEAR);
-                    System.out.print("Cell:" + cellCounter + " Clear");
                     cellCounter++;
                     break;
                 case 53:
                     worldGrid[cellCounter] = new Cell(Cell.Type.FOOD);
-                    System.out.print("Cell:" + cellCounter + " contains food");
                     cellCounter++;
                     break;
                 case 43:
                     worldGrid[cellCounter] = new Cell(Cell.Type.REDANTHILL);
-                    System.out.print("Cell:" + cellCounter + " Red Ant Hill");
                     cellCounter++;
                     break;
                 case 45:
                     worldGrid[cellCounter] = new Cell(Cell.Type.BLACKANTHILL);
-                    System.out.print("Cell:" + cellCounter + " Black Ant Hill");
                     cellCounter++;
                     break;
                 case 32:
                     //System.out.print("Space ignored");
                     break;
                 case 10:
-                    System.out.println();
+                    //NEw Line
                     break;
                 default:
                     System.out.println("Character skipped **************************************************************** " + line);
