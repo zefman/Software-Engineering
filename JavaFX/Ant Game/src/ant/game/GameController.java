@@ -67,13 +67,13 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        canvas = new Canvas(380,380);
+        canvas = new Canvas(390,390);
         gc = canvas.getGraphicsContext2D();
         
         gc.setFill(Color.BROWN);
         gc.setStroke(Color.BLUE);
         
-        gc.fillRect(0, 0, 380, 380);
+        gc.fillRect(0, 0, 390, 390);
         
         
         animationTimer = new AnimationTimer() {
@@ -145,9 +145,25 @@ public class GameController implements Initializable {
         for (int i = 0; i < 130; i++) {
             for (int j = 0; j < 130; j++) {
                 Cell cell = world.worldGrid[i*130+j];
-                if (cell.getType() == Cell.Type.ROCKY) {
-                    gc.fillRect(i, j, 1, 1);
+                switch (cell.getType()) {
+                    case ROCKY:
+                        gc.setFill(Color.BURLYWOOD);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        break;
+                    case FOOD:
+                        gc.setFill(Color.YELLOW);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        break;
+                    case REDANTHILL:
+                        gc.setFill(Color.RED);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        break;
+                    case BLACKANTHILL:
+                        gc.setFill(Color.BLACK);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        break;
                 }
+                
             }
         }
     }
