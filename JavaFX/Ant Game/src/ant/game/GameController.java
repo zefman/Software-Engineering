@@ -6,7 +6,9 @@ package ant.game;
 
 import java.io.IOException;
 import java.net.URL;
+import java.util.Random;
 import java.util.ResourceBundle;
+import javafx.animation.AnimationTimer;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -41,6 +43,11 @@ public class GameController implements Initializable {
     private Team redTeam;
     private Team blackTeam;
     
+    private Canvas canvas;
+    private GraphicsContext gc;
+    private boolean test = false;
+    private AnimationTimer animationTimer;
+    private Random r;
     
     @FXML
     public void backToMainMenu(ActionEvent event) throws IOException {
@@ -59,8 +66,8 @@ public class GameController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        Canvas canvas = new Canvas(380,380);
-        final GraphicsContext gc = canvas.getGraphicsContext2D();
+        canvas = new Canvas(380,380);
+        gc = canvas.getGraphicsContext2D();
         
         gc.setFill(Color.BROWN);
         gc.setStroke(Color.BLUE);
@@ -83,12 +90,30 @@ public class GameController implements Initializable {
             }
         }
         
+        animationTimer = new AnimationTimer() {
+
+                @Override public void handle(long now) {
+                    updateCanvas();
+                }
+            };
+        
+        
         //Experimenting with clicking in the canvas, will be useful for the world editor
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent t) {
                 System.out.println("Testing " + t.getSceneX() + " " + t.getSceneY());
                 gc.fillOval(t.getSceneX(), t.getSceneY(), 5, 5);
+                if (test == true) {
+                    test = false;
+                    animationTimer.stop();
+                } else {
+                    test = true;
+                    gc.setFill(Color.BROWN);
+                    gc.fillRect(0, 0, 380, 380);
+                    gc.setFill(Color.BLACK);
+                    animationTimer.start();                    
+                }
             }
         });
         
@@ -96,6 +121,12 @@ public class GameController implements Initializable {
         canvasPane.getChildren().add(canvas);
         
     }    
+    
+    public void updateCanvas() {
+        double tester = 0 + (int)(Math.random() * ((380 - 0) + 1));
+        double tester2 = 0 + (int)(Math.random() * ((380 - 0) + 1));
+        gc.fillRect(tester, tester2, 30, 30);
+    }
     
     //Method to set variables
     public void setVariables(Team redTeam, Team blackTeam) {
