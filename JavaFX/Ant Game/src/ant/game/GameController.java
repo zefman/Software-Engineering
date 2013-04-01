@@ -111,7 +111,7 @@ public class GameController implements Initializable {
     public void updateCanvas() {
         double tester = 0 + (int)(Math.random() * ((380 - 0) + 1));
         double tester2 = 0 + (int)(Math.random() * ((380 - 0) + 1));
-        gc.fillRect(tester, tester2, 30, 30);
+        gc.fillRect(tester, tester2, 10, 10);
     }
     
     //Method to set variables
