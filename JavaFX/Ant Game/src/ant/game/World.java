@@ -35,8 +35,9 @@ public class World {
         //Get the world from the file
         Charset charset = Charset.defaultCharset();
         try (BufferedReader reader = Files.newBufferedReader(worldSave, charset)) {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
+            int line = 0;
+            while ((line = reader.read() ) != -1) {
+     
                 System.out.println(line);
             }
         } catch (IOException x) {
