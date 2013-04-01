@@ -48,6 +48,7 @@ public class GameController implements Initializable {
     private boolean test = false;
     private AnimationTimer animationTimer;
     private Random r;
+    private World world;
     
     @FXML
     public void backToMainMenu(ActionEvent event) throws IOException {
@@ -74,21 +75,6 @@ public class GameController implements Initializable {
         
         gc.fillRect(0, 0, 380, 380);
         
-        //Draw rocks
-        gc.setFill(Color.YELLOW);
-        for (int i =0; i < canvas.getWidth()/10; i++) {
-            gc.fillRect(i*10, 0, 10, 10);
-            gc.fillRect(i*10, canvas.getHeight() - 10, 10, 10);
-            gc.fillRect(0, i*10, 10, 10);
-            gc.fillRect(canvas.getWidth() - 10, i*10 - 10, 10, 10);
-        }
-        
-        gc.setFill(Color.BLACK);
-        for (int i = 0; i < 20; i++) {
-            for (int j = 0; j < 20; j++) {
-                gc.fillOval(10*i, 10*j, 5, 5);
-            }
-        }
         
         animationTimer = new AnimationTimer() {
 
@@ -129,12 +115,41 @@ public class GameController implements Initializable {
     }
     
     //Method to set variables
-    public void setVariables(Team redTeam, Team blackTeam) {
+    /*
+    public void setVariables(Team redTeam, Team blackTeam, World world) {
         this.redTeam = redTeam;
         this.blackTeam = blackTeam;
         
+        this.world = world;
+        
         redTeamName.setText(redTeam.getName());
         blackTeamName.setText(blackTeam.getName());
+    }*/
+    
+    //Method to set variables
+    public void setVariables(Team redTeam, Team blackTeam, World world) {
+        this.redTeam = redTeam;
+        this.blackTeam = blackTeam;
+        
+        this.world = world;
+        
+        redTeamName.setText(redTeam.getName());
+        blackTeamName.setText(blackTeam.getName());
+        
+        drawWorld();
+    }
+    
+    //Draw world
+    public void drawWorld() {
+        gc.setFill(Color.BLUE);
+        for (int i = 0; i < 130; i++) {
+            for (int j = 0; j < 130; j++) {
+                Cell cell = world.worldGrid[i*130+j];
+                if (cell.getType() == Cell.Type.ROCKY) {
+                    gc.fillRect(i, j, 1, 1);
+                }
+            }
+        }
     }
     
 }

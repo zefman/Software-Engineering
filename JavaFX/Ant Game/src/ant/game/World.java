@@ -36,10 +36,58 @@ public class World {
         Charset charset = Charset.defaultCharset();
         try (BufferedReader reader = Files.newBufferedReader(worldSave, charset)) {
             int line = 0;
-            while ((line = reader.read() ) != -1) {
-     
-                System.out.println(line);
+            int cellCounter = 0;
+            
+            //Move the reader past the first two lines of the world file
+            int newLine = 0;
+            while (newLine < 2) {
+                if (reader.read() == 10) {
+                    System.out.println("Line Skipped");
+                    newLine++;
+                }
             }
+            // Read the file into the cells
+            while ((line = reader.read() ) != -1) {
+                switch (line) {
+                case 35:
+                    worldGrid[cellCounter] = new Cell(Cell.Type.ROCKY);
+                    System.out.print("Cell: " + cellCounter + " Rocky ");
+                    cellCounter++;
+                    break;
+                case 46:
+                    worldGrid[cellCounter] = new Cell(Cell.Type.CLEAR);
+                    System.out.print("Cell:" + cellCounter + " Clear");
+                    cellCounter++;
+                    break;
+                case 53:
+                    worldGrid[cellCounter] = new Cell(Cell.Type.FOOD);
+                    System.out.print("Cell:" + cellCounter + " contains food");
+                    cellCounter++;
+                    break;
+                case 43:
+                    worldGrid[cellCounter] = new Cell(Cell.Type.REDANTHILL);
+                    System.out.print("Cell:" + cellCounter + " Red Ant Hill");
+                    cellCounter++;
+                    break;
+                case 45:
+                    worldGrid[cellCounter] = new Cell(Cell.Type.BLACKANTHILL);
+                    System.out.print("Cell:" + cellCounter + " Black Ant Hill");
+                    cellCounter++;
+                    break;
+                case 32:
+                    //System.out.print("Space ignored");
+                    break;
+                case 10:
+                    System.out.println();
+                    break;
+                default:
+                    System.out.println("Character skipped **************************************************************** " + line);
+                    break;
+                }
+                
+            }
+            
+            System.out.println("How many cells " + cellCounter);
         } catch (IOException x) {
             //
         }
@@ -85,7 +133,7 @@ public class World {
 					
                     if (Math.sqrt(Math.pow(x - i, 2)) + Math.pow(y - j, 2) > 6)  {
 			//square is out of range of the hexagon
-			worldGrid[convert(x + i, y + j)] = new Cell();
+			worldGrid[convert(x + i, y + j)] = new Cell(Cell.Type.CLEAR);
 			//worldGrid[convert(x + i, y + j)].setType(t);
                     }			
 		}

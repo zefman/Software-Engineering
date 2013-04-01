@@ -124,7 +124,8 @@ public class GameSetUpController implements Initializable {
         GameController gameController = fxmlLoader.<GameController>getController();
         
         //Pass the new controller the teams and world
-        gameController.setVariables(redTeam, blackTeam);
+        gameController.setVariables(redTeam, blackTeam, world);
+        
         
         Scene scene = new Scene(root);
         stage.setScene(scene);

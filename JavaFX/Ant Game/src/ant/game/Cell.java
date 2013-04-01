@@ -14,8 +14,8 @@ public class Cell {
     private int blackPheromone;
     Type type;
 
-    public Cell() {
-
+    public Cell(Type type) {
+        this.type = type;
     }
 
     public enum Type {
