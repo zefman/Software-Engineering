@@ -26,6 +26,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.TextField;
 import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
@@ -44,7 +45,8 @@ public class CreateProfileController implements Initializable {
     private Path tempFile;
     private Path currentBrain;
     private FadeTransition fadeTransition;
-
+    private Charset charset = Charset.forName("US-ASCII");
+    
     @FXML
     private TextField teamName;
     @FXML
@@ -53,6 +55,8 @@ public class CreateProfileController implements Initializable {
     private Label messageLabel;
     @FXML
     private TextField brainName;
+    @FXML
+    private ListView brainListView;
     
     @FXML
     public void back(ActionEvent event) {
@@ -91,8 +95,6 @@ public class CreateProfileController implements Initializable {
                 tempFile.toFile().deleteOnExit();
             }
 
-            Charset charset = Charset.forName("US-ASCII");
-
             //Read the current contents of the file into a List
             List<String> lines = new ArrayList<String>();
 
@@ -123,6 +125,9 @@ public class CreateProfileController implements Initializable {
             
             //Add brain to end
             lines.addAll(Files.readAllLines(currentBrain, charset));
+            
+            //Add the brain name to the observable list
+            brainNames.add(brainName.getText());
             
             //Reset brainName textfield and currentBrain Path
             brainName.setText("");
@@ -171,6 +176,31 @@ public class CreateProfileController implements Initializable {
         
     }
     
+    //Method to delete brains stored in the profile
+    @FXML
+    public void deleteBrain(ActionEvent event) throws IOException {
+        String theBrainName = (String) brainListView.getFocusModel().getFocusedItem();
+        
+        //If the there is a selected item, search through the file to find it
+        if (theBrainName != null) {
+            //Read in the file 
+            List<String> oldFile = Files.readAllLines(tempFile, charset);
+            
+            boolean found = false;
+            int currentLocation = 0;
+            //Search for the brain name in the list
+            while (found == false && currentLocation < oldFile.size()) {
+                if (oldFile.get(currentLocation).contains("&"+theBrainName+"&")) {
+                    found = true;
+                    System.out.println("Brain found at " + currentLocation);
+                } else {
+                    System.out.println("Searched " + currentLocation);
+                    currentLocation++;  
+                }
+            }
+        }
+    }
+    
     public void setVariables(Scene previousScene) {
         this.previousScene = previousScene;
     }
@@ -184,5 +214,7 @@ public class CreateProfileController implements Initializable {
         fadeTransition.setToValue(1.0);
         fadeTransition.setCycleCount(2);
         fadeTransition.setAutoReverse(true);
+        
+        brainListView.setItems(brainNames);
     }    
 }

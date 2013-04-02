@@ -27,7 +27,7 @@
                     </Label>
                   </children>
                 </AnchorPane>
-                <ListView id="teamListView" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 2px;&#10;-fx-border-color: white;" styleClass="team-list" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                <ListView id="teamListView" fx:id="brainListView" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 2px;&#10;-fx-border-color: white;" styleClass="team-list" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <stylesheets>
                     <URL value="@style.css" />
                   </stylesheets>
@@ -35,7 +35,7 @@
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <children>
                     <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addBrain" prefHeight="29.0" prefWidth="89.0" text="Add Brain" />
-                    <Button layoutX="115.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="Delete" />
+                    <Button id="deleteBrain" layoutX="115.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteBrain" prefHeight="29.0" prefWidth="68.0" text="Delete" />
                   </children>
                 </AnchorPane>
               </children>
