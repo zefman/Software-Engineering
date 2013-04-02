@@ -21,6 +21,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 /**
@@ -34,6 +35,9 @@ public class CreateProfileController implements Initializable {
     private ObservableList<String> brainNames = FXCollections.observableArrayList();
     private Path tempFile;
 
+    @FXML
+    private TextField teamName;
+    
     @FXML
     public void back(ActionEvent event) {
         Node node = (Node) event.getSource();
@@ -71,6 +75,15 @@ public class CreateProfileController implements Initializable {
             System.out.println("Line: " + i);
             System.out.println(lines.get(i));
         }*/
+        
+        //Add the team name to the begining of the string list if it isn't already there
+        if (lines.isEmpty()) {
+            lines.add(0, "# " + teamName.getText());
+        } else if (lines.get(0).startsWith("#")) {
+            lines.set(0, "# " + teamName.getText());
+        } else {
+            lines.add(0, "# " + teamName.getText());
+        }
         
         lines.add(s);
 

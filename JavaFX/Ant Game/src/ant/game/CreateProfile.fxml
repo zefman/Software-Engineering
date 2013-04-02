@@ -67,7 +67,7 @@
                 </AnchorPane>
                 <AnchorPane id="teamDetailPane" prefHeight="200.0" prefWidth="200.0" styleClass="team-details" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <children>
-                    <TextField id="teamName" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Team Name" />
+                    <TextField fx:id="teamName" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Team Name" />
                     <Button layoutX="14.0" layoutY="112.0" mnemonicParsing="false" prefWidth="150.0" text="Create Brain" />
                     <Separator prefWidth="575.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
                     <Button layoutX="184.0" layoutY="112.0" mnemonicParsing="false" prefWidth="150.0" text="Load Brain" />
