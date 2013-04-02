@@ -12,6 +12,7 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -61,18 +62,31 @@ public class CreateProfileController implements Initializable {
         }
         
         Charset charset = Charset.forName("US-ASCII");
-        String s = "This is a test";
+        String s = "This is a test\nThis is a test";
+        
+        //Read the current contents of the file into a List
+        List<String> lines = Files.readAllLines(tempFile, charset);
+        /*
+        for (int i = 0; i < lines.size(); i++) {
+            System.out.println("Line: " + i);
+            System.out.println(lines.get(i));
+        }*/
+        
+        lines.add(s);
 
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile, charset)) {
-            writer.write(s, 0, s.length());
+            for (String string : lines) {
+                writer.write(string, 0, string.length());
+                writer.newLine();
+            }
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
         }
 
         try (BufferedReader reader = Files.newBufferedReader(tempFile, charset)) {
-            String line = null;
-            while ((line = reader.readLine()) != null) {
-                System.out.println(line);
+            String line2 = null;
+            while ((line2 = reader.readLine()) != null) {
+                System.out.println(line2);
             }
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
