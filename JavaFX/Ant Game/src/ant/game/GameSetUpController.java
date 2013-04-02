@@ -179,8 +179,8 @@ public class GameSetUpController implements Initializable {
         Parent root = (Parent)fxmlLoader.load();
         CreateProfileController profileController = fxmlLoader.<CreateProfileController>getController();
         
-        //Pass the new controller the teams and world
-        //gameController.setVariables(redTeam, blackTeam, world);
+        //Pass the new controller this scene so it canbe returned to if needed
+        profileController.setVariables(node.getScene());
         
         
         Scene scene = new Scene(root);

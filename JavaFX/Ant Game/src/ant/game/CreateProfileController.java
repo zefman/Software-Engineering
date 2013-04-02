@@ -9,6 +9,9 @@ import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.Node;
+import javafx.scene.Scene;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -16,10 +19,19 @@ import javafx.fxml.Initializable;
  * @author jozefmaxted
  */
 public class CreateProfileController implements Initializable {
+    
+    private Scene previousScene;
 
     @FXML
     public void back(ActionEvent event) {
-        //Do nothing;
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        stage.setScene(previousScene);
+        stage.show();
+    }
+    
+    public void setVariables(Scene previousScene) {
+        this.previousScene = previousScene;
     }
     /**
      * Initializes the controller class.
