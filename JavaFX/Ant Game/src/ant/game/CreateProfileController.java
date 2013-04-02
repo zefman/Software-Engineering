@@ -198,6 +198,39 @@ public class CreateProfileController implements Initializable {
                     currentLocation++;  
                 }
             }
+            
+            //Start deleting from the start point of the brain until another brain is found
+            //Or the end is reached
+            oldFile.remove(currentLocation);
+            boolean endOfBrain = false;
+            while (endOfBrain == false) {
+                //If not at the end of the file, and the currentLocation isn't the start of another brain
+                // Delete it
+                if (currentLocation < oldFile.size() && !oldFile.get(currentLocation).startsWith("&")) {
+                    oldFile.remove(currentLocation);
+                    System.out.println("Line removed");
+                } else {
+                    endOfBrain = true;
+                }
+            }
+            
+            //Update the temp file
+            try (BufferedWriter writer = Files.newBufferedWriter(tempFile, charset)) {
+                for (String string : oldFile) {
+                    writer.write(string, 0, string.length());
+                    writer.newLine();
+                }
+            } catch (IOException x) {
+                System.err.format("IOException: %s%n", x);
+            }
+            
+            //Remove the brain name from the observable list
+            brainNames.remove(brainListView.getFocusModel().getFocusedIndex());
+            
+            //Update the message label
+            messageLabel.setText("Brain Deleted.");
+            messageLabel.setTextFill(Color.BLACK);
+            fadeTransition.play();
         }
     }
     
