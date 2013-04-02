@@ -175,9 +175,9 @@ public class GameSetUpController implements Initializable {
     public void createProfileRed(ActionEvent event) throws IOException {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
-        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Game.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfile.fxml"));
         Parent root = (Parent)fxmlLoader.load();
-        GameController gameController = fxmlLoader.<GameController>getController();
+        CreateProfileController profileController = fxmlLoader.<CreateProfileController>getController();
         
         //Pass the new controller the teams and world
         //gameController.setVariables(redTeam, blackTeam, world);

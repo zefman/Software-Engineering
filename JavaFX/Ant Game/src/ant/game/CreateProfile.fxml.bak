@@ -3,12 +3,114 @@
 <?import java.lang.*?>
 <?import java.net.*?>
 <?import java.util.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
+<?import javafx.scene.image.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane id="AnchorPane" prefHeight="400.0" prefWidth="600.0" styleClass="mainFxmlClass" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.CreateProfileController">
-    <stylesheets>
-        <URL value="@style.css"/>
-    </stylesheets>
+<AnchorPane id="AnchorPane" prefHeight="600.0" prefWidth="800.0" styleClass="mainFxmlClass, main-bg" xmlns:fx="http://javafx.com/fxml" fx:controller="ant.game.CreateProfileController">
+  <children>
+    <SplitPane dividerPositions="0.2506265664160401" focusTraversable="true" layoutY="114.0" prefHeight="486.0" prefWidth="800.0">
+      <items>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
+          <children>
+            <GridPane prefHeight="484.0" prefWidth="197.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <children>
+                    <Label layoutX="14.0" layoutY="15.0" text="Brains">
+                      <font>
+                        <Font size="24.0" fx:id="x1" />
+                      </font>
+                    </Label>
+                  </children>
+                </AnchorPane>
+                <ListView id="teamListView" prefHeight="200.0" prefWidth="200.0" style="-fx-border-width: 2px;&#10;-fx-border-color: white;" styleClass="team-list" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                  <stylesheets>
+                    <URL value="@style.css" />
+                  </stylesheets>
+                </ListView>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <children>
+                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="29.0" prefWidth="89.0" text="Add Brain" />
+                    <Button layoutX="115.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteTeam" prefHeight="29.0" prefWidth="68.0" text="Delete" />
+                  </children>
+                </AnchorPane>
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <rowConstraints>
+                <RowConstraints maxHeight="162.0" minHeight="10.0" prefHeight="50.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="377.0" minHeight="10.0" prefHeight="377.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="57.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </AnchorPane>
+        <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="484.0" prefWidth="382.22802734375">
+          <children>
+            <GridPane prefHeight="484.0" prefWidth="393.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+              <children>
+                <AnchorPane prefHeight="51.0" prefWidth="595.0" GridPane.columnIndex="0" GridPane.rowIndex="0">
+                  <children>
+                    <Label font="$x1" layoutY="14.0" text="Team Details" />
+                    <Button layoutX="442.0" layoutY="19.0" mnemonicParsing="false" prefWidth="133.0" text="Load/Edit Profile" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
+                  <children>
+                    <Button layoutX="425.0" layoutY="13.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="150.0" text="Save/Use Profile" />
+                  </children>
+                </AnchorPane>
+                <AnchorPane id="teamDetailPane" prefHeight="200.0" prefWidth="200.0" styleClass="team-details" GridPane.columnIndex="0" GridPane.rowIndex="1">
+                  <children>
+                    <TextField id="teamName" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Team Name" />
+                    <Button layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefWidth="150.0" text="Create Brain" />
+                    <Label layoutX="14.0" layoutY="146.0" text="Previous Draws:">
+                      <font>
+                        <Font size="18.0" fx:id="x2" />
+                      </font>
+                    </Label>
+                    <Label font="$x2" layoutX="14.0" layoutY="116.0" text="Previous Wins:" />
+                    <Separator prefWidth="575.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0" />
+                    <Label font="$x2" layoutX="14.0" layoutY="176.0" text="Previous Losses:" />
+                    <Label font="$x2" layoutX="191.0" layoutY="116.0" text="N/A" />
+                    <Label font="$x2" layoutX="191.0" layoutY="146.0" text="N/A" />
+                    <Label font="$x2" layoutX="191.0" layoutY="176.0" text="N/A" />
+                  </children>
+                </AnchorPane>
+              </children>
+              <columnConstraints>
+                <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+              </columnConstraints>
+              <padding>
+                <Insets left="10.0" right="10.0" />
+              </padding>
+              <rowConstraints>
+                <RowConstraints maxHeight="160.0" minHeight="10.0" prefHeight="54.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="352.0" minHeight="10.0" prefHeight="352.0" vgrow="SOMETIMES" />
+                <RowConstraints maxHeight="161.0" minHeight="10.0" prefHeight="78.0" vgrow="SOMETIMES" />
+              </rowConstraints>
+            </GridPane>
+          </children>
+        </AnchorPane>
+      </items>
+      <stylesheets>
+        <URL value="@style.css" />
+      </stylesheets>
+    </SplitPane>
+    <ImageView fitHeight="56.96749973297119" fitWidth="399.7719361828419" layoutX="17.0" layoutY="32.0" pickOnBounds="true" preserveRatio="true">
+      <image>
+        <Image url="@logo.png" preserveRatio="false" smooth="false" />
+      </image>
+    </ImageView>
+    <Button layoutX="681.0" layoutY="58.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Label id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
+  </children>
+  <stylesheets>
+    <URL value="@style.css" />
+  </stylesheets>
 </AnchorPane>

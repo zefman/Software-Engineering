@@ -34,8 +34,8 @@
                 </ListView>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <children>
-                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addTeam" prefHeight="29.0" prefWidth="89.0" text="Add Brain" />
-                    <Button layoutX="115.0" layoutY="14.0" mnemonicParsing="false" onAction="#deleteTeam" prefHeight="29.0" prefWidth="68.0" text="Delete" />
+                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Add Brain" />
+                    <Button layoutX="115.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="Delete" />
                   </children>
                 </AnchorPane>
               </children>
@@ -107,7 +107,7 @@
         <Image url="@logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
-    <Button layoutX="681.0" layoutY="58.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Button layoutX="681.0" layoutY="58.0" mnemonicParsing="false" onAction="#back" prefWidth="108.0" text="Back" />
     <Label id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
   </children>
   <stylesheets>

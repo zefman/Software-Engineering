@@ -6,6 +6,8 @@ package ant.game;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 
 /**
@@ -15,6 +17,10 @@ import javafx.fxml.Initializable;
  */
 public class CreateProfileController implements Initializable {
 
+    @FXML
+    public void back(ActionEvent event) {
+        //Do nothing;
+    }
     /**
      * Initializes the controller class.
      */
