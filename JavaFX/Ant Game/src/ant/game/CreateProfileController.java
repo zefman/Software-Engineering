@@ -6,12 +6,14 @@ package ant.game;
 
 import java.io.BufferedReader;
 import java.io.BufferedWriter;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -22,7 +24,9 @@ import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Scene;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -35,9 +39,12 @@ public class CreateProfileController implements Initializable {
     private Scene previousScene;
     private ObservableList<String> brainNames = FXCollections.observableArrayList();
     private Path tempFile;
+    private Path currentBrain;
 
     @FXML
     private TextField teamName;
+    @FXML
+    private Label brainPath;
     
     @FXML
     public void back(ActionEvent event) {
@@ -117,6 +124,28 @@ public class CreateProfileController implements Initializable {
             }
         } catch (IOException x) {
             System.err.format("IOException: %s%n", x);
+        }
+        
+    }
+    
+    @FXML
+    public void openBrainChooser(ActionEvent event) {
+        //Show a file chooser
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        File file = null;
+        try {
+            file = fileChooser.showOpenDialog(stage);
+        } catch (Exception e) {
+            // No file choosen do nothing
+        }
+        
+        //If a file was choosen set the current brain path
+        if (file != null) {
+            currentBrain = Paths.get(file.toURI());
+            
+            brainPath.setText("Brain Path: " + currentBrain.toString());
         }
         
     }

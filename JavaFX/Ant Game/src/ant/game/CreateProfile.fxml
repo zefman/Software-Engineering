@@ -70,8 +70,9 @@
                     <TextField fx:id="teamName" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Team Name" />
                     <Button layoutX="14.0" layoutY="112.0" mnemonicParsing="false" prefWidth="150.0" text="Create Brain" />
                     <Separator prefWidth="575.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
-                    <Button layoutX="184.0" layoutY="112.0" mnemonicParsing="false" prefWidth="150.0" text="Load Brain" />
+                    <Button layoutX="184.0" layoutY="112.0" mnemonicParsing="false" onAction="#openBrainChooser" prefWidth="150.0" text="Load Brain" />
                     <TextField id="teamName" layoutX="14.0" layoutY="72.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Brain Name" />
+                    <Label fx:id="brainPath" layoutX="14.0" layoutY="149.0" text="No Brain Chosen." />
                   </children>
                 </AnchorPane>
               </children>
