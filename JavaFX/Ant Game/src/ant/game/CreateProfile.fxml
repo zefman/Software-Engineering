@@ -34,7 +34,7 @@
                 </ListView>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <children>
-                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="89.0" text="Add Brain" />
+                    <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#addBrain" prefHeight="29.0" prefWidth="89.0" text="Add Brain" />
                     <Button layoutX="115.0" layoutY="14.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="68.0" text="Delete" />
                   </children>
                 </AnchorPane>
@@ -68,18 +68,10 @@
                 <AnchorPane id="teamDetailPane" prefHeight="200.0" prefWidth="200.0" styleClass="team-details" GridPane.columnIndex="0" GridPane.rowIndex="1">
                   <children>
                     <TextField id="teamName" layoutX="14.0" layoutY="14.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Team Name" />
-                    <Button layoutX="14.0" layoutY="57.0" mnemonicParsing="false" prefWidth="150.0" text="Create Brain" />
-                    <Label layoutX="14.0" layoutY="146.0" text="Previous Draws:">
-                      <font>
-                        <Font size="18.0" fx:id="x2" />
-                      </font>
-                    </Label>
-                    <Label font="$x2" layoutX="14.0" layoutY="116.0" text="Previous Wins:" />
-                    <Separator prefWidth="575.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="96.0" />
-                    <Label font="$x2" layoutX="14.0" layoutY="176.0" text="Previous Losses:" />
-                    <Label font="$x2" layoutX="191.0" layoutY="116.0" text="N/A" />
-                    <Label font="$x2" layoutX="191.0" layoutY="146.0" text="N/A" />
-                    <Label font="$x2" layoutX="191.0" layoutY="176.0" text="N/A" />
+                    <Button layoutX="14.0" layoutY="112.0" mnemonicParsing="false" prefWidth="150.0" text="Create Brain" />
+                    <Separator prefWidth="575.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="54.0" />
+                    <Button layoutX="184.0" layoutY="112.0" mnemonicParsing="false" prefWidth="150.0" text="Load Brain" />
+                    <TextField id="teamName" layoutX="14.0" layoutY="72.0" prefHeight="29.0" prefWidth="546.9999000000025" promptText="Brain Name" />
                   </children>
                 </AnchorPane>
               </children>
