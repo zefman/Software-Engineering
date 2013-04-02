@@ -12,6 +12,7 @@ import java.net.URLDecoder;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
@@ -69,22 +70,35 @@ public class CreateProfileController implements Initializable {
         String s = "This is a test\nThis is a test";
         
         //Read the current contents of the file into a List
-        List<String> lines = Files.readAllLines(tempFile, charset);
+        List<String> lines = new ArrayList<String>();
         /*
         for (int i = 0; i < lines.size(); i++) {
             System.out.println("Line: " + i);
             System.out.println(lines.get(i));
         }*/
         
-        //Add the team name to the begining of the string list if it isn't already there
-        if (lines.isEmpty()) {
-            lines.add(0, "# " + teamName.getText());
-        } else if (lines.get(0).startsWith("#")) {
-            lines.set(0, "# " + teamName.getText());
-        } else {
-            lines.add(0, "# " + teamName.getText());
+        //Add the team name to the begining of the string list
+        lines.add(0, "#name# " + teamName.getText());
+        
+        //Put the old file in a list of strings
+        List<String> oldFile = Files.readAllLines(tempFile, charset);
+        
+        //Remove name if it is already there
+        if (!oldFile.isEmpty() && oldFile.get(0).startsWith("#name#")) {
+            oldFile.remove(0);
         }
         
+        //Now check to see if the old file contains win stats, if not add them to the new string list
+        if (oldFile.isEmpty() || !oldFile.get(0).startsWith("#wins#")) {
+            lines.add("#wins#");
+            lines.add("#losses#");
+            lines.add("#draws#");
+        }
+        
+        //Add the old file to the new string list
+        lines.addAll(oldFile);
+        
+        //Add new part to string
         lines.add(s);
 
         try (BufferedWriter writer = Files.newBufferedWriter(tempFile, charset)) {
