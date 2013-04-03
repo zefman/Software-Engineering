@@ -22,8 +22,8 @@ public class World {
     public World(Team redTeam, Team blackTeam) {
         this.redTeam = redTeam;
         this.blackTeam = blackTeam;
-	worldGrid = new Cell[22500];
-	antGrid = new Integer[22500];
+	worldGrid = new Cell[16900];
+	antGrid = new Integer[16900];
         
         //Initiallise all the cells
         for (int i = 0; i < worldGrid.length; i++) {
@@ -36,8 +36,8 @@ public class World {
             worldGrid[i].setType(Cell.Type.ROCKY);
             worldGrid[worldGrid.length-i-1].setType(Cell.Type.ROCKY);
             worldGrid[i*130].setType(Cell.Type.ROCKY);
-            worldGrid[i*130+130].setType(Cell.Type.ROCKY);
-            
+            worldGrid[i*130+130-1].setType(Cell.Type.ROCKY);
+            worldGrid[16899].setType(Cell.Type.ROCKY);
         }
         
         
