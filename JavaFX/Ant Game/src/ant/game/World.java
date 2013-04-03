@@ -24,6 +24,24 @@ public class World {
         this.blackTeam = blackTeam;
 	worldGrid = new Cell[22500];
 	antGrid = new Integer[22500];
+        
+        //Initiallise all the cells
+        for (int i = 0; i < worldGrid.length; i++) {
+            worldGrid[i] = new Cell(Cell.Type.CLEAR);
+        }
+        
+        //Set the outside cells to rocky
+        for (int i=0; i < 130; i++) {
+            //Sets the top line and bottom line
+            worldGrid[i].setType(Cell.Type.ROCKY);
+            worldGrid[worldGrid.length-i-1].setType(Cell.Type.ROCKY);
+            worldGrid[i*130].setType(Cell.Type.ROCKY);
+            worldGrid[i*130+130].setType(Cell.Type.ROCKY);
+            
+        }
+        
+        
+        System.out.println("Top set to rocky");
     }
     
     public World(Team redTeam, Team blackTeam, Path worldSave) {

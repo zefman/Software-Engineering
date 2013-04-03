@@ -4,6 +4,10 @@
  */
 package ant.game;
 
+import static ant.game.Cell.Type.BLACKANTHILL;
+import static ant.game.Cell.Type.FOOD;
+import static ant.game.Cell.Type.REDANTHILL;
+import static ant.game.Cell.Type.ROCKY;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -29,6 +33,10 @@ import javafx.stage.Stage;
  */
 public class WorldEditorController implements Initializable {
     
+    private World world;
+    private Canvas canvas;
+    private GraphicsContext gc;
+    
     @FXML
     AnchorPane canvasPane;
 
@@ -42,13 +50,49 @@ public class WorldEditorController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
+    
+    //Draw world
+    public void drawWorld() {
+        gc.setFill(Color.BLUE);
+        for (int i = 0; i < 130; i++) {
+            for (int j = 0; j < 130; j++) {
+                Cell cell = world.worldGrid[i*130+j];
+                System.out.println("Checking cell: " + i + " " + j + " " + (i*130+j));
+                switch (cell.getType()) {
+                    case ROCKY:
+                        gc.setFill(Color.BURLYWOOD);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        System.out.println("Cell: " + i + " " + j + " Rocky");
+                        break;
+                    case FOOD:
+                        gc.setFill(Color.YELLOW);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        break;
+                    case REDANTHILL:
+                        gc.setFill(Color.RED);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        break;
+                    case BLACKANTHILL:
+                        gc.setFill(Color.BLACK);
+                        gc.fillOval(j*3, i*3, 3, 3);
+                        break;
+                }
+                
+            }
+        }
+    }
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Canvas canvas = new Canvas(390,390);
-        final GraphicsContext gc = canvas.getGraphicsContext2D();
+        //Create base world
+        Team redTeam = new Team("Base team");
+        Team blackTeam = new Team("Base team");
+        world = new World(redTeam, blackTeam);
+        
+        canvas = new Canvas(400,400);
+        gc = canvas.getGraphicsContext2D();
         
         gc.setFill(Color.BROWN);
         gc.setStroke(Color.BLUE);
@@ -66,7 +110,9 @@ public class WorldEditorController implements Initializable {
         });
         
         canvasPane.setLeftAnchor(canvas, 50.0);
-        canvasPane.setTopAnchor(canvas, 15.0);
+        canvasPane.setTopAnchor(canvas, 0.0);
         canvasPane.getChildren().add(canvas);
+        
+        drawWorld();
     }    
 }
