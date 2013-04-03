@@ -21,6 +21,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleButton;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
@@ -116,9 +117,23 @@ public class WorldEditorController implements Initializable {
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent t) {
+                //Get the worldGrid coordinates
                 int x = (int)t.getX()/3;
                 int y = (int)t.getY()/3;
                 System.out.println("Testing " + x + " " + y);
+                
+                //get the selected brush
+                if (redBrush.isSelected()) {
+                    System.out.println("Placing red ant hill");
+                } else if (blackBrush.isSelected()) {
+                    System.out.println("Placing black ant hill");
+                } else if (rockBrush.isSelected()) {
+                    System.out.println("Placing rock");
+                } else if (foodBrush.isSelected()) {
+                    System.out.println("Placing food");
+                } else if (deleteBrush.isSelected()) {
+                    System.out.println("Deleting");
+                }
                 
                 world.worldGrid[y*130+x].setType(Cell.Type.ROCKY);
                 
