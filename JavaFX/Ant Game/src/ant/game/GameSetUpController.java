@@ -11,10 +11,15 @@ import static ant.game.Cell.Type.ROCKY;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,6 +30,7 @@ import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.GridPane;
@@ -48,14 +54,22 @@ public class GameSetUpController implements Initializable {
     private TextField redTeamName;
     @FXML
     private TextField blackTeamName;
-    
+    @FXML
+    private ComboBox redBrainSelect;
+   
     private FadeTransition fadeTransition;
     
     private Path worldPath;
+    private Path redProfilePath;
+    private Path blackProfilePath;
+    
+    private ObservableList<String> redBrainNames = FXCollections.observableArrayList();
     
     private Canvas canvas;
     private GraphicsContext gc;
     private World world;
+    
+    private Charset charset = Charset.forName("US-ASCII");
     
     @FXML
     public void backToMainMenu(ActionEvent event) throws IOException {
@@ -180,12 +194,34 @@ public class GameSetUpController implements Initializable {
         CreateProfileController profileController = fxmlLoader.<CreateProfileController>getController();
         
         //Pass the new controller this scene so it canbe returned to if needed
-        profileController.setVariables(node.getScene());
+        profileController.setVariables(node.getScene(), this, true);
         
         
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    public void setRedProfilePath(Path path) throws IOException {
+        redProfilePath = path;
+        System.out.println(redProfilePath.toString());
+        
+        List<String> theProfile = Files.readAllLines(redProfilePath, charset);
+        redTeamName.setText(theProfile.get(0).replaceFirst("#name# ", ""));
+
+        //Update the select brain combobox
+        
+        for (int i = 0; i < theProfile.size(); i++) {
+            if (theProfile.get(i).startsWith("&")) {
+                redBrainNames.add(theProfile.get(i).replaceAll("&", ""));
+            }
+        }
+        redBrainSelect.setItems(redBrainNames);
+        //Update the message label
+        statusLabel.setText("Red profile loaded.");
+        statusLabel.setTextFill(Color.BLACK);
+        fadeTransition.play();
+        
     }
     
     /**

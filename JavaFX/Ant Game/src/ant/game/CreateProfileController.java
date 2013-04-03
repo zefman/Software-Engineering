@@ -44,12 +44,14 @@ import javafx.util.Duration;
 public class CreateProfileController implements Initializable {
     
     private Scene previousScene;
+    private GameSetUpController gameSetupController;
     private ObservableList<String> brainNames = FXCollections.observableArrayList();
     private Path tempFile;
     private Path currentBrain;
     private Path theProfile;
     private FadeTransition fadeTransition;
     private Charset charset = Charset.forName("US-ASCII");
+    private boolean isRed;
     
     @FXML
     private TextField teamName;
@@ -273,6 +275,12 @@ public class CreateProfileController implements Initializable {
                 } catch (IOException ex) {
                     Logger.getLogger(CreateProfileController.class.getName()).log(Level.SEVERE, null, ex);
                 }
+                
+                //Go back to the previous screen and pass the profile
+                if (isRed == true) {
+                    gameSetupController.setRedProfilePath(theProfile);
+                    stage.setScene(previousScene);
+                }
             }
         }
     }
@@ -324,11 +332,15 @@ public class CreateProfileController implements Initializable {
             messageLabel.setText("Profile loaded.");
             messageLabel.setTextFill(Color.BLACK);
             fadeTransition.play();
+            
+            
         }
     }
     
-    public void setVariables(Scene previousScene) {
+    public void setVariables(Scene previousScene, GameSetUpController gameSetupController, boolean isRed) {
         this.previousScene = previousScene;
+        this.gameSetupController = gameSetupController;
+        this.isRed = isRed;
     }
     /**
      * Initializes the controller class.
