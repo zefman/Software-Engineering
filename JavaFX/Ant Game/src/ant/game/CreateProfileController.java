@@ -263,7 +263,7 @@ public class CreateProfileController implements Initializable {
                 file = fileChooser.showSaveDialog(stage);
             } catch (Exception e) {
                 // No file choosen do nothing
-                System.out.println("SSome kind of exception");
+                System.out.println("Some kind of exception");
             }
             
             //If a file was chosen
