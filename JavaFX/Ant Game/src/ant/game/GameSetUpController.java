@@ -56,6 +56,8 @@ public class GameSetUpController implements Initializable {
     private TextField blackTeamName;
     @FXML
     private ComboBox redBrainSelect;
+    @FXML
+    private ComboBox blackBrainSelect;
    
     private FadeTransition fadeTransition;
     
@@ -64,6 +66,7 @@ public class GameSetUpController implements Initializable {
     private Path blackProfilePath;
     
     private ObservableList<String> redBrainNames = FXCollections.observableArrayList();
+    private ObservableList<String> blackBrainNames = FXCollections.observableArrayList();
     
     private Canvas canvas;
     private GraphicsContext gc;
@@ -203,6 +206,23 @@ public class GameSetUpController implements Initializable {
     }
     
     @FXML
+    public void createProfileBlack(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("CreateProfile.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        CreateProfileController profileController = fxmlLoader.<CreateProfileController>getController();
+        
+        //Pass the new controller this scene so it canbe returned to if needed
+        profileController.setVariables(node.getScene(), this, false);
+        
+        
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
     public void loadRedProfile(ActionEvent event) throws IOException {
         //Show a file chooser
         Node node = (Node) event.getSource();
@@ -220,6 +240,27 @@ public class GameSetUpController implements Initializable {
         //If a file was chosen, set the red profile path
         if (file != null) {
             setRedProfilePath(Paths.get(file.toURI()));
+        }
+    }
+    
+    @FXML
+    public void loadBlackProfile(ActionEvent event) throws IOException {
+        //Show a file chooser
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.profile)", "*.profile");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = null;
+        try {
+            file = fileChooser.showOpenDialog(stage);
+        } catch (Exception e) {
+            // No file choosen do nothing
+        }
+        
+        //If a file was chosen, set the red profile path
+        if (file != null) {
+            setBlackProfilePath(Paths.get(file.toURI()));
         }
     }
     
@@ -241,6 +282,27 @@ public class GameSetUpController implements Initializable {
         redBrainSelect.setOpacity(1.0);
         //Update the message label
         statusLabel.setText("Red profile loaded.");
+        statusLabel.setTextFill(Color.BLACK);
+        fadeTransition.play();
+    }
+    
+    public void setBlackProfilePath(Path path) throws IOException {
+        blackProfilePath = path;
+        System.out.println(blackProfilePath.toString());
+        
+        List<String> theProfile = Files.readAllLines(blackProfilePath, charset);
+        blackTeamName.setText(theProfile.get(0).replaceFirst("#name# ", ""));
+
+        //Update the select brain combobox
+        for (int i = 0; i < theProfile.size(); i++) {
+            if (theProfile.get(i).startsWith("&")) {
+                blackBrainNames.add(theProfile.get(i).replaceAll("&", ""));
+            }
+        }
+        blackBrainSelect.setItems(blackBrainNames);
+        blackBrainSelect.setOpacity(1.0);
+        //Update the message label
+        statusLabel.setText("Black profile loaded.");
         statusLabel.setTextFill(Color.BLACK);
         fadeTransition.play();
         

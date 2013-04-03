@@ -280,6 +280,9 @@ public class CreateProfileController implements Initializable {
                 if (isRed == true) {
                     gameSetupController.setRedProfilePath(theProfile);
                     stage.setScene(previousScene);
+                } else {
+                    gameSetupController.setBlackProfilePath(theProfile);
+                    stage.setScene(previousScene);
                 }
             }
         }
