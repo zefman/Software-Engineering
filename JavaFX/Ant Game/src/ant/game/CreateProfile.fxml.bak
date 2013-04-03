@@ -62,7 +62,7 @@
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
                   <children>
-                    <Button layoutX="425.0" layoutY="13.0" mnemonicParsing="false" prefHeight="51.0" prefWidth="150.0" text="Save/Use Profile" />
+                    <Button layoutX="425.0" layoutY="13.0" mnemonicParsing="false" onAction="#saveProfile" prefHeight="51.0" prefWidth="150.0" text="Save/Use Profile" />
                   </children>
                 </AnchorPane>
                 <AnchorPane id="teamDetailPane" prefHeight="200.0" prefWidth="200.0" styleClass="team-details" GridPane.columnIndex="0" GridPane.rowIndex="1">

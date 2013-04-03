@@ -14,6 +14,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.nio.file.StandardCopyOption;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
@@ -273,6 +274,52 @@ public class CreateProfileController implements Initializable {
                     Logger.getLogger(CreateProfileController.class.getName()).log(Level.SEVERE, null, ex);
                 }
             }
+        }
+    }
+    
+    @FXML
+    public void loadProfile(ActionEvent event) throws IOException {
+        //Show a file chooser
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.profile)", "*.profile");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = null;
+        try {
+            file = fileChooser.showOpenDialog(stage);
+        } catch (Exception e) {
+            // No file choosen do nothing
+        }
+        
+        //If a file was choosen copy the file to the temp profile
+        if (file != null) {
+            //If the temp file hasn't already been created create one
+            if (tempFile == null) {
+                //Create a temporary file to store the profile while it is being worked on
+                tempFile = Files.createTempFile("tempProfile", ".profile");
+                
+                // Delete the temp file once done
+                tempFile.toFile().deleteOnExit();
+            }
+            
+            Path originalProfile = Paths.get(file.toURI());
+            try {
+                //Copy the temp file to the new profile
+                Files.copy(originalProfile, tempFile, StandardCopyOption.REPLACE_EXISTING);
+            } catch (IOException ex) {
+                Logger.getLogger(CreateProfileController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+            
+            //Then look get the team name and brains
+            List<String> theProfile = Files.readAllLines(tempFile, charset);
+            teamName.setText(theProfile.get(0).replaceFirst("#name# ", ""));
+            
+            
+            //Update the message label
+            messageLabel.setText("Profile loaded.");
+            messageLabel.setTextFill(Color.BLACK);
+            fadeTransition.play();
         }
     }
     
