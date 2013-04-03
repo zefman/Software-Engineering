@@ -202,6 +202,27 @@ public class GameSetUpController implements Initializable {
         stage.show();
     }
     
+    @FXML
+    public void loadRedProfile(ActionEvent event) throws IOException {
+        //Show a file chooser
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.profile)", "*.profile");
+        fileChooser.getExtensionFilters().add(extFilter);
+        File file = null;
+        try {
+            file = fileChooser.showOpenDialog(stage);
+        } catch (Exception e) {
+            // No file choosen do nothing
+        }
+        
+        //If a file was chosen, set the red profile path
+        if (file != null) {
+            setRedProfilePath(Paths.get(file.toURI()));
+        }
+    }
+    
     public void setRedProfilePath(Path path) throws IOException {
         redProfilePath = path;
         System.out.println(redProfilePath.toString());

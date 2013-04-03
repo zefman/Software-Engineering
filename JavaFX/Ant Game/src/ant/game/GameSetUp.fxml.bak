@@ -23,7 +23,7 @@
                     <Button layoutX="278.0" layoutY="18.0" mnemonicParsing="false" onAction="#openFileChooser" text="Load Profile" />
                     <Button layoutX="14.0" layoutY="98.0" mnemonicParsing="false" prefWidth="108.0" text="Create Brain" />
                     <Button fx:id="loadRedBrain" layoutX="133.0" layoutY="98.0" mnemonicParsing="false" onAction="#openFileChooser" prefWidth="116.0" text="Load Brain" />
-                    <ComboBox fx:id="redBrainSelect" layoutX="258.0" layoutY="97.0" prefWidth="117.0" promptText="Choose Brain">
+                    <ComboBox fx:id="redBrainSelect" layoutX="258.0" layoutY="97.0" opacity="0.0" prefWidth="117.0" promptText="Choose Brain">
                       <items>
                         <FXCollections fx:factory="observableArrayList">
                           <String fx:value="Item 1" />
