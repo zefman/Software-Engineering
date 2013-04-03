@@ -21,6 +21,8 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.control.ToggleButton;
+import javafx.scene.control.ToggleGroup;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
@@ -38,7 +40,19 @@ public class WorldEditorController implements Initializable {
     private GraphicsContext gc;
     
     @FXML
-    AnchorPane canvasPane;
+    private AnchorPane canvasPane;
+    @FXML
+    private ToggleButton redBrush;
+    @FXML
+    private ToggleButton blackBrush;
+    @FXML 
+    private ToggleButton rockBrush;
+    @FXML
+    private ToggleButton foodBrush;
+    @FXML
+    private ToggleButton deleteBrush;
+    
+    private ToggleGroup brushGroup;
 
     @FXML
     public void backToMainMenu(ActionEvent event) throws IOException {
@@ -92,6 +106,7 @@ public class WorldEditorController implements Initializable {
         canvas = new Canvas(400,400);
         gc = canvas.getGraphicsContext2D();
         
+        
         gc.setFill(Color.BROWN);
         gc.setStroke(Color.BLUE);
         
@@ -114,6 +129,14 @@ public class WorldEditorController implements Initializable {
         canvasPane.setLeftAnchor(canvas, 50.0);
         canvasPane.setTopAnchor(canvas, 0.0);
         canvasPane.getChildren().add(canvas);
+        
+        //Set the groups for the brush toggle buttons
+        brushGroup = new ToggleGroup();
+        redBrush.setToggleGroup(brushGroup);
+        blackBrush.setToggleGroup(brushGroup);
+        rockBrush.setToggleGroup(brushGroup);
+        foodBrush.setToggleGroup(brushGroup);
+        deleteBrush.setToggleGroup(brushGroup);
         
         drawWorld();
     }    

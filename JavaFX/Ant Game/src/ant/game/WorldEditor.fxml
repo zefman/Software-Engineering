@@ -30,11 +30,11 @@
               </font>
             </Label>
             <Separator prefWidth="242.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="49.0" />
-            <ToggleButton layoutX="14.0" layoutY="96.0" mnemonicParsing="false" prefWidth="212.0" text="Red Ant Hill" />
-            <ToggleButton layoutX="14.0" layoutY="132.0" mnemonicParsing="false" prefWidth="212.0" text="Black Ant Hill" />
-            <ToggleButton layoutX="15.0" layoutY="170.0" mnemonicParsing="false" prefWidth="212.0" text="Rock" />
-            <ToggleButton layoutX="14.0" layoutY="207.0" mnemonicParsing="false" prefWidth="212.0" text="Food" />
-            <ToggleButton layoutX="14.0" layoutY="243.0" mnemonicParsing="false" prefWidth="212.0" text="Delete" />
+            <ToggleButton fx:id="redBrush" layoutX="14.0" layoutY="96.0" mnemonicParsing="false" prefWidth="212.0" text="Red Ant Hill" />
+            <ToggleButton fx:id="blackBrush" layoutX="14.0" layoutY="132.0" mnemonicParsing="false" prefWidth="212.0" text="Black Ant Hill" />
+            <ToggleButton fx:id="rockBrush" layoutX="15.0" layoutY="170.0" mnemonicParsing="false" prefWidth="212.0" text="Rock" />
+            <ToggleButton fx:id="foodBrush" layoutX="14.0" layoutY="207.0" mnemonicParsing="false" prefWidth="212.0" text="Food" />
+            <ToggleButton fx:id="deleteBrush" layoutX="14.0" layoutY="243.0" mnemonicParsing="false" prefWidth="212.0" text="Delete" />
           </children>
         </AnchorPane>
         <AnchorPane fx:id="canvasPane" minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="556.0" />
