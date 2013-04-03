@@ -315,7 +315,11 @@ public class CreateProfileController implements Initializable {
             List<String> theProfile = Files.readAllLines(tempFile, charset);
             teamName.setText(theProfile.get(0).replaceFirst("#name# ", ""));
             
-            
+            for (int i = 0; i < theProfile.size(); i++) {
+                if (theProfile.get(i).startsWith("&")) {
+                    brainNames.add(theProfile.get(i).replaceAll("&", ""));
+                }
+            }
             //Update the message label
             messageLabel.setText("Profile loaded.");
             messageLabel.setTextFill(Color.BLACK);
