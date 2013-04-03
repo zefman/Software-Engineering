@@ -217,6 +217,7 @@ public class GameSetUpController implements Initializable {
             }
         }
         redBrainSelect.setItems(redBrainNames);
+        redBrainSelect.setOpacity(1.0);
         //Update the message label
         statusLabel.setText("Red profile loaded.");
         statusLabel.setTextFill(Color.BLACK);

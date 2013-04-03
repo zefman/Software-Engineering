@@ -241,7 +241,7 @@ public class CreateProfileController implements Initializable {
     }
     
     @FXML
-    public void saveProfile(ActionEvent event) {
+    public void saveProfile(ActionEvent event) throws IOException {
         if (teamName.getText().equals("")) {
             messageLabel.setText("Please enter a team name.");
             messageLabel.setTextFill(Color.RED);
@@ -271,7 +271,7 @@ public class CreateProfileController implements Initializable {
                 theProfile = Paths.get(file.toURI());
                 try {
                     //Copy the temp file to the new profile
-                    Files.copy(tempFile, theProfile);
+                    Files.copy(tempFile, theProfile, StandardCopyOption.REPLACE_EXISTING);
                 } catch (IOException ex) {
                     Logger.getLogger(CreateProfileController.class.getName()).log(Level.SEVERE, null, ex);
                 }
