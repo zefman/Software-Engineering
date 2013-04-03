@@ -57,12 +57,10 @@ public class WorldEditorController implements Initializable {
         for (int i = 0; i < 130; i++) {
             for (int j = 0; j < 130; j++) {
                 Cell cell = world.worldGrid[i*130+j];
-                System.out.println("Checking cell: " + i + " " + j + " " + (i*130+j) + " " + cell.getType().toString());
                 switch (cell.getType()) {
                     case ROCKY:
                         gc.setFill(Color.BURLYWOOD);
                         gc.fillOval(j*3, i*3, 3, 3);
-                        System.out.println("Cell: " + i + " " + j + " Rocky");
                         break;
                     case FOOD:
                         gc.setFill(Color.YELLOW);
@@ -103,9 +101,13 @@ public class WorldEditorController implements Initializable {
         canvas.setOnMouseClicked(new EventHandler<MouseEvent>(){
             @Override
             public void handle(MouseEvent t) {
-                System.out.println("Testing " + t.getX() + " " + t.getY());
-                gc.setFill(Color.BLACK);
-                gc.fillOval(t.getX(), t.getY(), 5, 5);
+                int x = (int)t.getX()/3;
+                int y = (int)t.getY()/3;
+                System.out.println("Testing " + x + " " + y);
+                
+                world.worldGrid[y*130+x].setType(Cell.Type.ROCKY);
+                
+                drawWorld();
             }
         });
         
