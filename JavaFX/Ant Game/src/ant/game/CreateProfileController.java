@@ -17,6 +17,8 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.animation.FadeTransition;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -44,6 +46,7 @@ public class CreateProfileController implements Initializable {
     private ObservableList<String> brainNames = FXCollections.observableArrayList();
     private Path tempFile;
     private Path currentBrain;
+    private Path theProfile;
     private FadeTransition fadeTransition;
     private Charset charset = Charset.forName("US-ASCII");
     
@@ -231,6 +234,45 @@ public class CreateProfileController implements Initializable {
             messageLabel.setText("Brain Deleted.");
             messageLabel.setTextFill(Color.BLACK);
             fadeTransition.play();
+        }
+    }
+    
+    @FXML
+    public void saveProfile(ActionEvent event) {
+        if (teamName.getText().equals("")) {
+            messageLabel.setText("Please enter a team name.");
+            messageLabel.setTextFill(Color.RED);
+            fadeTransition.play();
+        } else if (tempFile == null) {
+            messageLabel.setText("Please add at least one brain.");
+            messageLabel.setTextFill(Color.RED);
+            fadeTransition.play();
+        } else {
+            //Show a file chooser
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.profile)", "*.profile");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = null;
+            try {
+                file = fileChooser.showSaveDialog(stage);
+            } catch (Exception e) {
+                // No file choosen do nothing
+                System.out.println("SSome kind of exception");
+            }
+            
+            //If a file was chosen
+            if (file != null) {
+                theProfile = Paths.get(file.toURI());
+                try {
+                    //Copy the temp file to the new profile
+                    Files.copy(tempFile, theProfile);
+                } catch (IOException ex) {
+                    Logger.getLogger(CreateProfileController.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
         }
     }
     
