@@ -113,6 +113,67 @@ public class World {
     private void generateRandomAnthills() {
 
     }
+    
+    public void generateAntHill(int x, int y, String colour) {
+        //Starting from the cell furthest to the left do one whole line
+        for (int i = 0; i < 11; i++) {
+            if (colour.equals("red")) {
+                worldGrid[x*130+y+i].setType(Cell.Type.REDANTHILL);
+            } else {
+                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+            }
+        }
+        
+        // Next change the two rows above and below the centre
+        for (int i = 0; i < 10; i++) {
+            if (colour.equals("red")) {
+                worldGrid[(x+1)*130+y+1+i].setType(Cell.Type.REDANTHILL);
+                worldGrid[(x-1)*130+y+1+i].setType(Cell.Type.REDANTHILL);
+            } else {
+                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+            }
+        }
+        
+        // Next rows inset by one on the right
+        for (int i = 0; i < 9; i++) {
+            if (colour.equals("red")) {
+                worldGrid[(x+2)*130+y+1+i].setType(Cell.Type.REDANTHILL);
+                worldGrid[(x-2)*130+y+1+i].setType(Cell.Type.REDANTHILL);
+            } else {
+                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+            }
+        }
+        
+        // Next Row inset by one more on the left none on the right
+        for (int i = 0; i < 8; i++) {
+            if (colour.equals("red")) {
+                worldGrid[(x+3)*130+y+2+i].setType(Cell.Type.REDANTHILL);
+                worldGrid[(x-3)*130+y+2+i].setType(Cell.Type.REDANTHILL);
+            } else {
+                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+            }
+        }
+        
+        // Next Row inset by one more on the right and none on the left
+        for (int i = 0; i < 7; i++) {
+            if (colour.equals("red")) {
+                worldGrid[(x+4)*130+y+2+i].setType(Cell.Type.REDANTHILL);
+                worldGrid[(x-4)*130+y+2+i].setType(Cell.Type.REDANTHILL);
+            } else {
+                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+            }
+        }
+        
+        // Next Row inset by one more on the left and none on the right
+        for (int i = 0; i < 6; i++) {
+            if (colour.equals("red")) {
+                worldGrid[(x+5)*130+y+3+i].setType(Cell.Type.REDANTHILL);
+                worldGrid[(x-5)*130+y+3+i].setType(Cell.Type.REDANTHILL);
+            } else {
+                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+            }
+        }
+    }
 
     /**
      * Generate an anthill at the specified location
@@ -120,7 +181,7 @@ public class World {
      * @param y - grid Y centre point
      * @param colour - Team?
      */
-    private void generateAntHill(int x, int y, String colour) {
+    private void generateAntHill2(int x, int y, String colour) {
 	//*************untested**************
 	//check the coordinates for the anthill then generate it if ok
 

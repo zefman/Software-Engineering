@@ -125,6 +125,7 @@ public class WorldEditorController implements Initializable {
                 //get the selected brush
                 if (redBrush.isSelected()) {
                     System.out.println("Placing red ant hill");
+                    world.generateAntHill(y, x, "red");
                 } else if (blackBrush.isSelected()) {
                     System.out.println("Placing black ant hill");
                 } else if (rockBrush.isSelected()) {
@@ -134,8 +135,6 @@ public class WorldEditorController implements Initializable {
                 } else if (deleteBrush.isSelected()) {
                     System.out.println("Deleting");
                 }
-                
-                world.worldGrid[y*130+x].setType(Cell.Type.ROCKY);
                 
                 drawWorld();
             }
