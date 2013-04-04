@@ -39,6 +39,10 @@ public class WorldEditorController implements Initializable {
     private World world;
     private Canvas canvas;
     private GraphicsContext gc;
+    private int redXCoordinate;
+    private int redYCoordinate;
+    private int blackXCoordinate;
+    private int blackYCoordinate;
     
     @FXML
     private AnchorPane canvasPane;
@@ -124,14 +128,24 @@ public class WorldEditorController implements Initializable {
                 
                 //get the selected brush
                 if (redBrush.isSelected()) {
+                    //If the ant hill will be within the world bands
                     if (x < 119 && x > 1 && y < 124 && y > 5) {
                         System.out.println("Placing red ant hill");
                         world.generateAntHill(y, x, "red");  
+                        redYCoordinate = y;
+                        redXCoordinate = x;
                     }
                 } else if (blackBrush.isSelected()) {
-                    if (x < 119 && x > 1 && y < 124 && y > 5) {
+                    //If the ant hill will be within the world bands
+                    if (x < 119 && x > 1 || y < 124 && y > 5) {
+                        // Check not being placed over red ant hill
+                        if (x > redXCoordinate + 9 && x < redXCoordinate - 9 ) {
+                            System.out.println("Poo");
+                        }
                         System.out.println("Placing black ant hill");
-                        world.generateAntHill(y, x, "black");  
+                        world.generateAntHill(y, x, "black"); 
+                        blackYCoordinate = y;
+                        blackXCoordinate = x;
                     }
                 } else if (rockBrush.isSelected()) {
                     System.out.println("Placing rock");
@@ -167,5 +181,11 @@ public class WorldEditorController implements Initializable {
         deleteBrush.setToggleGroup(brushGroup);
         
         drawWorld();
+        
+
     }    
+    
+    public void test() {
+        System.out.println("test");
+    }
 }

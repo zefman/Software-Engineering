@@ -18,6 +18,7 @@ public class World {
     Cell[] worldGrid;
     Integer[] antGrid;
     Team redTeam, blackTeam;
+    
 
     public World(Team redTeam, Team blackTeam) {
         this.redTeam = redTeam;
