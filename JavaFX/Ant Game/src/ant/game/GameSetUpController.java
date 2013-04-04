@@ -317,7 +317,7 @@ public class GameSetUpController implements Initializable {
         BrainEditorController brainEditorController = fxmlLoader.<BrainEditorController>getController();
         
         //Pass the new controller this scene so it canbe returned to if needed
-        brainEditorController.setVariables(node.getScene(), this, false);
+        brainEditorController.setVariables(node.getScene(), this, true);
         
         
         Scene scene = new Scene(root);
