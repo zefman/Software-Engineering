@@ -126,7 +126,6 @@ public class WorldEditorController implements Initializable {
 				System.out.println("false");
 				return false;
 			}
-
 		}
 
 		// Next Row inset by one more on the left none on the right
@@ -223,8 +222,14 @@ public class WorldEditorController implements Initializable {
 						break;
 					}
 				} else if (foodBrush.isSelected()) {
-					System.out.println("Placing food");
-					world.generateFoodBlocks(y, x);
+					
+					if (validFoodLocation(y, x)) {
+						System.out.println("Placing food");
+						world.generateFoodBlocks(y, x);
+					}
+					
+					
+					
 				} else if (deleteBrush.isSelected()) {
 					System.out.println("Deleting");
 				}
@@ -249,6 +254,36 @@ public class WorldEditorController implements Initializable {
 
 
 	}    
+
+	protected boolean validFoodLocation(int x, int y) {
+		// TODO Auto-generated method stub
+		
+		//First bottom row
+        for (int i = 0; i < 4; i++) {
+            if (world.worldGrid[x*130+y+i].getType() != Cell.Type.CLEAR){
+            	return false;
+            }
+            
+        }
+        // Next two rows inset one to the right
+        for (int i = 0; i < 4; i++) {
+            if (world.worldGrid[(x+1)*130+y+i+1].getType() != Cell.Type.CLEAR) {
+            	return false;
+            }
+            if (world.worldGrid[(x+2)*130+y+i+1].getType() != Cell.Type.CLEAR) {
+            	return false;
+            }
+        }
+        // Final row inset 2 to the right
+        for (int i = 0; i < 4; i++) {
+            if (world.worldGrid[(x+3)*130+y+i+2].getType() != Cell.Type.CLEAR) {
+            	return false;
+            }
+        }
+		
+		
+		return true;
+	}
 
 	public void test() {
 		System.out.println("test");
