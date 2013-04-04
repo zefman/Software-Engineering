@@ -14,6 +14,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Button;
 import javafx.stage.Stage;
 
 /**
@@ -22,16 +23,38 @@ import javafx.stage.Stage;
  * @author jozefmaxted
  */
 public class BrainEditorController implements Initializable {
+    
+    @FXML
+    private Button backButton;
+    
+    private Scene previousScene;
+    private boolean isRed;
+    
+    public void setVariables(Scene previousScene, GameSetUpController gameSetupController, boolean isRed) {
+        this.previousScene = previousScene;
+        this.isRed = isRed;
+        
+        //backButton.setText("Back");
+    }
 
     @FXML
     public void backToMainMenu(ActionEvent event) throws IOException {
-        System.out.println("Back to main menu");
-        Node node = (Node) event.getSource();
-        Stage stage = (Stage) node.getScene().getWindow();
-        Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
-        Scene scene = new Scene(root);
-        stage.setScene(scene);
-        stage.show();
+        if (previousScene == null) {
+            System.out.println("Back to main menu");
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            Parent root = FXMLLoader.load(getClass().getResource("MainMenu.fxml"));
+            Scene scene = new Scene(root);
+            stage.setScene(scene);
+            stage.show();
+        } else {
+            System.out.println("Back to main menu");
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            stage.setScene(previousScene);
+            stage.show();
+        }
+        
     }
     /**
      * Initializes the controller class.

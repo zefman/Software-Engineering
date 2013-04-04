@@ -21,7 +21,7 @@
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
                     <Button layoutX="278.0" layoutY="18.0" mnemonicParsing="false" onAction="#loadRedProfile" text="Load Profile" />
-                    <Button layoutX="14.0" layoutY="98.0" mnemonicParsing="false" prefWidth="108.0" text="Create Brain" />
+                    <Button layoutX="14.0" layoutY="98.0" mnemonicParsing="false" onAction="#createRedBrain" prefWidth="108.0" text="Create Brain" />
                     <Button fx:id="loadRedBrain" layoutX="133.0" layoutY="98.0" mnemonicParsing="false" onAction="#openFileChooser" prefWidth="116.0" text="Load Brain" />
                     <ComboBox fx:id="redBrainSelect" layoutX="258.0" layoutY="97.0" opacity="0.0" prefWidth="117.0" promptText="Choose Brain">
                       <items>
@@ -39,7 +39,7 @@
                 </AnchorPane>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
-                    <Button layoutX="14.0" layoutY="94.0" mnemonicParsing="false" prefWidth="108.0" text="Create Brain" />
+                    <Button layoutX="14.0" layoutY="94.0" mnemonicParsing="false" onAction="#createBlackBrain" prefWidth="108.0" text="Create Brain" />
                     <Button fx:id="loadBlackBrain" layoutX="133.0" layoutY="94.0" mnemonicParsing="false" onAction="#openFileChooser" prefWidth="116.0" text="Load Brain" />
                     <ComboBox fx:id="blackBrainSelect" layoutX="258.0" layoutY="93.0" opacity="0.0" prefWidth="117.0" promptText="Choose Brain">
                       <items>
@@ -117,7 +117,7 @@
         <Image url="@logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
-    <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Button fx:id="backButton" layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
     <Label fx:id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
   </children>
   <stylesheets>

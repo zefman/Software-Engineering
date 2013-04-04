@@ -308,6 +308,41 @@ public class GameSetUpController implements Initializable {
         
     }
     
+    @FXML
+    public void createRedBrain(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BrainEditor.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        BrainEditorController brainEditorController = fxmlLoader.<BrainEditorController>getController();
+        
+        //Pass the new controller this scene so it canbe returned to if needed
+        brainEditorController.setVariables(node.getScene(), this, false);
+        
+        
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    @FXML
+    public void createBlackBrain(ActionEvent event) throws IOException {
+        Node node = (Node) event.getSource();
+        Stage stage = (Stage) node.getScene().getWindow();
+        FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("BrainEditor.fxml"));
+        Parent root = (Parent)fxmlLoader.load();
+        BrainEditorController brainEditorController = fxmlLoader.<BrainEditorController>getController();
+        
+        //Pass the new controller this scene so it canbe returned to if needed
+        brainEditorController.setVariables(node.getScene(), this, false);
+        
+        
+        Scene scene = new Scene(root);
+        stage.setScene(scene);
+        stage.show();
+    }
+    
+    
     /**
      * Initializes the controller class.
      */
