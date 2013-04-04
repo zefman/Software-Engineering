@@ -131,6 +131,14 @@ public class WorldEditorController implements Initializable {
                     world.generateAntHill(y, x, "black");
                 } else if (rockBrush.isSelected()) {
                     System.out.println("Placing rock");
+                    switch (world.worldGrid[y*130+x].getType()) {
+                        case CLEAR:
+                            world.worldGrid[y*130+x].setType(ROCKY); 
+                            break;
+                        default:
+                            //Do nothing as a rock can't be placed here
+                            break;
+                    }
                 } else if (foodBrush.isSelected()) {
                     System.out.println("Placing food");
                     world.generateFoodBlocks(y, x);
