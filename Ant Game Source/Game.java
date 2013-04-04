@@ -13,6 +13,7 @@ public class Game implements Runnable{
    final int WIDTH = 1000;
    final int HEIGHT = 700;
    
+   
    JFrame frame;
    Canvas canvas;
    BufferStrategy bufferStrategy;
