@@ -115,6 +115,9 @@ public class World {
 
     }
     
+    
+    
+    
     public void generateFoodBlocks(int x, int y) {
         //First bottom row
         for (int i = 0; i < 4; i++) {
@@ -269,5 +272,9 @@ public class World {
 
     public Integer[] getAntGrid() {
 		return antGrid;
+    }
+    
+    public void test() {
+        System.out.println("udshfudshfus");
     }
 }
