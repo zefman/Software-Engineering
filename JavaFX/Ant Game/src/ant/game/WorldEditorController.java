@@ -128,6 +128,7 @@ public class WorldEditorController implements Initializable {
                     world.generateAntHill(y, x, "red");
                 } else if (blackBrush.isSelected()) {
                     System.out.println("Placing black ant hill");
+                    world.generateAntHill(y, x, "black");
                 } else if (rockBrush.isSelected()) {
                     System.out.println("Placing rock");
                 } else if (foodBrush.isSelected()) {

@@ -130,7 +130,8 @@ public class World {
                 worldGrid[(x+1)*130+y+1+i].setType(Cell.Type.REDANTHILL);
                 worldGrid[(x-1)*130+y+1+i].setType(Cell.Type.REDANTHILL);
             } else {
-                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x+1)*130+y+1+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x-1)*130+y+1+i].setType(Cell.Type.BLACKANTHILL);
             }
         }
         
@@ -140,7 +141,8 @@ public class World {
                 worldGrid[(x+2)*130+y+1+i].setType(Cell.Type.REDANTHILL);
                 worldGrid[(x-2)*130+y+1+i].setType(Cell.Type.REDANTHILL);
             } else {
-                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x+2)*130+y+1+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x-2)*130+y+1+i].setType(Cell.Type.BLACKANTHILL);
             }
         }
         
@@ -150,7 +152,8 @@ public class World {
                 worldGrid[(x+3)*130+y+2+i].setType(Cell.Type.REDANTHILL);
                 worldGrid[(x-3)*130+y+2+i].setType(Cell.Type.REDANTHILL);
             } else {
-                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x+3)*130+y+2+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x-3)*130+y+2+i].setType(Cell.Type.BLACKANTHILL);
             }
         }
         
@@ -160,7 +163,8 @@ public class World {
                 worldGrid[(x+4)*130+y+2+i].setType(Cell.Type.REDANTHILL);
                 worldGrid[(x-4)*130+y+2+i].setType(Cell.Type.REDANTHILL);
             } else {
-                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x+4)*130+y+2+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x-4)*130+y+2+i].setType(Cell.Type.BLACKANTHILL);
             }
         }
         
@@ -170,7 +174,8 @@ public class World {
                 worldGrid[(x+5)*130+y+3+i].setType(Cell.Type.REDANTHILL);
                 worldGrid[(x-5)*130+y+3+i].setType(Cell.Type.REDANTHILL);
             } else {
-                worldGrid[x*130+y+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x+5)*130+y+3+i].setType(Cell.Type.BLACKANTHILL);
+                worldGrid[(x-5)*130+y+3+i].setType(Cell.Type.BLACKANTHILL);
             }
         }
     }
