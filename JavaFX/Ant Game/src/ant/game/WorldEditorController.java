@@ -133,6 +133,7 @@ public class WorldEditorController implements Initializable {
                     System.out.println("Placing rock");
                 } else if (foodBrush.isSelected()) {
                     System.out.println("Placing food");
+                    world.generateFoodBlocks(y, x);
                 } else if (deleteBrush.isSelected()) {
                     System.out.println("Deleting");
                 }

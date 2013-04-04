@@ -114,6 +114,35 @@ public class World {
 
     }
     
+    public void generateFoodBlocks(int x, int y) {
+        //First bottom row
+        for (int i = 0; i < 4; i++) {
+            worldGrid[x*130+y+i].setType(Cell.Type.FOOD);
+            // Give five bits of food to the cell
+            for (int j = 0; j < 5; j++) {
+                worldGrid[x*130+y].giveFood();
+            }
+        }
+        // Next two rows inset one to the right
+        for (int i = 0; i < 4; i++) {
+            worldGrid[(x+1)*130+y+i+1].setType(Cell.Type.FOOD);
+            worldGrid[(x+2)*130+y+i+1].setType(Cell.Type.FOOD);
+            // Give five bits of food to the cell
+            for (int j = 0; j < 5; j++) {
+                worldGrid[(x+1)*130+y+1].giveFood();
+                worldGrid[(x+2)*130+y+1].giveFood();
+            }
+        }
+        // Final row inset 2 to the right
+        for (int i = 0; i < 4; i++) {
+            worldGrid[(x+3)*130+y+i+2].setType(Cell.Type.FOOD);
+            // Give five bits of food to the cell
+            for (int j = 0; j < 5; j++) {
+                worldGrid[(x+3)*130+y+2].giveFood();
+            }
+        }
+    }
+    
     public void generateAntHill(int x, int y, String colour) {
         //Starting from the cell furthest to the left do one whole line
         for (int i = 0; i < 11; i++) {
