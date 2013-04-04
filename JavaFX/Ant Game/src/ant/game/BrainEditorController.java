@@ -7,7 +7,11 @@ package ant.game;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.nio.charset.Charset;
+import java.nio.file.Files;
+import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -17,6 +21,7 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.TextArea;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
@@ -29,9 +34,12 @@ public class BrainEditorController implements Initializable {
     
     @FXML
     private Button backButton;
+    @FXML
+    private TextArea brainArea;
     
     private Scene previousScene;
     private boolean isRed;
+    private Charset charset = Charset.forName("US-ASCII");
     
     public void setVariables(Scene previousScene, GameSetUpController gameSetupController, boolean isRed) {
         this.previousScene = previousScene;
@@ -61,7 +69,7 @@ public class BrainEditorController implements Initializable {
     }
     
     @FXML
-    public void loadBrain(ActionEvent event) {
+    public void loadBrain(ActionEvent event) throws IOException {
         //Show a file chooser
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
@@ -77,8 +85,9 @@ public class BrainEditorController implements Initializable {
         
         //If a file was choosen set the current brain path
         if (file != null) {
-            //currentBrain = Paths.get(file.toURI());
+            Path currentBrain = Paths.get(file.toURI());
             
+            List<String> theBrain = Files.readAllLines(currentBrain, charset);
             //brainPath.setText("Brain Path: " + currentBrain.toString());
         }
     }
