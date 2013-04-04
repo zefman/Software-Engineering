@@ -124,8 +124,10 @@ public class WorldEditorController implements Initializable {
                 
                 //get the selected brush
                 if (redBrush.isSelected()) {
-                    System.out.println("Placing red ant hill");
-                    world.generateAntHill(y, x, "red");
+                    if (x < 119 && x > 1 && y < 119 && y > 1) {
+                        System.out.println("Placing red ant hill");
+                        world.generateAntHill(y, x, "red");  
+                    }
                 } else if (blackBrush.isSelected()) {
                     System.out.println("Placing black ant hill");
                     world.generateAntHill(y, x, "black");
