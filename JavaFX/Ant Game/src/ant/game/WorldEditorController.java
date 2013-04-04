@@ -120,11 +120,11 @@ public class WorldEditorController implements Initializable {
                 //Get the worldGrid coordinates
                 int x = (int)t.getX()/3;
                 int y = (int)t.getY()/3;
-                System.out.println("Testing " + x + " " + y);
+                System.out.println("Testing x " + x + " " + y);
                 
                 //get the selected brush
                 if (redBrush.isSelected()) {
-                    if (x < 119 && x > 1 && y < 119 && y > 1) {
+                    if (x < 119 && x > 1 && y < 124 && y > 5) {
                         System.out.println("Placing red ant hill");
                         world.generateAntHill(y, x, "red");  
                     }
