@@ -43,6 +43,8 @@ public class WorldEditorController implements Initializable {
 	private int redYCoordinate;
 	private int blackXCoordinate;
 	private int blackYCoordinate;
+	private boolean redPlaced, blackPlaced;
+
 
 	@FXML
 	private AnchorPane canvasPane;
@@ -72,6 +74,8 @@ public class WorldEditorController implements Initializable {
 
 	//Draw world
 	public void drawWorld() {
+		gc.setFill(Color.BROWN);
+		gc.fillRect(0, 0, 390, 390);
 		gc.setFill(Color.BLUE);
 		for (int i = 0; i < 130; i++) {
 			for (int j = 0; j < 130; j++) {
@@ -110,7 +114,7 @@ public class WorldEditorController implements Initializable {
 		}
 		// Next change the two rows above and below the centre
 		for (int i = 0; i < 10; i++) {
-			
+
 			if (!(world.worldGrid[(x+1)*130+y+1+i].getType() == (Cell.Type.CLEAR) || !(world.worldGrid[(x-1)*130+y+1+i].getType() == Cell.Type.CLEAR))) {
 				System.out.println("false");
 				return false;
@@ -192,14 +196,25 @@ public class WorldEditorController implements Initializable {
 				//get the selected brush
 				if (redBrush.isSelected()) {
 					//If the ant hill will be within the world bands
+					if (redPlaced) {
+						System.out.println("redReplaced");
+						clearAnthill("red");
+					}
 					if (x < 119 && x > 1 && y < 124 && y > 5 && isValidHillSpace(y, x)) {
 						System.out.println("Placing red ant hill");
 						world.generateAntHill(y, x, "red");  
 						redYCoordinate = y;
 						redXCoordinate = x;
+						
+						redPlaced = true;
+						
 					}
 				} else if (blackBrush.isSelected()) {
 					//If the ant hill will be within the world bands
+					if (blackPlaced) {
+						clearAnthill("fool");
+						System.out.println("Cleared");
+					}
 					if (x < 119 && x > 1 && y < 124 && y > 5 && isValidHillSpace(y, x)) {
 						System.out.println(isValidHillSpace(y, x));
 						// Check not being placed over red ant hill
@@ -208,6 +223,7 @@ public class WorldEditorController implements Initializable {
 						}
 						System.out.println("Placing black ant hill");
 						world.generateAntHill(y, x, "black"); 
+						blackPlaced = true;
 						blackYCoordinate = y;
 						blackXCoordinate = x;
 					}
@@ -222,21 +238,101 @@ public class WorldEditorController implements Initializable {
 						break;
 					}
 				} else if (foodBrush.isSelected()) {
-					
+
 					if (validFoodLocation(y, x)) {
 						System.out.println("Placing food");
 						world.generateFoodBlocks(y, x);
 					}
-					
-					
-					
+
+
+
 				} else if (deleteBrush.isSelected()) {
 					System.out.println("Deleting");
+					System.out.println("HERE");
+					//Initiallise all the cells
+					for (int i = 0; i < world.worldGrid.length; i++) {
+						world.worldGrid[i].setType(Cell.Type.CLEAR);
+					}
+
+					//Set the outside cells to rocky
+					for (int i=0; i < 130; i++) {
+						//Sets the top line and bottom line
+						world.worldGrid[i].setType(Cell.Type.ROCKY);
+						world.worldGrid[world.worldGrid.length-i-1].setType(Cell.Type.ROCKY);
+						world.worldGrid[i*130].setType(Cell.Type.ROCKY);
+						world.worldGrid[i*130+130-1].setType(Cell.Type.ROCKY);
+						world.worldGrid[16899].setType(Cell.Type.ROCKY);
+					}
 				}
 
 				drawWorld();
 			}
-		});
+
+			private void clearAnthill(String team) {
+				// TODO Auto-generated method stub
+				int x2;
+				int y2;
+				if (team == "red") {
+					x2 = redXCoordinate;
+					y2 = redYCoordinate;
+				} else {
+					x2 = blackXCoordinate;
+					y2 = blackYCoordinate;
+				}
+				clearHill(y2, x2);
+			}
+
+			private void clearHill(int x, int y) {
+				// TODO Auto-generated method stub
+				//Starting from the cell furthest to the left do one whole line
+				for (int i = 0; i < 11; i++) {
+
+					world.worldGrid[x*130+y+i].setType(Cell.Type.CLEAR);
+
+				}
+
+				// Next change the two rows above and below the centre
+				for (int i = 0; i < 10; i++) {
+
+					world.worldGrid[(x+1)*130+y+1+i].setType(Cell.Type.CLEAR);
+					world.worldGrid[(x-1)*130+y+1+i].setType(Cell.Type.CLEAR);
+
+				}
+
+
+				// Next rows inset by one on the right
+				for (int i = 0; i < 9; i++) {
+
+					world.worldGrid[(x+2)*130+y+1+i].setType(Cell.Type.CLEAR);
+					world.worldGrid[(x-2)*130+y+1+i].setType(Cell.Type.CLEAR);
+
+				}
+
+				// Next Row inset by one more on the left none on the right
+				for (int i = 0; i < 8; i++) {
+
+					world.worldGrid[(x+3)*130+y+2+i].setType(Cell.Type.CLEAR);
+					world.worldGrid[(x-3)*130+y+2+i].setType(Cell.Type.CLEAR);
+
+				}
+
+				// Next Row inset by one more on the right and none on the left
+				for (int i = 0; i < 7; i++) {
+					world.worldGrid[(x+4)*130+y+2+i].setType(Cell.Type.CLEAR);
+					world.worldGrid[(x-4)*130+y+2+i].setType(Cell.Type.CLEAR);
+				}
+
+
+				// Next Row inset by one more on the left and none on the right
+				for (int i = 0; i < 6; i++) {
+
+					world.worldGrid[(x+5)*130+y+3+i].setType(Cell.Type.CLEAR);
+					world.worldGrid[(x-5)*130+y+3+i].setType(Cell.Type.CLEAR);
+
+				}
+
+			};}
+				);
 
 		canvasPane.setLeftAnchor(canvas, 50.0);
 		canvasPane.setTopAnchor(canvas, 0.0);
@@ -255,33 +351,39 @@ public class WorldEditorController implements Initializable {
 
 	}    
 
+
+	@FXML
+	private void delete(ActionEvent event) {
+		//null
+	}
+
+
 	protected boolean validFoodLocation(int x, int y) {
 		// TODO Auto-generated method stub
-		
+
 		//First bottom row
-        for (int i = 0; i < 4; i++) {
-            if (world.worldGrid[x*130+y+i].getType() != Cell.Type.CLEAR){
-            	return false;
-            }
-            
-        }
-        // Next two rows inset one to the right
-        for (int i = 0; i < 4; i++) {
-            if (world.worldGrid[(x+1)*130+y+i+1].getType() != Cell.Type.CLEAR) {
-            	return false;
-            }
-            if (world.worldGrid[(x+2)*130+y+i+1].getType() != Cell.Type.CLEAR) {
-            	return false;
-            }
-        }
-        // Final row inset 2 to the right
-        for (int i = 0; i < 4; i++) {
-            if (world.worldGrid[(x+3)*130+y+i+2].getType() != Cell.Type.CLEAR) {
-            	return false;
-            }
-        }
-		
-		
+		for (int i = 0; i < 4; i++) {
+			if (world.worldGrid[x*130+y+i].getType() != Cell.Type.CLEAR){
+				return false;
+			}
+
+		}
+		// Next two rows inset one to the right
+		for (int i = 0; i < 4; i++) {
+			if (world.worldGrid[(x+1)*130+y+i+1].getType() != Cell.Type.CLEAR) {
+				return false;
+			}
+			if (world.worldGrid[(x+2)*130+y+i+1].getType() != Cell.Type.CLEAR) {
+				return false;
+			}
+		}
+		// Final row inset 2 to the right
+		for (int i = 0; i < 4; i++) {
+			if (world.worldGrid[(x+3)*130+y+i+2].getType() != Cell.Type.CLEAR) {
+				return false;
+			}
+		}
+
 		return true;
 	}
 
