@@ -168,7 +168,7 @@ public class BrainEditorController implements Initializable {
                     break;
                 case "sense":
                     //Check direction is correct
-                    if (!currentTokens[1].equals("ahead")|| !currentTokens[1].equals("leftahead") || !currentTokens[1].equals("rightahead") || !currentTokens[1].equals("here")) {
+                    if (!currentTokens[1].equals("ahead") && !currentTokens[1].equals("leftahead") && !currentTokens[1].equals("rightahead") && !currentTokens[1].equals("here")) {
                         System.out.println("Incorrect direction");
                     }
                     //check that the next two tokens are integers representing states in the brain
@@ -180,9 +180,9 @@ public class BrainEditorController implements Initializable {
                         System.out.println("State doesn't exist error");
                     }
                     //Finally check the condition is valid
-                    if (currentTokens[4] != "food" || currentTokens[4] != "marker" || currentTokens[4] != "home") {
+                    if (!currentTokens[4].equals("food") && !currentTokens[4].equals("marker") && !currentTokens[4].equals("home")) {
                         System.out.println("Sense condition incorrect");
-                    } else if (currentTokens[4] == "marker") {
+                    } else if (currentTokens[4].equals("marker")) {
                         //Check the the final token isa number between 1 and 5
                         if (Integer.parseInt(currentTokens[5]) > 6 || Integer.parseInt(currentTokens[5]) < 1) {
                             System.out.println("Invalid marker range");
