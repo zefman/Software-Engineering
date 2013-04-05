@@ -190,29 +190,66 @@ public class BrainEditorController implements Initializable {
                     }
                     break;
                 case "pickUp":
-                    //do nothing
+                    //check that the next two tokens are valid states
+                    if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
+                    
+                    if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
                     break;
                 case "drop":
-                    //do nothing
+                    //check the next state is valid
+                    if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
                     break;
                 case "turn":
-                    //do nothing
+                    //check that the left token is either left or right
+                    if (!currentTokens[1].equals("left") && !currentTokens[1].equals("right")) {
+                        System.out.println("Incorrect turn direction.");
+                    }
+                    //Check that the next token is valid state
+                    if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
                     break;
                 case "mark":
-                    //do nothing
+                    //Check that the next token is a number between 1 and six
+                    if (Integer.parseInt(currentTokens[1]) < 1 || Integer.parseInt(currentTokens[1]) > 6) {
+                        System.out.println("Pheromone out of range");
+                    }
+                    //Check that the next token is a correct state
+                    if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
                     break;
                 case "unmark":
-                    //do nothing
+                    //Check that the next token is a number between 1 and six
+                    if (Integer.parseInt(currentTokens[1]) < 1 || Integer.parseInt(currentTokens[1]) > 6) {
+                        System.out.println("Pheromone out of range");
+                    }
+                    //Check that the next token is a correct state
+                    if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
                     break;
                 case "flip":
-                    //do nothing
+                    //check the next token is a positive integer
+                    if (Integer.parseInt(currentTokens[1]) < 0) {
+                        System.out.println("Flip p needs to be positive");
+                    }
+                    // Check the next two tokens are valid states
+                    if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
+                    if (Integer.parseInt(currentTokens[3]) < 0 || Integer.parseInt(currentTokens[3]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
                     break;
                 default:
                     System.out.println("Syntax error found");
-            }
-            
-            for (int j = 0; j < currentTokens.length; j++) {
-                System.out.println(currentTokens[j]);
             }
             
          }
