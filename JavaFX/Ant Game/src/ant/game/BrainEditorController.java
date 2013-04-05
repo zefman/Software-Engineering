@@ -152,15 +152,42 @@ public class BrainEditorController implements Initializable {
     public void checkBrain(List<String> theBrain) {
         // Check every state
         for (int i = 0; i < theBrain.size(); i++) {
-            String[] currentTokens = theBrain.get(i).split(" ");
+            String[] currentTokens = theBrain.get(i).toLowerCase().split(" ");
             
             //First check that the first token is one of the corrected tokens
             switch (currentTokens[0].toLowerCase()) {
                 case "move":
-                    //do nothing
+                    //check that the next two tokens are integers representing states in the brain
+                    if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
+                    
+                    if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
                     break;
                 case "sense":
-                    //do nothing
+                    //Check direction is correct
+                    if (!currentTokens[1].equals("ahead")|| !currentTokens[1].equals("leftahead") || !currentTokens[1].equals("rightahead") || !currentTokens[1].equals("here")) {
+                        System.out.println("Incorrect direction");
+                    }
+                    //check that the next two tokens are integers representing states in the brain
+                    if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
+                    
+                    if (Integer.parseInt(currentTokens[3]) < 0 || Integer.parseInt(currentTokens[3]) > theBrain.size()) {
+                        System.out.println("State doesn't exist error");
+                    }
+                    //Finally check the condition is valid
+                    if (currentTokens[4] != "food" || currentTokens[4] != "marker" || currentTokens[4] != "home") {
+                        System.out.println("Sense condition incorrect");
+                    } else if (currentTokens[4] == "marker") {
+                        //Check the the final token isa number between 1 and 5
+                        if (Integer.parseInt(currentTokens[5]) > 6 || Integer.parseInt(currentTokens[5]) < 1) {
+                            System.out.println("Invalid marker range");
+                        }
+                    }
                     break;
                 case "pickUp":
                     //do nothing
