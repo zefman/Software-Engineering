@@ -15,6 +15,7 @@ import java.nio.file.Paths;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
+import javafx.animation.FadeTransition;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,9 +24,14 @@ import javafx.scene.Node;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
+import javafx.scene.control.Tab;
+import javafx.scene.control.TabPane;
 import javafx.scene.control.TextArea;
+import javafx.scene.paint.Color;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 /**
  * FXML Controller class
@@ -35,15 +41,22 @@ import javafx.stage.Stage;
 public class BrainEditorController implements Initializable {
     
     @FXML
+    private Label statusLabel;
+    @FXML
     private Button backButton;
     @FXML
     private TextArea brainArea;
     @FXML
     private TextArea errorField;
+    @FXML
+    private Tab errorTab;
+    @FXML
+    private Tab tokenTab;
     
     private Scene previousScene;
     private boolean isRed;
     private Charset charset = Charset.forName("US-ASCII");
+    private FadeTransition fadeTransition;
     
     public void setVariables(Scene previousScene, GameSetUpController gameSetupController, boolean isRed) {
         this.previousScene = previousScene;
@@ -282,6 +295,15 @@ public class BrainEditorController implements Initializable {
              
              //Set the text of the error text area
              errorField.setText(theErrors);
+             
+             //Show the error tab
+             TabPane theTabs = errorTab.getTabPane();
+             theTabs.getSelectionModel().select(errorTab);
+             
+             //Update the status label
+             statusLabel.setTextFill(Color.RED);
+             statusLabel.setText("Errors were found.");
+             fadeTransition.play();
             
          }
             
@@ -292,6 +314,10 @@ public class BrainEditorController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        fadeTransition = new FadeTransition(Duration.seconds(2), statusLabel);
+        fadeTransition.setFromValue(0.0);
+        fadeTransition.setToValue(1.0);
+        fadeTransition.setCycleCount(2);
+        fadeTransition.setAutoReverse(true);
     }    
 }

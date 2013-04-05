@@ -47,7 +47,7 @@
                   <content>
                     <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                       <children>
-                        <TextArea layoutX="6.0" layoutY="7.0" prefHeight="293.0" prefWidth="200.0" wrapText="true" />
+                        <TextArea id="errorFiled" fx:id="errorField" layoutX="6.0" layoutY="7.0" prefHeight="293.0" prefWidth="200.0" wrapText="true" />
                       </children>
                     </AnchorPane>
                   </content>
