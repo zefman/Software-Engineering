@@ -58,7 +58,7 @@ public class BrainEditorController implements Initializable {
     private boolean isRed;
     private Charset charset = Charset.forName("US-ASCII");
     private FadeTransition fadeTransition;
-    private Boolean brainChecked = false;
+    private Boolean errorFree = false;
     
     public void setVariables(Scene previousScene, GameSetUpController gameSetupController, boolean isRed) {
         this.previousScene = previousScene;
@@ -123,48 +123,58 @@ public class BrainEditorController implements Initializable {
     @FXML
     public void saveBrain(ActionEvent event) {
         System.out.println("Save brain");
-        //If there is a previous scene, save the brain and pass it back to that scene
-        if (previousScene == null) {
-            //Just save the brain
-            //Show a file chooser
-            Node node = (Node) event.getSource();
-            Stage stage = (Stage) node.getScene().getWindow();
-            FileChooser fileChooser = new FileChooser();
-            //Set extension filter
-            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.brain)", "*.brain");
-            fileChooser.getExtensionFilters().add(extFilter);
-            File file = null;
-            try {
-                file = fileChooser.showSaveDialog(stage);
-            } catch (Exception e) {
-                // No file choosen do nothing
-                System.out.println("Some kind of exception");
-            }
-            
-            //If a file was chosen
-            if (file != null) {
-                Path brainPath = Paths.get(file.toURI());
-                try (BufferedWriter writer = Files.newBufferedWriter(brainPath, charset)) {
-                    writer.write(brainArea.getText(), 0, brainArea.getText().length());
-                    
-                } catch (IOException x) {
-                    System.err.format("IOException: %s%n", x);
+        
+        //Check for errors
+        List<String> theBrain = new ArrayList(Arrays.asList(brainArea.getText().split("\n")));
+        checkBrainForErrors(theBrain);
+        
+        if (errorFree == true) {
+            //If there is a previous scene, save the brain and pass it back to that scene
+            if (previousScene == null) {
+                //Just save the brain
+                //Show a file chooser
+                Node node = (Node) event.getSource();
+                Stage stage = (Stage) node.getScene().getWindow();
+                FileChooser fileChooser = new FileChooser();
+                //Set extension filter
+                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.brain)", "*.brain");
+                fileChooser.getExtensionFilters().add(extFilter);
+                File file = null;
+                try {
+                    file = fileChooser.showSaveDialog(stage);
+                } catch (Exception e) {
+                    // No file choosen do nothing
+                    System.out.println("Some kind of exception");
                 }
-                
-                //Go back to the previous screen and pass the profile
-                /*
-                if (isRed == true) {
-                    gameSetupController.setRedProfilePath(theProfile);
-                    stage.setScene(previousScene);
-                } else {
-                    gameSetupController.setBlackProfilePath(theProfile);
-                    stage.setScene(previousScene);
-                }*/
+
+                //If a file was chosen
+                if (file != null) {
+                    Path brainPath = Paths.get(file.toURI());
+                    try (BufferedWriter writer = Files.newBufferedWriter(brainPath, charset)) {
+                        writer.write(brainArea.getText(), 0, brainArea.getText().length());
+
+                    } catch (IOException x) {
+                        System.err.format("IOException: %s%n", x);
+                    }
+
+                    //Go back to the previous screen and pass the profile
+                    /*
+                    if (isRed == true) {
+                        gameSetupController.setRedProfilePath(theProfile);
+                        stage.setScene(previousScene);
+                    } else {
+                        gameSetupController.setBlackProfilePath(theProfile);
+                        stage.setScene(previousScene);
+                    }*/
+                }
             }
         }
+        
     }
     
     public void checkBrainForErrors(List<String> theBrain) {
+        
+        errorFree = true;
         
         List<String> errorsList = new ArrayList<String>();
         // Check every state
@@ -178,11 +188,13 @@ public class BrainEditorController implements Initializable {
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error on line: " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     break;
                 case "sense":
@@ -190,26 +202,31 @@ public class BrainEditorController implements Initializable {
                     if (!currentTokens[1].equals("ahead") && !currentTokens[1].equals("leftahead") && !currentTokens[1].equals("rightahead") && !currentTokens[1].equals("here") && !currentTokens[1].equals("rightup") && !currentTokens[1].equals("leftup")) {
                         errorsList.add("Incorrect direction " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     //check that the next two tokens are integers representing states in the brain
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     
                     if (Integer.parseInt(currentTokens[3]) < 0 || Integer.parseInt(currentTokens[3]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     //Finally check the condition is valid
                     if (!currentTokens[4].equals("food") && !currentTokens[4].equals("marker") && !currentTokens[4].equals("home") && !currentTokens[4].equals("foehome") && !currentTokens[4].equals("friend") && !currentTokens[4].equals("friendwithfood") && !currentTokens[4].equals("foe")) {
                         errorsList.add("Sense condition incorrect " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     } else if (currentTokens[4].equals("marker")) {
                         //Check the the final token isa number between 1 and 5
                         if (Integer.parseInt(currentTokens[5]) > 6 || Integer.parseInt(currentTokens[5]) < 0) {
                             errorsList.add("Invalid marker range " + i);
                             errorsList.add(theBrain.get(i));
+                            errorFree = false;
                         }
                     }
                     break;
@@ -218,11 +235,13 @@ public class BrainEditorController implements Initializable {
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     break;
                 case "drop":
@@ -230,6 +249,7 @@ public class BrainEditorController implements Initializable {
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     break;
                 case "turn":
@@ -237,11 +257,13 @@ public class BrainEditorController implements Initializable {
                     if (!currentTokens[1].equals("left") && !currentTokens[1].equals("right")) {
                         errorsList.add("Incorrect turn direction. " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     //Check that the next token is valid state
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     break;
                 case "mark":
@@ -249,11 +271,13 @@ public class BrainEditorController implements Initializable {
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > 6) {
                         errorsList.add("Pheromone out of range " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     //Check that the next token is a correct state
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     break;
                 case "unmark":
@@ -261,11 +285,13 @@ public class BrainEditorController implements Initializable {
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > 6) {
                         errorsList.add("Pheromone out of range " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     //Check that the next token is a correct state
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     break;
                 case "flip":
@@ -273,20 +299,24 @@ public class BrainEditorController implements Initializable {
                     if (Integer.parseInt(currentTokens[1]) < 0) {
                         errorsList.add("Flip p needs to be positive " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     // Check the next two tokens are valid states
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     if (Integer.parseInt(currentTokens[3]) < 0 || Integer.parseInt(currentTokens[3]) > theBrain.size()) {
                         errorsList.add("State doesn't exist error " + i);
                         errorsList.add(theBrain.get(i));
+                        errorFree = false;
                     }
                     break;
                 default:
                     errorsList.add("Syntax error found " + i);
                     errorsList.add(theBrain.get(i));
+                    errorFree = false;
             }
             
             String theErrors = "";
@@ -304,10 +334,12 @@ public class BrainEditorController implements Initializable {
              TabPane theTabs = errorTab.getTabPane();
              theTabs.getSelectionModel().select(errorTab);
              
-             //Update the status label
-             statusLabel.setTextFill(Color.RED);
-             statusLabel.setText("Errors were found.");
-             fadeTransition.play();
+             //Update the status label if errors were found
+             if (errorFree == false) {
+                statusLabel.setTextFill(Color.RED);
+                statusLabel.setText("Errors were found.");
+                fadeTransition.play();
+             }
             
          }
             
