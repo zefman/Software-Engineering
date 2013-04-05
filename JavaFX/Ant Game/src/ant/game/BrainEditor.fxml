@@ -32,7 +32,28 @@
               </font>
             </Label>
             <Separator prefWidth="242.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="121.0" />
-            <TextArea editable="false" layoutX="14.0" layoutY="174.0" prefHeight="298.0" prefWidth="212.0" text="Sense sensedir st1 st2 cond&#10;Mark i st&#10;Unmark i st&#10;PickUp st1 st2&#10;Drop st&#10;Turn lr st&#10;Move st1 st2&#10;Flip p st1 st2" wrapText="true" />
+            <TabPane layoutX="14.0" layoutY="136.0" prefHeight="336.0" prefWidth="212.0" tabClosingPolicy="UNAVAILABLE">
+              <tabs>
+                <Tab fx:id="tokenTab" text="Tokens">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <TextArea editable="false" layoutY="1.0" prefHeight="298.0" prefWidth="212.0" text="Sense sensedir st1 st2 cond&#10;Mark i st&#10;Unmark i st&#10;PickUp st1 st2&#10;Drop st&#10;Turn lr st&#10;Move st1 st2&#10;Flip p st1 st2" wrapText="true" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+                <Tab fx:id="errorTab" text="Errors">
+                  <content>
+                    <AnchorPane id="Content" minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                      <children>
+                        <TextArea id="errorFiled" fx:id="errorField" layoutX="6.0" layoutY="7.0" prefHeight="293.0" prefWidth="200.0" wrapText="true" />
+                      </children>
+                    </AnchorPane>
+                  </content>
+                </Tab>
+              </tabs>
+            </TabPane>
           </children>
         </AnchorPane>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="486.0" prefWidth="556.0">

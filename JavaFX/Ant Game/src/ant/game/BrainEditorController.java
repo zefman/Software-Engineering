@@ -12,11 +12,9 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
-import java.nio.file.StandardCopyOption;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -40,6 +38,8 @@ public class BrainEditorController implements Initializable {
     private Button backButton;
     @FXML
     private TextArea brainArea;
+    @FXML
+    private TextArea errorField;
     
     private Scene previousScene;
     private boolean isRed;
@@ -150,6 +150,8 @@ public class BrainEditorController implements Initializable {
     }
     
     public void checkBrain(List<String> theBrain) {
+        
+        List<String> errorsList = new ArrayList<String>();
         // Check every state
         for (int i = 0; i < theBrain.size(); i++) {
             String[] currentTokens = theBrain.get(i).toLowerCase().split(" ");
@@ -159,118 +161,127 @@ public class BrainEditorController implements Initializable {
                 case "move":
                     //check that the next two tokens are integers representing states in the brain
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error on line: " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error on line: " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     break;
                 case "sense":
                     //Check direction is correct
                     if (!currentTokens[1].equals("ahead") && !currentTokens[1].equals("leftahead") && !currentTokens[1].equals("rightahead") && !currentTokens[1].equals("here") && !currentTokens[1].equals("rightup") && !currentTokens[1].equals("leftup")) {
-                        System.out.println("Incorrect direction " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("Incorrect direction " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     //check that the next two tokens are integers representing states in the brain
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     
                     if (Integer.parseInt(currentTokens[3]) < 0 || Integer.parseInt(currentTokens[3]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     //Finally check the condition is valid
                     if (!currentTokens[4].equals("food") && !currentTokens[4].equals("marker") && !currentTokens[4].equals("home") && !currentTokens[4].equals("foehome") && !currentTokens[4].equals("friend") && !currentTokens[4].equals("friendwithfood") && !currentTokens[4].equals("foe")) {
-                        System.out.println("Sense condition incorrect " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("Sense condition incorrect " + i);
+                        errorsList.add(theBrain.get(i));
                     } else if (currentTokens[4].equals("marker")) {
                         //Check the the final token isa number between 1 and 5
                         if (Integer.parseInt(currentTokens[5]) > 6 || Integer.parseInt(currentTokens[5]) < 0) {
-                            System.out.println("Invalid marker range " + i);
-                            System.out.println(theBrain.get(i));
+                            errorsList.add("Invalid marker range " + i);
+                            errorsList.add(theBrain.get(i));
                         }
                     }
                     break;
                 case "pickup":
                     //check that the next two tokens are valid states
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     break;
                 case "drop":
                     //check the next state is valid
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     break;
                 case "turn":
                     //check that the left token is either left or right
                     if (!currentTokens[1].equals("left") && !currentTokens[1].equals("right")) {
-                        System.out.println("Incorrect turn direction. " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("Incorrect turn direction. " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     //Check that the next token is valid state
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     break;
                 case "mark":
                     //Check that the next token is a number between 1 and six
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > 6) {
-                        System.out.println("Pheromone out of range " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("Pheromone out of range " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     //Check that the next token is a correct state
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     break;
                 case "unmark":
                     //Check that the next token is a number between 1 and six
                     if (Integer.parseInt(currentTokens[1]) < 0 || Integer.parseInt(currentTokens[1]) > 6) {
-                        System.out.println("Pheromone out of range " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("Pheromone out of range " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     //Check that the next token is a correct state
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     break;
                 case "flip":
                     //check the next token is a positive integer
                     if (Integer.parseInt(currentTokens[1]) < 0) {
-                        System.out.println("Flip p needs to be positive " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("Flip p needs to be positive " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     // Check the next two tokens are valid states
                     if (Integer.parseInt(currentTokens[2]) < 0 || Integer.parseInt(currentTokens[2]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     if (Integer.parseInt(currentTokens[3]) < 0 || Integer.parseInt(currentTokens[3]) > theBrain.size()) {
-                        System.out.println("State doesn't exist error " + i);
-                        System.out.println(theBrain.get(i));
+                        errorsList.add("State doesn't exist error " + i);
+                        errorsList.add(theBrain.get(i));
                     }
                     break;
                 default:
-                    System.out.println("Syntax error found " + i);
-                    System.out.println(theBrain.get(i));
+                    errorsList.add("Syntax error found " + i);
+                    errorsList.add(theBrain.get(i));
             }
+            
+            String theErrors = "";
+            // Populate the single error string
+             for (int j = 0; j < errorsList.size(); j++) {
+                 theErrors = theErrors + errorsList.get(j) + "\n";
+             }
+             
+             //Set the text of the error text area
+             errorField.setText(theErrors);
             
          }
             
