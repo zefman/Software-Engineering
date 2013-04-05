@@ -117,7 +117,7 @@
         <Image url="@logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
-    <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Button fx:id="backButton" layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
     <Label fx:id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
   </children>
   <stylesheets>

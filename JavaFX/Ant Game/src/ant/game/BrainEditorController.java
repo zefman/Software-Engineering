@@ -154,6 +154,33 @@ public class BrainEditorController implements Initializable {
         for (int i = 0; i < theBrain.size(); i++) {
             String[] currentTokens = theBrain.get(i).split(" ");
             
+            //First check that the first token is one of the corrected tokens
+            switch (currentTokens[0].toLowerCase()) {
+                case "move":
+                    //do nothing
+                    break;
+                case "sense":
+                    //do nothing
+                    break;
+                case "pickUp":
+                    //do nothing
+                    break;
+                case "drop":
+                    //do nothing
+                    break;
+                case "turn":
+                    //do nothing
+                    break;
+                case "mark":
+                    //do nothing
+                    break;
+                case "unmark":
+                    //do nothing
+                    break;
+                default:
+                    System.out.println("Syntax error found");
+            }
+            
             for (int j = 0; j < currentTokens.length; j++) {
                 System.out.println(currentTokens[j]);
             }
