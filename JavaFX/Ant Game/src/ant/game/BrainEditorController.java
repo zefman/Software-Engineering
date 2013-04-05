@@ -74,7 +74,7 @@ public class BrainEditorController implements Initializable {
         Node node = (Node) event.getSource();
         Stage stage = (Stage) node.getScene().getWindow();
         FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.world)", "*.world");
+        FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.brain)", "*.brain");
         fileChooser.getExtensionFilters().add(extFilter);
         File file = null;
         try {
@@ -88,7 +88,14 @@ public class BrainEditorController implements Initializable {
             Path currentBrain = Paths.get(file.toURI());
             
             List<String> theBrain = Files.readAllLines(currentBrain, charset);
-            //brainPath.setText("Brain Path: " + currentBrain.toString());
+            
+            String brainString = "";
+            
+            for (String currentState : theBrain) {
+                brainString = brainString + currentState + "\n";
+            }
+            
+            brainArea.setText(brainString);
         }
     }
     /**
