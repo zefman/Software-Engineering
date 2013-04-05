@@ -13,6 +13,7 @@ import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -57,6 +58,7 @@ public class BrainEditorController implements Initializable {
     private boolean isRed;
     private Charset charset = Charset.forName("US-ASCII");
     private FadeTransition fadeTransition;
+    private Boolean brainChecked = false;
     
     public void setVariables(Scene previousScene, GameSetUpController gameSetupController, boolean isRed) {
         this.previousScene = previousScene;
@@ -114,7 +116,7 @@ public class BrainEditorController implements Initializable {
             
             brainArea.setText(brainString);
             
-            checkBrain(theBrain);
+            checkBrainForErrors(theBrain);
         }
     }
     
@@ -162,7 +164,7 @@ public class BrainEditorController implements Initializable {
         }
     }
     
-    public void checkBrain(List<String> theBrain) {
+    public void checkBrainForErrors(List<String> theBrain) {
         
         List<String> errorsList = new ArrayList<String>();
         // Check every state
@@ -296,6 +298,8 @@ public class BrainEditorController implements Initializable {
              //Set the text of the error text area
              errorField.setText(theErrors);
              
+            
+             
              //Show the error tab
              TabPane theTabs = errorTab.getTabPane();
              theTabs.getSelectionModel().select(errorTab);
@@ -308,6 +312,13 @@ public class BrainEditorController implements Initializable {
          }
             
         
+    }
+    
+    @FXML
+    public void checkBrain(ActionEvent event) {
+        List<String> theBrain = new ArrayList(Arrays.asList(brainArea.getText().split("\n")));
+        
+        checkBrainForErrors(theBrain);
     }
     /**
      * Initializes the controller class.

@@ -24,7 +24,7 @@
           <children>
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" onAction="#loadBrain" prefWidth="98.0" text="Load Brain" />
             <Button layoutX="128.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveBrain" prefWidth="97.99990000000253" text="Save Brain" />
-            <Button layoutX="14.0" layoutY="48.0" mnemonicParsing="false" prefWidth="212.0" text="Compile/Check Brain" />
+            <Button layoutX="14.0" layoutY="48.0" mnemonicParsing="false" onAction="#checkBrain" prefWidth="212.0" text="Compile/Check Brain" />
             <Label layoutX="14.0" layoutY="81.0" text="Please compile your brain." />
             <Label layoutX="14.0" layoutY="136.0" text="Allowed Tokens">
               <font>
