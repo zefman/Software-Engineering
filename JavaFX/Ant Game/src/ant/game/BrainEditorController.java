@@ -177,6 +177,9 @@ public class BrainEditorController implements Initializable {
                 case "unmark":
                     //do nothing
                     break;
+                case "flip":
+                    //do nothing
+                    break;
                 default:
                     System.out.println("Syntax error found");
             }
