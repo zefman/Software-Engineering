@@ -100,6 +100,8 @@ public class BrainEditorController implements Initializable {
             }
             
             brainArea.setText(brainString);
+            
+            checkBrain(theBrain);
         }
     }
     
@@ -145,6 +147,20 @@ public class BrainEditorController implements Initializable {
                 }*/
             }
         }
+    }
+    
+    public void checkBrain(List<String> theBrain) {
+        // Check every state
+        for (int i = 0; i < theBrain.size(); i++) {
+            String[] currentTokens = theBrain.get(i).split(" ");
+            
+            for (int j = 0; j < currentTokens.length; j++) {
+                System.out.println(currentTokens[j]);
+            }
+            
+         }
+            
+        
     }
     /**
      * Initializes the controller class.
