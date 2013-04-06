@@ -261,8 +261,26 @@ public class World {
 	return (150 * y) + x;
     }
 
-    private void takeAntTurns() {
-
+    public void takeAntTurns() {
+        // Starting with the red and black ants with the smallest id
+        for (int i = 0; i < (91+91); i++) {
+            //Look for the cuurent ant
+            for (int j = 0; j < antGrid.length; j++) {
+                if (antGrid[j].getId() == i) {
+                    takeTurn(antGrid[j]);
+                }
+            }
+        }
+    }
+    
+    private void takeTurn(Ant ant) {
+        String currentCommand = "";
+        if (ant.getColour()) {
+            currentCommand = redTeam.getBrain().get(ant.getBrainState());
+        } else {
+            currentCommand = blackTeam.getBrain().get(ant.getBrainState());
+        }
+        
     }
 
     private void checkDeadAnts() {
@@ -279,23 +297,21 @@ public class World {
     }
     
     public void populateAnts() {
-        int redAntCounter = 1;
+        int redAntCounter = 0;
         int blackAntCounter = 1;
         
+        //First add red ants
         for (int i = 0; i < worldGrid.length; i++) {
-            
-            System.out.println("Current cell" + i);
             
             switch (worldGrid[i].getType()) {
                 case REDANTHILL:
                     antGrid[i] = new Ant(redAntCounter, true);
-                    redAntCounter++;
-                    
+                    redAntCounter = redAntCounter + 2;
                     System.out.println("red ant made");
                     break;
                 case BLACKANTHILL:
-                    antGrid[i] = new Ant(redAntCounter, false);
-                    blackAntCounter++;
+                    antGrid[i] = new Ant(blackAntCounter, false);
+                    blackAntCounter = blackAntCounter + 2;
                     System.out.println("black ant made");
                     break;
                 default:

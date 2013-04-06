@@ -66,6 +66,10 @@ public class Team {
         public void setBrain(List<String> brain) {
             this.brain = brain;
         }
+        
+        public List<String> getBrain() {
+            return brain;
+        }
 	
 	public String getName(){
             return teamName;

@@ -166,6 +166,17 @@ public class GameController implements Initializable {
                 }
                 
             }
+             
+        }
+        
+        //Draw the ants
+        for (int i = 0; i < 130; i++) {
+            for (int j = 0; j < 130; j++) {
+                if (world.antGrid[i*130+j] != null && world.antGrid[i*130+j].getColour()) {
+                    gc.setFill(Color.AZURE);
+                    gc.fillOval(j*3, i*3, 3, 3);
+                }
+            }
         }
     }
     
