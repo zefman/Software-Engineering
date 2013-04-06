@@ -16,7 +16,7 @@ import java.nio.file.Path;
  */
 public class World {
     Cell[] worldGrid;
-    Integer[] antGrid;
+    Ant[] antGrid;
     Team redTeam, blackTeam;
     
 
@@ -24,7 +24,7 @@ public class World {
         this.redTeam = redTeam;
         this.blackTeam = blackTeam;
 	worldGrid = new Cell[16900];
-	antGrid = new Integer[16900];
+        antGrid = new Ant[16900];
         
         //Initiallise all the cells
         for (int i = 0; i < worldGrid.length; i++) {
@@ -48,8 +48,8 @@ public class World {
     public World(Team redTeam, Team blackTeam, Path worldSave) {
         this.redTeam = redTeam;
         this.blackTeam = blackTeam;
-	worldGrid = new Cell[22500];
-	antGrid = new Integer[22500];
+	worldGrid = new Cell[16900];
+        antGrid = new Ant[16900];
         
         //Get the world from the file
         Charset charset = Charset.defaultCharset();
@@ -105,6 +105,8 @@ public class World {
         } catch (IOException x) {
             //
         }
+        
+        populateAnts();
     }
 
     private void generateRandomWorld() {
@@ -267,16 +269,43 @@ public class World {
 
     }
 
-    public Integer[] getAntGrid() {
+    public Ant[] getAntGrid() {
 		return antGrid;
-    }
-    
-    public void test() {
-        System.out.println("udshfudshfus");
     }
     
     public void setTeams(Team redTeam, Team blackTeam) {
         this.redTeam = redTeam;
         this.blackTeam = blackTeam;
+    }
+    
+    public void populateAnts() {
+        int redAntCounter = 1;
+        int blackAntCounter = 1;
+        
+        for (int i = 0; i < worldGrid.length; i++) {
+            
+            System.out.println("Current cell" + i);
+            
+            switch (worldGrid[i].getType()) {
+                case REDANTHILL:
+                    antGrid[i] = new Ant(redAntCounter, true);
+                    redAntCounter++;
+                    
+                    System.out.println("red ant made");
+                    break;
+                case BLACKANTHILL:
+                    antGrid[i] = new Ant(redAntCounter, false);
+                    blackAntCounter++;
+                    System.out.println("black ant made");
+                    break;
+                default:
+                    System.out.println("Not an ant hill");
+                    break;
+            }
+            
+        }
+        
+        System.out.println(redAntCounter);
+        System.out.println(blackAntCounter);
     }
 }
