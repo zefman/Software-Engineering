@@ -15,6 +15,7 @@ import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
 import java.nio.file.Paths;
+import java.util.ArrayList;
 import java.util.List;
 import java.util.ResourceBundle;
 import javafx.animation.FadeTransition;
@@ -49,6 +50,10 @@ public class GameSetUpController implements Initializable {
     @FXML
     private Label statusLabel;
     @FXML
+    private Label redBrainLabel;
+    @FXML
+    private Label blackBrainLabel;
+    @FXML
     private GridPane canvasPane;
     @FXML
     private TextField redTeamName;
@@ -64,6 +69,8 @@ public class GameSetUpController implements Initializable {
     private Path worldPath;
     private Path redProfilePath;
     private Path blackProfilePath;
+    private List<String> redBrain;
+    private List<String> blackBrain;
     
     private ObservableList<String> redBrainNames = FXCollections.observableArrayList();
     private ObservableList<String> blackBrainNames = FXCollections.observableArrayList();
@@ -83,6 +90,11 @@ public class GameSetUpController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @FXML 
+    public void createRandomWorld(ActionEvent event) {
+        //
     }
     
     @FXML
@@ -340,6 +352,20 @@ public class GameSetUpController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    public void setRedBrain(Path path) throws IOException {
+        redBrain = Files.readAllLines(path, charset);
+        statusLabel.setText("Red brain loaded");
+        redBrainLabel.setText("Red brain loaded");
+        fadeTransition.play();
+    }
+    
+    public void setBlackBrain(Path path) throws IOException {
+        blackBrain = Files.readAllLines(path, charset);
+        statusLabel.setText("Black brain loaded");
+        blackBrainLabel.setText("Black brain loaded");
+        fadeTransition.play();
     }
     
     

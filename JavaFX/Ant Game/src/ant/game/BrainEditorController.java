@@ -59,11 +59,12 @@ public class BrainEditorController implements Initializable {
     private Charset charset = Charset.forName("US-ASCII");
     private FadeTransition fadeTransition;
     private Boolean errorFree = false;
+    private GameSetUpController gameSetupController;
     
-    public void setVariables(Scene previousScene, GameSetUpController gameSetupController, boolean isRed) {
+    public void setVariables(Scene previousScene, GameSetUpController theController, boolean isRed) {
         this.previousScene = previousScene;
         this.isRed = isRed;
-        
+        this.gameSetupController = theController;
         backButton.setText("Back");
     }
 
@@ -121,7 +122,7 @@ public class BrainEditorController implements Initializable {
     }
     
     @FXML
-    public void saveBrain(ActionEvent event) {
+    public void saveBrain(ActionEvent event) throws IOException {
         System.out.println("Save brain");
         
         //Check for errors
@@ -130,44 +131,50 @@ public class BrainEditorController implements Initializable {
         
         if (errorFree == true) {
             //If there is a previous scene, save the brain and pass it back to that scene
-            if (previousScene == null) {
-                //Just save the brain
-                //Show a file chooser
-                Node node = (Node) event.getSource();
-                Stage stage = (Stage) node.getScene().getWindow();
-                FileChooser fileChooser = new FileChooser();
-                //Set extension filter
-                FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.brain)", "*.brain");
-                fileChooser.getExtensionFilters().add(extFilter);
-                File file = null;
-                try {
-                    file = fileChooser.showSaveDialog(stage);
-                } catch (Exception e) {
-                    // No file choosen do nothing
-                    System.out.println("Some kind of exception");
-                }
-
-                //If a file was chosen
-                if (file != null) {
-                    Path brainPath = Paths.get(file.toURI());
-                    try (BufferedWriter writer = Files.newBufferedWriter(brainPath, charset)) {
-                        writer.write(brainArea.getText(), 0, brainArea.getText().length());
-
-                    } catch (IOException x) {
-                        System.err.format("IOException: %s%n", x);
-                    }
-
-                    //Go back to the previous screen and pass the profile
-                    /*
-                    if (isRed == true) {
-                        gameSetupController.setRedProfilePath(theProfile);
-                        stage.setScene(previousScene);
-                    } else {
-                        gameSetupController.setBlackProfilePath(theProfile);
-                        stage.setScene(previousScene);
-                    }*/
-                }
+            //Just save the brain
+            //Show a file chooser
+            Node node = (Node) event.getSource();
+            Stage stage = (Stage) node.getScene().getWindow();
+            FileChooser fileChooser = new FileChooser();
+            //Set extension filter
+            FileChooser.ExtensionFilter extFilter = new FileChooser.ExtensionFilter("TXT files (*.brain)", "*.brain");
+            fileChooser.getExtensionFilters().add(extFilter);
+            File file = null;
+            try {
+                file = fileChooser.showSaveDialog(stage);
+            } catch (Exception e) {
+                // No file choosen do nothing
+                System.out.println("Some kind of exception");
             }
+
+            //If a file was chosen
+            if (file != null) {
+                Path brainPath = Paths.get(file.toURI());
+                try (BufferedWriter writer = Files.newBufferedWriter(brainPath, charset)) {
+                    writer.write(brainArea.getText(), 0, brainArea.getText().length());
+
+                } catch (IOException x) {
+                    System.err.format("IOException: %s%n", x);
+                }
+                
+                if (previousScene != null) {
+                    // Send the path back to the previous scene
+
+                    if (isRed) {
+                        
+                        gameSetupController.setRedBrain(brainPath);
+                    } else {
+                        
+                        gameSetupController.setBlackBrain(brainPath);
+                    }
+                    stage.setScene(previousScene);
+
+
+                    stage.show(); 
+                } 
+
+            }
+            
         }
         
     }

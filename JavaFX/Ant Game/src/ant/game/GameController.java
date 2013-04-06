@@ -60,7 +60,7 @@ public class GameController implements Initializable {
         stage.setScene(scene);
         stage.show();
     }
-
+    
     /**
      * Initializes the controller class.
      */
@@ -125,6 +125,7 @@ public class GameController implements Initializable {
         redTeamName.setText(redTeam.getName());
         blackTeamName.setText(blackTeam.getName());
     }*/
+    
     
     //Method to set variables
     public void setVariables(Team redTeam, Team blackTeam, World world) {

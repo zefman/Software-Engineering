@@ -16,7 +16,7 @@
       <items>
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
-            <SplitPane dividerPositions="0.49375" focusTraversable="true" orientation="VERTICAL" prefHeight="598.0" prefWidth="356.0" styleClass="no-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+            <SplitPane dividerPositions="0.49377593360995853" focusTraversable="true" orientation="VERTICAL" prefHeight="598.0" prefWidth="356.0" styleClass="no-border" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
               <items>
                 <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="100.0" prefWidth="160.0">
                   <children>
@@ -76,7 +76,7 @@
                     </Label>
                     <Button layoutX="14.0" layoutY="63.0" mnemonicParsing="false" prefWidth="108.0" text="Create World" />
                     <Button fx:id="loadWorld" layoutX="136.0" layoutY="63.0" mnemonicParsing="false" onAction="#openFileChooser" prefWidth="108.0" text="Load World" />
-                    <Button layoutX="257.0" layoutY="63.0" mnemonicParsing="false" prefWidth="117.0" text="Random World" />
+                    <Button layoutX="257.0" layoutY="63.0" mnemonicParsing="false" onAction="#createRandomWorld" prefWidth="117.0" text="Random World" />
                   </children>
                 </AnchorPane>
                 <AnchorPane prefHeight="200.0" prefWidth="200.0" GridPane.columnIndex="0" GridPane.rowIndex="2">
@@ -117,7 +117,7 @@
         <Image url="@logo.png" preserveRatio="false" smooth="false" />
       </image>
     </ImageView>
-    <Button fx:id="backButton" layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
+    <Button layoutX="678.0" layoutY="50.0" mnemonicParsing="false" onAction="#backToMainMenu" prefWidth="108.0" text="Main Menu" />
     <Label fx:id="statusLabel" layoutX="431.0" layoutY="63.0" opacity="0.0" text="Label" />
   </children>
   <stylesheets>
