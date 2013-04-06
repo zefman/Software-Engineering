@@ -307,15 +307,15 @@ public class World {
                 case REDANTHILL:
                     antGrid[i] = new Ant(redAntCounter, true);
                     redAntCounter = redAntCounter + 2;
-                    System.out.println("red ant made");
+                    
                     break;
                 case BLACKANTHILL:
                     antGrid[i] = new Ant(blackAntCounter, false);
                     blackAntCounter = blackAntCounter + 2;
-                    System.out.println("black ant made");
+                    
                     break;
                 default:
-                    System.out.println("Not an ant hill");
+                    //Do nothing
                     break;
             }
             

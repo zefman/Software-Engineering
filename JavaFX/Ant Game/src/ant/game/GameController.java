@@ -175,6 +175,9 @@ public class GameController implements Initializable {
                 if (world.antGrid[i*130+j] != null && world.antGrid[i*130+j].getColour()) {
                     gc.setFill(Color.AZURE);
                     gc.fillOval(j*3, i*3, 3, 3);
+                } else if (world.antGrid[i*130+j] != null && !world.antGrid[i*130+j].getColour()) {
+                    gc.setFill(Color.PURPLE);
+                    gc.fillOval(j*3, i*3, 3, 3);
                 }
             }
         }
