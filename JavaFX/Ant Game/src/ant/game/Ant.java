@@ -37,8 +37,8 @@ public class Ant {
             }
     }
 
-    public void setDirection(int direct) {
-            direction = direct;
+    public void setDirection(int direction) {
+            this.direction = direction;
     }
 
     public int getId() {

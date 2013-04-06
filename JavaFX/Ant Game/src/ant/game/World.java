@@ -297,11 +297,23 @@ public class World {
                 
                 System.out.println(ant.getColour() + "Ant " + ant.getId() + " moving in cell" + currentX + " " + currentY + " to " + nextCell);
                 
-                if (worldGrid[nextCell].getType() == Cell.Type.CLEAR) {
+                if (worldGrid[nextCell].getType() != Cell.Type.ROCKY && antGrid[nextCell] == null) {
                     antGrid[nextCell] = ant;
                     antGrid[index] = null;
                 }
+                ant.setBrainState(ant.getBrainState()+1);
                 break;
+            case "turn":
+                System.out.println("Ant " + ant.getId() + " turning in cell");
+                switch (commandTokens[1]) {
+                    case "right":
+                        antGrid[index].setDirection(antGrid[index].getDirection()+1);
+                        break;
+                    case "left":
+                        antGrid[index].setDirection(antGrid[index].getDirection()-1);
+                        break;
+                }
+                ant.setBrainState(ant.getBrainState()+1);
             default:
                 System.out.println(commandTokens[0]);
                 ant.setBrainState(ant.getBrainState()+1);
