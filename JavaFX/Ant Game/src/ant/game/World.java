@@ -9,6 +9,7 @@ import java.io.IOException;
 import java.nio.charset.Charset;
 import java.nio.file.Files;
 import java.nio.file.Path;
+import java.util.ArrayList;
 
 /**
  *
@@ -262,18 +263,21 @@ public class World {
     }
 
     public void takeAntTurns() {
+        ArrayList<Integer> antsThatHaveMoved = new ArrayList<Integer>();
+        
         // Starting with the red and black ants with the smallest id
         for (int i = 0; i < (91+91); i++) {
             //Look for the cuurent ant
             for (int j = 0; j < antGrid.length; j++) {
-                if (antGrid[j].getId() == i) {
-                    takeTurn(antGrid[j]);
+                if (antGrid[j] != null && antGrid[j].getId() == i && !antsThatHaveMoved.contains(antGrid[j].getId())) {
+                    antsThatHaveMoved.add(antGrid[j].getId());
+                    takeTurn(antGrid[j], j);
                 }
             }
         }
     }
     
-    private void takeTurn(Ant ant) {
+    private void takeTurn(Ant ant, int index) {
         String currentCommand = "";
         if (ant.getColour()) {
             currentCommand = redTeam.getBrain().get(ant.getBrainState());
@@ -281,6 +285,82 @@ public class World {
             currentCommand = blackTeam.getBrain().get(ant.getBrainState());
         }
         
+        String[] commandTokens = currentCommand.toLowerCase().split(" ");
+        
+        switch (commandTokens[0]) {
+            case "move":
+                
+                //Check to see if the cell it is going to move into is free
+                int currentY = index/130;
+                int currentX = index % 130;
+                int nextCell = adjacentCell(currentX, currentY, ant.getDirection());
+                
+                System.out.println(ant.getColour() + "Ant " + ant.getId() + " moving in cell" + currentX + " " + currentY + " to " + nextCell);
+                
+                if (worldGrid[nextCell].getType() == Cell.Type.CLEAR) {
+                    antGrid[nextCell] = ant;
+                    antGrid[index] = null;
+                }
+                break;
+            default:
+                System.out.println(commandTokens[0]);
+                ant.setBrainState(ant.getBrainState()+1);
+                break;
+        }
+        
+    }
+    
+    private int adjacentCell(int x, int y, int d) {
+        int newX = 0;
+        int newY = 0;
+        
+        switch (d) {
+            case 0:
+                newX = x + 1;
+                newY = y;
+                break;
+            case 1:
+                if (y % 2 == 0) {
+                    newX = x;
+                    newY = y +1;
+                } else {
+                    newX = x + 1;
+                    newY = y + 1;
+                }
+                break;
+            case 2:
+                if (y % 2 == 0) {
+                    newX = x - 1;
+                    newY = y +1;
+                } else {
+                    newX = x;
+                    newY = y + 1;
+                }
+                break;
+            case 3:
+                newX = x - 1;
+                newY = y;
+                break;
+            case 4:
+                if (y % 2 == 0) {
+                    newX = x - 1;
+                    newY = y - 1;
+                } else {
+                    newX = x;
+                    newY = y - 1;
+                }
+                break;
+            case 5:
+                if (y % 2 == 0) {
+                    newX = x;
+                    newY = y - 1;
+                } else {
+                    newX = x + 1;
+                    newY = y - 1;
+                }
+                break;
+        }
+        return newY * 130 + newX;
     }
 
     private void checkDeadAnts() {

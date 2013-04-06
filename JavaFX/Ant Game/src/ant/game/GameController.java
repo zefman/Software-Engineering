@@ -140,9 +140,16 @@ public class GameController implements Initializable {
         drawWorld();
     }
     
+    @FXML
+    public void test(ActionEvent event) {
+        world.takeAntTurns();
+        drawWorld();
+    }
+    
     //Draw world
     public void drawWorld() {
-        gc.setFill(Color.BLUE);
+        gc.setFill(Color.BROWN);
+        gc.fillRect(0, 0, 390, 390);
         for (int i = 0; i < 130; i++) {
             for (int j = 0; j < 130; j++) {
                 Cell cell = world.worldGrid[i*130+j];
@@ -175,9 +182,11 @@ public class GameController implements Initializable {
                 if (world.antGrid[i*130+j] != null && world.antGrid[i*130+j].getColour()) {
                     gc.setFill(Color.AZURE);
                     gc.fillOval(j*3, i*3, 3, 3);
+                    System.out.println("Ant at " + j + " " + i);
                 } else if (world.antGrid[i*130+j] != null && !world.antGrid[i*130+j].getColour()) {
                     gc.setFill(Color.PURPLE);
                     gc.fillOval(j*3, i*3, 3, 3);
+                    System.out.println("Ant at " + j + " " + i);
                 }
             }
         }

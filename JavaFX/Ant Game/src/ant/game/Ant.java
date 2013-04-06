@@ -61,6 +61,10 @@ public class Ant {
             this.brainState = brainState;
     }
     
+    public int getDirection() {
+        return direction;
+    }
+    
     /*
     public int[] sense(int senseDirection) {
         return new int[];
