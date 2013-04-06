@@ -98,7 +98,7 @@ public class GameSetUpController implements Initializable {
     }
     
     @FXML
-    public void openFileChooser(ActionEvent event) {
+    public void openFileChooser(ActionEvent event) throws IOException {
         System.out.println("Please locate your ant brain");
         
         Button theButton = (Button) event.getSource();
@@ -122,9 +122,11 @@ public class GameSetUpController implements Initializable {
         if (file != null & theButton.getId() != null) {
             switch (theButton.getId()) {
             case "loadRedBrain":
+                setRedBrain(Paths.get(file.toURI()));
                 updateStatusLabel("Loaded red ant brain.");
                 break;
             case "loadBlackBrain":
+                setBlackBrain(Paths.get(file.toURI()));
                 updateStatusLabel("Loaded black ant brain.");
                 break;
             case "loadWorld":
@@ -161,6 +163,13 @@ public class GameSetUpController implements Initializable {
         FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("Game.fxml"));
         Parent root = (Parent)fxmlLoader.load();
         GameController gameController = fxmlLoader.<GameController>getController();
+        
+        //Set the brains of the red and black teams
+        redTeam.setBrain(redBrain);
+        blackTeam.setBrain(blackBrain);
+        
+        //Add the teams to the world
+        world.setTeams(redTeam, blackTeam);
         
         //Pass the new controller the teams and world
         gameController.setVariables(redTeam, blackTeam, world);
@@ -352,6 +361,11 @@ public class GameSetUpController implements Initializable {
         Scene scene = new Scene(root);
         stage.setScene(scene);
         stage.show();
+    }
+    
+    @FXML
+    public void createWorld(ActionEvent event) {
+        //Do nothing for the time being
     }
     
     public void setRedBrain(Path path) throws IOException {

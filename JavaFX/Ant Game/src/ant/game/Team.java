@@ -5,6 +5,7 @@
 package ant.game;
 
 import java.io.File;
+import java.util.List;
 
 /**
  *
@@ -17,7 +18,7 @@ public class Team {
 	private int matchesWon;
 	private int matchesLost;
 	private int matchesDrawn;
-	private String[] brain;
+	private List<String> brain;
 	private String teamName;
         private File profile;
 	
@@ -61,6 +62,10 @@ public class Team {
             matchStats[2] = matchesDrawn;
             return matchStats;
 	}
+        
+        public void setBrain(List<String> brain) {
+            this.brain = brain;
+        }
 	
 	public String getName(){
             return teamName;

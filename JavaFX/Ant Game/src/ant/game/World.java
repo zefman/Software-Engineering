@@ -114,10 +114,7 @@ public class World {
     private void generateRandomAnthills() {
 
     }
-    
-    
-    
-    
+     
     public void generateFoodBlocks(int x, int y) {
         //First bottom row
         for (int i = 0; i < 4; i++) {
@@ -276,5 +273,10 @@ public class World {
     
     public void test() {
         System.out.println("udshfudshfus");
+    }
+    
+    public void setTeams(Team redTeam, Team blackTeam) {
+        this.redTeam = redTeam;
+        this.blackTeam = blackTeam;
     }
 }
