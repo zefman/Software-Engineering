@@ -466,6 +466,7 @@ public class World {
             //Red
             System.out.println("Checking red peherome");
             if (worldGrid[theCell].getRedPheronome(theMark)) {
+                System.out.println("Red mark found " + theMark);
                 return true;
             } else {
                 return false;
@@ -474,6 +475,7 @@ public class World {
             //Black
             System.out.println("Checking black peherome");
             if (worldGrid[theCell].getBlackPheromone(theMark)) {
+                System.out.println("Red mark found " + theMark);
                 return true;
             } else {
                 return false;
@@ -509,7 +511,7 @@ public class World {
                     }
                 case "friendwithfood":
                     if (antGrid[theCell] != null && antGrid[theCell].getColour() == isRed && antGrid[theCell].hasFood()) {
-                        System.out.println("Friend with food");
+                        System.out.println("Friend with food found");
                         return true;
                     } else {
                         System.out.println("No friend with food");
@@ -525,7 +527,7 @@ public class World {
                     }
                 case "food":
                     if (worldGrid[theCell].getType() == Cell.Type.FOOD) {
-                        System.out.println("Food sensed");
+                        System.out.println("Food found");
                         
                         return true;
                     } else {
@@ -536,7 +538,7 @@ public class World {
                     //First check colour
                     if (isRed) {
                         //Red
-                        if (!worldGrid[theCell].redPheromoneEmpty()) {
+                        if (!worldGrid[theCell].blackPheromoneEmpty()) {
                             System.out.println("Foe marker found");
                             return true;
                         } else {
@@ -545,7 +547,7 @@ public class World {
                         }
                     } else {
                         //Black
-                        if (!worldGrid[theCell].blackPheromoneEmpty()) {
+                        if (!worldGrid[theCell].redPheromoneEmpty()) {
                             System.out.println("foe marker found");
                             return true;
                         } else {
@@ -566,10 +568,10 @@ public class World {
                     }
                 case "foehome":
                     if (isRed && worldGrid[theCell].getType() == Cell.Type.BLACKANTHILL) {
-                        System.out.println("Foe home");
+                        System.out.println("Foe home found");
                         return true;
                     } else if (!isRed && worldGrid[theCell].getType() == Cell.Type.REDANTHILL) {
-                        System.out.println("Foe home");
+                        System.out.println("Foe home found");
                         return true;
                     } else {
                         System.out.println("No foe home " + !isRed);
