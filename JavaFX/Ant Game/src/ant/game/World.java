@@ -287,6 +287,8 @@ public class World {
         
         String[] commandTokens = currentCommand.toLowerCase().split(" ");
         
+        int nextDirection = antGrid[index].getDirection();
+        
         switch (commandTokens[0]) {
             case "move":
                 
@@ -295,17 +297,18 @@ public class World {
                 int currentX = index % 130;
                 int nextCell = adjacentCell(currentX, currentY, ant.getDirection());
                 
-                System.out.println(ant.getColour() + "Ant " + ant.getId() + " moving in cell" + currentX + " " + currentY + " to " + nextCell);
+                //System.out.println(ant.getColour() + "Ant " + ant.getId() + " moving in cell" + currentX + " " + currentY + " to " + nextCell);
                 
                 if (worldGrid[nextCell].getType() != Cell.Type.ROCKY && antGrid[nextCell] == null) {
                     antGrid[nextCell] = ant;
                     antGrid[index] = null;
+                    antGrid[nextCell].setBrainState(Integer.parseInt(commandTokens[1]));
+                } else {
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
                 }
-                ant.setBrainState(ant.getBrainState()+1);
                 break;
             case "turn":
-                System.out.println("Ant " + ant.getId() + " turning in cell");
-                int nextDirection = antGrid[index].getDirection();
+                //System.out.println("Ant " + ant.getId() + " turning in cell");
                 switch (commandTokens[1]) {
                     case "right":
                         nextDirection = antGrid[index].getDirection()+1;
@@ -313,6 +316,7 @@ public class World {
                             nextDirection = 0;
                         }
                         antGrid[index].setDirection(nextDirection);
+                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
                         break;
                     case "left":
                         nextDirection = antGrid[index].getDirection()-1;
@@ -320,129 +324,128 @@ public class World {
                             nextDirection = 5;
                         }
                         antGrid[index].setDirection(nextDirection);
+                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
                         break;
                       
                 }
-                ant.setBrainState(ant.getBrainState()+1);
+                break;
             case "sense":
-                switch (commandTokens[1]) {
-                    case "here":
-                        switch (commandTokens[2]) {
-                            case "friend":
-                                    if (antGrid[index].getColour()) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                    } else {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                    }
+                //System.out.println(currentCommand);
+                switch (commandTokens[4]) {
+                    case "mark":
+                        int cellToCheck;
+                        switch (commandTokens[1]) {
+                            case "here":
+                                cellToCheck = index;
                                 break;
-                            case "foe":
-                                if (!antGrid[index].getColour()) {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                } else {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                }
+                            case "ahead":
+                                cellToCheck = adjacentCell(index % 130, index/130, ant.getDirection());
                                 break;
-                            case "friendwithfood":
-                                if (antGrid[index].hasFood() && antGrid[index].getColour()) {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                } else {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
+                            case "leftahead":
+                                nextDirection = antGrid[index].getDirection()-1;
+                                if (nextDirection < 0) {
+                                    nextDirection = 5;
                                 }
+                                cellToCheck = adjacentCell(index % 130, index/130, nextDirection);
                                 break;
-                            case "foewithfood":
-                                if (antGrid[index].hasFood() && !antGrid[index].getColour()) {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                } else {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
+                            case "rightahead":
+                                nextDirection = antGrid[index].getDirection()+1;
+                                if (nextDirection > 5) {
+                                    nextDirection = 0;
                                 }
-                            case "food":
-                                if (worldGrid[index].getType() == Cell.Type.FOOD) {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                } else {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                }
-                                break;
-                            case "rock":
-                                if (worldGrid[index].getType() == Cell.Type.ROCKY) {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                } else {
-                                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                }
-                                break;
-                            case "marker":
-                                //First find the colour of the current ant
-                                if (antGrid[index].getColour()) {
-                                    //Red ant
-                                    if (worldGrid[index].getRedPheronome() == Integer.parseInt(commandTokens[3])) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                    } else {
-                                       antGrid[index].setBrainState(Integer.parseInt(commandTokens[5])); 
-                                    }
-                                } else {
-                                    //Black ant
-                                    if (worldGrid[index].getBlackPheronome() == Integer.parseInt(commandTokens[3])) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                    } else {
-                                       antGrid[index].setBrainState(Integer.parseInt(commandTokens[5])); 
-                                    }
-                                }
-                                break;
-                            case "foemarker":
-                                //First find the colour of the current ant
-                                if (antGrid[index].getColour()) {
-                                    //Red ant
-                                    if (worldGrid[index].getBlackPheronome() != -5) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                    } else {
-                                       antGrid[index].setBrainState(Integer.parseInt(commandTokens[4])); 
-                                    }
-                                } else {
-                                    //Black ant
-                                    if (worldGrid[index].getRedPheronome() != -5) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                    } else {
-                                       antGrid[index].setBrainState(Integer.parseInt(commandTokens[4])); 
-                                    }
-                                }
-                                break;
-                            case "home":
-                                //Find colour of ant
-                                if (ant.getColour()) {
-                                    //Red
-                                    if (worldGrid[index].getType() == Cell.Type.REDANTHILL) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                    } else {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                    }
-                                } else {
-                                    //Black
-                                    if (worldGrid[index].getType() == Cell.Type.BLACKANTHILL) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                    } else {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                    }
-                                }
-                                break;
-                            case "foehome":
-                                //Find colour of ant
-                                if (ant.getColour()) {
-                                    //Red
-                                    if (worldGrid[index].getType() == Cell.Type.BLACKANTHILL) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                    } else {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                    }
-                                } else {
-                                    //Black
-                                    if (worldGrid[index].getType() == Cell.Type.REDANTHILL) {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
-                                    } else {
-                                        antGrid[index].setBrainState(Integer.parseInt(commandTokens[4]));
-                                    }
-                                }
+                                cellToCheck = adjacentCell(index % 130, index/130, nextDirection);
                                 break;
                         }
+                        if (checkMark(index, Integer.parseInt(commandTokens[5]), false)) {
+                            antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
+                        } else {
+                            antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
+                        }
                         break;
+                    default:
+                        switch (commandTokens[1]) {
+                            case "here":
+                                cellToCheck = index;
+                                break;
+                            case "ahead":
+                                cellToCheck = adjacentCell(index % 130, index/130, ant.getDirection());
+                                break;
+                            case "leftahead":
+                                nextDirection = antGrid[index].getDirection()-1;
+                                if (nextDirection < 0) {
+                                    nextDirection = 5;
+                                }
+                                cellToCheck = adjacentCell(index % 130, index/130, nextDirection);
+                                break;
+                            case "rightahead":
+                                nextDirection = antGrid[index].getDirection()+1;
+                                if (nextDirection > 5) {
+                                    nextDirection = 0;
+                                }
+                                cellToCheck = adjacentCell(index % 130, index/130, nextDirection);
+                                break;
+                        }
+                        if (cellMatches(nextDirection, commandTokens[4], false)) {
+                            antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
+                        } else {
+                            //System.out.println(currentCommand);
+                            antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
+                        }
+                        break;
+                }
+                break;
+            case "mark":
+                if (ant.getColour()) {
+                    //Red
+                    worldGrid[index].setRedPheromone(Integer.parseInt(commandTokens[1]));
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
+                } else {
+                    //Black
+                    worldGrid[index].setBlackPheromone(Integer.parseInt(commandTokens[1]));
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
+                }
+                break;
+            case "unmark":
+                if (ant.getColour()) {
+                    //Red
+                    worldGrid[index].setRedPheromone(-5);
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
+                } else {
+                    //Black
+                    worldGrid[index].setBlackPheromone(-5);
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
+                }
+                break;
+            case "pickup":
+                if (worldGrid[index].getType() == Cell.Type.FOOD) {
+                    antGrid[index].pickUpFood();
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[1]));
+                    worldGrid[index].reduceFood();
+                    if (worldGrid[index].foodLeft() <= 0) {
+                        worldGrid[index].setType(Cell.Type.CLEAR);
+                    }
+                } else {
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
+                }
+                break;
+            case "drop":
+                antGrid[index].dropFood();
+                antGrid[index].setBrainState(Integer.parseInt(commandTokens[1]));
+                if (worldGrid[index].getType() == Cell.Type.REDANTHILL) {
+                    redTeam.increaseCollectedFood();
+                } else if (worldGrid[index].getType() == Cell.Type.BLACKANTHILL) {
+                    blackTeam.increaseCollectedFood();
+                } else {
+                    worldGrid[index].setType(Cell.Type.FOOD);
+                    worldGrid[index].giveFood();
+                }
+                break;
+            case "flip":
+                int randomNum = 0 + (int)(Math.random() * ((Integer.parseInt(commandTokens[1]) - 0) + 1));
+                if (randomNum == 0) {
+                   antGrid[index].setBrainState(Integer.parseInt(commandTokens[2])); 
+                } else {
+                    antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
                 }
                 break;
             default:
@@ -451,6 +454,101 @@ public class World {
                 break;
         }
         
+    }
+    
+    private boolean checkMark(int theCell, int theMark, boolean isRed) {
+        if (isRed) {
+            //Red
+            if (worldGrid[theCell].getRedPheronome() == theMark) {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            //Black
+            if (worldGrid[theCell].getBlackPheronome() == theMark) {
+                return true;
+            } else {
+                return false;
+            }
+        }
+    }
+    
+    private boolean cellMatches(int theCell, String condition, boolean isRed) {
+        if (worldGrid[theCell].getType() == Cell.Type.ROCKY) {
+            if (condition == "rock") {
+                return true;
+            } else {
+                return false;
+            }
+        } else {
+            switch (condition) {
+                case "friend":
+                    if (antGrid[theCell] != null && antGrid[theCell].getColour() == isRed) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case "foe":
+                    if (antGrid[theCell] != null && antGrid[theCell].getColour() != isRed) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case "friendwithfood":
+                    if (antGrid[theCell] != null && antGrid[theCell].getColour() == isRed && antGrid[theCell].hasFood()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case "foewithfood":
+                    if (antGrid[theCell] != null && antGrid[theCell].getColour() != isRed && antGrid[theCell].hasFood()) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case "food":
+                    if (worldGrid[theCell].getType() == Cell.Type.FOOD) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case "foemarker":
+                    //First check colour
+                    if (isRed) {
+                        //Red
+                        if (worldGrid[theCell].getBlackPheronome() != -5) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    } else {
+                        //Black
+                        if (worldGrid[theCell].getRedPheronome() != -5) {
+                            return true;
+                        } else {
+                            return false;
+                        }
+                    }
+                case "home":
+                    if (isRed && worldGrid[theCell].getType() == Cell.Type.REDANTHILL) {
+                        return true;
+                    } else if (!isRed && worldGrid[theCell].getType() == Cell.Type.BLACKANTHILL) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+                case "foehome":
+                    if (isRed && worldGrid[theCell].getType() == Cell.Type.BLACKANTHILL) {
+                        return true;
+                    } else if (!isRed && worldGrid[theCell].getType() == Cell.Type.REDANTHILL) {
+                        return true;
+                    } else {
+                        return false;
+                    }
+            }
+        }
+        return false;
     }
     
     private int adjacentCell(int x, int y, int d) {

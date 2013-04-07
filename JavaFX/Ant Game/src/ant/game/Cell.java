@@ -31,6 +31,10 @@ public class Cell {
     public void giveFood() {
             foodContained=5;
     }
+    
+    public int foodLeft() {
+        return foodContained;
+    }
 
     public Type getType() {
             return type;

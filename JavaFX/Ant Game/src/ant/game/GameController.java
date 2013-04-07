@@ -39,6 +39,10 @@ public class GameController implements Initializable {
     Label redTeamName;
     @FXML
     Label blackTeamName;
+    @FXML
+    Label redFoodLabel;
+    @FXML
+    Label blackFoodLabel;
     
     private Team redTeam;
     private Team blackTeam;
@@ -79,7 +83,10 @@ public class GameController implements Initializable {
         animationTimer = new AnimationTimer() {
 
                 @Override public void handle(long now) {
-                    updateCanvas();
+                    world.takeAntTurns();
+                    redFoodLabel.setText(world.redTeam.getCollectedFood() + "");
+                    blackFoodLabel.setText(world.blackTeam.getCollectedFood() + "");
+                    drawWorld();
                 }
             };
         
@@ -142,8 +149,11 @@ public class GameController implements Initializable {
     
     @FXML
     public void test(ActionEvent event) {
-        world.takeAntTurns();
-        drawWorld();
+        animationTimer.start();
+    }
+    
+    private void StartGame() {
+        
     }
     
     //Draw world
