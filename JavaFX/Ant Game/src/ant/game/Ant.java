@@ -65,6 +65,10 @@ public class Ant {
         return direction;
     }
     
+    public boolean hasFood() {
+        return hasFood;
+    }
+    
     /*
     public int[] sense(int senseDirection) {
         return new int[];

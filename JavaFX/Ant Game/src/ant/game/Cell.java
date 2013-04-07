@@ -16,6 +16,8 @@ public class Cell {
 
     public Cell(Type type) {
         this.type = type;
+        redPheromone = -5;
+        blackPheromone = -5;
     }
 
     public enum Type {
