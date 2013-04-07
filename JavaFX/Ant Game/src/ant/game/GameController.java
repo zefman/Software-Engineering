@@ -150,6 +150,11 @@ public class GameController implements Initializable {
     @FXML
     public void test(ActionEvent event) {
         animationTimer.start();
+        /*
+        world.takeAntTurns();
+        redFoodLabel.setText(world.redTeam.getCollectedFood() + "");
+        blackFoodLabel.setText(world.blackTeam.getCollectedFood() + "");
+        drawWorld();*/
     }
     
     private void StartGame() {

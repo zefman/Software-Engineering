@@ -4,20 +4,23 @@
  */
 package ant.game;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author jozefmaxted
  */
 public class Cell {
     private int foodContained;
-    private int redPheromone;
-    private int blackPheromone;
+    private List<Integer> redPheromone;
+    private List<Integer> blackPheromone;
     Type type;
 
     public Cell(Type type) {
         this.type = type;
-        redPheromone = -5;
-        blackPheromone = -5;
+        redPheromone = new ArrayList<Integer>();
+        blackPheromone = new ArrayList<Integer>();
     }
 
     public enum Type {
@@ -40,20 +43,60 @@ public class Cell {
             return type;
     }
 
-    public int getRedPheronome() {
-            return redPheromone;
+    public boolean getRedPheronome(int pheromone) {
+        if (redPheromone.contains(pheromone)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setRedPheromone(int pheromone) {
-            redPheromone = pheromone;
+        if (!redPheromone.contains(pheromone)) {
+            redPheromone.add(pheromone);
+        }
     }
 
-    public int getBlackPheronome() {
-            return blackPheromone;
+    public boolean getBlackPheromone(int pheromone) {
+        if (blackPheromone.contains(pheromone)) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void setBlackPheromone(int pheromone) {
-            blackPheromone = pheromone;
+        if (!blackPheromone.contains(pheromone)) {
+            blackPheromone.add(pheromone);
+        }
+    }
+    
+    public void removeRedPheromone(int pheromone) {
+        if (redPheromone.contains(pheromone)) {
+            redPheromone.remove(pheromone);
+        }
+    }
+    
+    public void removeBlackPheromone(int pheromone) {
+        if (blackPheromone.contains(pheromone)) {
+            blackPheromone.remove(pheromone);
+        }
+    }
+    
+    public boolean redPheromoneEmpty() {
+        if (redPheromone.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
+    }
+    
+    public boolean blackPheromoneEmpty() {
+        if (blackPheromone.isEmpty()) {
+            return true;
+        } else {
+            return false;
+        }
     }
 
     public void reduceFood() {

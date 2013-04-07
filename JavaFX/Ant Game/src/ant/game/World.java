@@ -79,6 +79,7 @@ public class World {
                     break;
                 case 53:
                     worldGrid[cellCounter] = new Cell(Cell.Type.FOOD);
+                    worldGrid[cellCounter].giveFood();
                     cellCounter++;
                     break;
                 case 43:
@@ -331,9 +332,9 @@ public class World {
                 break;
             case "sense":
                 //System.out.println(currentCommand);
+                int cellToCheck = 0;
                 switch (commandTokens[4]) {
-                    case "mark":
-                        int cellToCheck;
+                    case "marker":
                         switch (commandTokens[1]) {
                             case "here":
                                 cellToCheck = index;
@@ -356,13 +357,14 @@ public class World {
                                 cellToCheck = adjacentCell(index % 130, index/130, nextDirection);
                                 break;
                         }
-                        if (checkMark(index, Integer.parseInt(commandTokens[5]), false)) {
+                        if (checkMark(cellToCheck, Integer.parseInt(commandTokens[5]), ant.getColour())) {
                             antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
                         } else {
                             antGrid[index].setBrainState(Integer.parseInt(commandTokens[3]));
                         }
                         break;
                     default:
+                        System.out.println("Default sense");
                         switch (commandTokens[1]) {
                             case "here":
                                 cellToCheck = index;
@@ -385,7 +387,8 @@ public class World {
                                 cellToCheck = adjacentCell(index % 130, index/130, nextDirection);
                                 break;
                         }
-                        if (cellMatches(nextDirection, commandTokens[4], false)) {
+                        System.out.println("Got past directions");
+                        if (cellMatches(cellToCheck, commandTokens[4], ant.getColour())) {
                             antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
                         } else {
                             //System.out.println(currentCommand);
@@ -395,6 +398,7 @@ public class World {
                 }
                 break;
             case "mark":
+                System.out.println("Marking with: " + commandTokens[1]);
                 if (ant.getColour()) {
                     //Red
                     worldGrid[index].setRedPheromone(Integer.parseInt(commandTokens[1]));
@@ -417,6 +421,7 @@ public class World {
                 }
                 break;
             case "pickup":
+                System.out.println("Picking up food");
                 if (worldGrid[index].getType() == Cell.Type.FOOD) {
                     antGrid[index].pickUpFood();
                     antGrid[index].setBrainState(Integer.parseInt(commandTokens[1]));
@@ -459,14 +464,16 @@ public class World {
     private boolean checkMark(int theCell, int theMark, boolean isRed) {
         if (isRed) {
             //Red
-            if (worldGrid[theCell].getRedPheronome() == theMark) {
+            System.out.println("Checking red peherome");
+            if (worldGrid[theCell].getRedPheronome(theMark)) {
                 return true;
             } else {
                 return false;
             }
         } else {
             //Black
-            if (worldGrid[theCell].getBlackPheronome() == theMark) {
+            System.out.println("Checking black peherome");
+            if (worldGrid[theCell].getBlackPheromone(theMark)) {
                 return true;
             } else {
                 return false;
@@ -476,7 +483,8 @@ public class World {
     
     private boolean cellMatches(int theCell, String condition, boolean isRed) {
         if (worldGrid[theCell].getType() == Cell.Type.ROCKY) {
-            if (condition == "rock") {
+            System.out.println("Rocky cell");
+            if ("rock".equals(condition)) {
                 return true;
             } else {
                 return false;
@@ -485,68 +493,90 @@ public class World {
             switch (condition) {
                 case "friend":
                     if (antGrid[theCell] != null && antGrid[theCell].getColour() == isRed) {
+                        System.out.println("Firend found");
                         return true;
                     } else {
+                        System.out.println("Friend not found");
                         return false;
                     }
                 case "foe":
                     if (antGrid[theCell] != null && antGrid[theCell].getColour() != isRed) {
+                        System.out.println("Foe found");
                         return true;
                     } else {
+                        System.out.println("Foe not found");
                         return false;
                     }
                 case "friendwithfood":
                     if (antGrid[theCell] != null && antGrid[theCell].getColour() == isRed && antGrid[theCell].hasFood()) {
+                        System.out.println("Friend with food");
                         return true;
                     } else {
+                        System.out.println("No friend with food");
                         return false;
                     }
                 case "foewithfood":
                     if (antGrid[theCell] != null && antGrid[theCell].getColour() != isRed && antGrid[theCell].hasFood()) {
+                        System.out.println("Foe with food");
                         return true;
                     } else {
+                        System.out.println("No foe with food");
                         return false;
                     }
                 case "food":
                     if (worldGrid[theCell].getType() == Cell.Type.FOOD) {
+                        System.out.println("Food sensed");
+                        
                         return true;
                     } else {
+                        System.out.println("No food sensed");
                         return false;
                     }
                 case "foemarker":
                     //First check colour
                     if (isRed) {
                         //Red
-                        if (worldGrid[theCell].getBlackPheronome() != -5) {
+                        if (!worldGrid[theCell].redPheromoneEmpty()) {
+                            System.out.println("Foe marker found");
                             return true;
                         } else {
+                            System.out.println("No foe marker found");
                             return false;
                         }
                     } else {
                         //Black
-                        if (worldGrid[theCell].getRedPheronome() != -5) {
+                        if (!worldGrid[theCell].blackPheromoneEmpty()) {
+                            System.out.println("foe marker found");
                             return true;
                         } else {
+                            System.out.println("No foe marker found");
                             return false;
                         }
                     }
                 case "home":
                     if (isRed && worldGrid[theCell].getType() == Cell.Type.REDANTHILL) {
+                        System.out.println("Red Home found");
                         return true;
                     } else if (!isRed && worldGrid[theCell].getType() == Cell.Type.BLACKANTHILL) {
+                        System.out.println("Black Home found");
                         return true;
                     } else {
+                        System.out.println("No home foujnd");
                         return false;
                     }
                 case "foehome":
                     if (isRed && worldGrid[theCell].getType() == Cell.Type.BLACKANTHILL) {
+                        System.out.println("Foe home");
                         return true;
                     } else if (!isRed && worldGrid[theCell].getType() == Cell.Type.REDANTHILL) {
+                        System.out.println("Foe home");
                         return true;
                     } else {
+                        System.out.println("No foe home " + !isRed);
                         return false;
                     }
             }
+            System.out.println("No sense match found" + condition);
         }
         return false;
     }
