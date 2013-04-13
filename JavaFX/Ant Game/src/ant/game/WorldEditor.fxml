@@ -23,7 +23,7 @@
         <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="160.0" prefWidth="100.0">
           <children>
             <Button layoutX="14.0" layoutY="14.0" mnemonicParsing="false" prefWidth="98.0" text="Load World" />
-            <Button layoutX="128.0" layoutY="14.0" mnemonicParsing="false" onAction="#saveBrain" prefWidth="97.99990000000253" text="Save World" />
+            <Button layoutX="128.0" layoutY="14.0" mnemonicParsing="false" prefWidth="97.99990000000253" text="Save World" />
             <Label layoutX="14.0" layoutY="55.0" text="Brushes">
               <font>
                 <Font size="24.0" />

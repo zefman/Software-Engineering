@@ -151,10 +151,11 @@ public class GameController implements Initializable {
     public void test(ActionEvent event) {
         animationTimer.start();
         /*
-        world.takeAntTurns();
+        world.takeTurnsDebug();
         redFoodLabel.setText(world.redTeam.getCollectedFood() + "");
         blackFoodLabel.setText(world.blackTeam.getCollectedFood() + "");
-        drawWorld();*/
+        drawWorld();
+        * */
     }
     
     private void StartGame() {
@@ -195,10 +196,18 @@ public class GameController implements Initializable {
         for (int i = 0; i < 130; i++) {
             for (int j = 0; j < 130; j++) {
                 if (world.antGrid[i*130+j] != null && world.antGrid[i*130+j].getColour()) {
-                    gc.setFill(Color.AZURE);
+                    if (world.antGrid[i*130+j].moving) {
+                       gc.setFill(Color.DARKOLIVEGREEN); 
+                    } else {
+                      gc.setFill(Color.AZURE);  
+                    }
                     gc.fillOval(j*3, i*3, 3, 3);
                 } else if (world.antGrid[i*130+j] != null && !world.antGrid[i*130+j].getColour()) {
-                    gc.setFill(Color.PURPLE);
+                    if (world.antGrid[i*130+j].moving) {
+                       gc.setFill(Color.DARKOLIVEGREEN); 
+                    } else {
+                      gc.setFill(Color.PURPLE);  
+                    }
                     gc.fillOval(j*3, i*3, 3, 3);
                 }
             }

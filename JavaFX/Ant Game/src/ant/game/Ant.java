@@ -15,6 +15,7 @@ public class Ant {
     private int resting;
     private boolean hasFood;
     private int brainState;
+    public boolean moving = false; // Purely for debugging
 
     public Ant(int id, boolean isRed) {
             this.id = id;

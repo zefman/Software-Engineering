@@ -32,7 +32,8 @@ public class Cell {
     }
 
     public void giveFood() {
-            foodContained=5;
+            foodContained++;
+            setType(Cell.Type.FOOD);
     }
     
     public int foodLeft() {

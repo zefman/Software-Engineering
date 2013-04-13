@@ -262,6 +262,22 @@ public class World {
     private int convert(int x, int y) {
 	return (150 * y) + x;
     }
+    
+    public void takeTurnsDebug() {
+        //Only move one ant so i can try and spot bugs
+        boolean antFound = false;
+        int gridPos = 0;
+        while (antFound == false) {
+            if (antGrid[gridPos] != null && antGrid[gridPos].getId() == 14) {
+                antGrid[gridPos].moving = true;
+                antFound = true;
+            } else {
+                gridPos++;
+            }
+        }
+        
+        takeTurn(antGrid[gridPos], gridPos);
+    }
 
     public void takeAntTurns() {
         ArrayList<Integer> antsThatHaveMoved = new ArrayList<Integer>();
@@ -285,7 +301,7 @@ public class World {
         } else {
             currentCommand = blackTeam.getBrain().get(ant.getBrainState());
         }
-        
+        System.out.println(currentCommand);
         String[] commandTokens = currentCommand.toLowerCase().split(" ");
         
         int nextDirection = antGrid[index].getDirection();
@@ -307,6 +323,8 @@ public class World {
                 } else {
                     antGrid[index].setBrainState(Integer.parseInt(commandTokens[2]));
                 }
+                //Check for surrounded ants
+                checkForSurroundedAnts(nextCell);
                 break;
             case "turn":
                 //System.out.println("Ant " + ant.getId() + " turning in cell");
@@ -636,17 +654,54 @@ public class World {
         return newY * 130 + newX;
     }
 
-    private void checkDeadAnts() {
-
-    }
-
     public Ant[] getAntGrid() {
-		return antGrid;
+	return antGrid;
     }
     
     public void setTeams(Team redTeam, Team blackTeam) {
         this.redTeam = redTeam;
         this.blackTeam = blackTeam;
+    }
+    
+    //Counts how many ants of a specified colour are adjacent to an ant
+    public int adjacentAnts(int antIndex, boolean isRed) {
+        int numberOfAdjacentAnts = 0;
+        int currentY = antIndex/130;
+        int currentX = antIndex % 130;
+        for (int n = 0; n < 6; n++) {
+            int adjacentCell = adjacentCell(currentX,currentY, n);
+            if (antGrid[adjacentCell] != null && antGrid[adjacentCell].getColour() == isRed) {
+                numberOfAdjacentAnts++;
+            }
+        }
+        return numberOfAdjacentAnts;
+    }
+    
+    //Check to see if an ant at some point has been surrounded by enemies and killed
+    public void checkForSurroundedAntAt(int antIndex) {
+        if (antIndex < antGrid.length && antIndex >= 0 && antGrid[antIndex] != null) {
+            if (adjacentAnts(antIndex, !antGrid[antIndex].getColour()) >= 5) {
+                //Kill ant and place food in world
+                for (int i = 0; i < 3; i++) {
+                    worldGrid[antIndex].giveFood();
+                }
+                if (antGrid[antIndex].hasFood()) {
+                    worldGrid[antIndex].giveFood();
+                }
+                antGrid[antIndex] = null;
+                System.out.println("Ant dies");
+            }
+        }
+    }
+    
+    //Checks for any surrounded ants
+    public void checkForSurroundedAnts(int antIndex) {
+        checkForSurroundedAntAt(antIndex);
+        int currentY = antIndex/130;
+        int currentX = antIndex % 130;
+        for (int n = 0; n < 6; n++) {
+            checkForSurroundedAntAt(adjacentCell(currentX, currentY, n));
+        }
     }
     
     public void populateAnts() {
